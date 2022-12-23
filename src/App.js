@@ -1,3 +1,4 @@
+//
 import "./App.css";
 import { authRoute } from "./routing/allRoutes";
 import RoutePathComponent from "./shared/Route/RoutePathComponent";
