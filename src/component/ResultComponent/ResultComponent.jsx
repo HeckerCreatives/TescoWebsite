@@ -8,7 +8,7 @@ import ImageWithListComponent from "../ImageWithListComponent/ImageWithListCompo
 import {
   resultDataHead,
   topicsCellData,
-  topicsDataHead,
+ 
 } from "../../utils/fakedata/fakedata";
 
 const ResultComponent = () => {

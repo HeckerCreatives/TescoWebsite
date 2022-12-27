@@ -3,6 +3,9 @@ import { Box, Grid, Typography } from "@mui/material";
 import "./cardindicator.css";
 import TabelComponent from "../TabelComponent/TabelComponent";
 import { monthData } from "../../utils/fakedata/fakedata";
+import Charts from "../Chart/Charts";
+import ApexChart from "../ApexChart/ApexChart";
+
 
 const Cardindicator = ({
   chartEnable = false,
@@ -38,9 +41,13 @@ const Cardindicator = ({
         </Box>
       </Box>
       {!chartEnable && 
-      <Box padding={4}>
+      <Box padding={2}>
         <TabelComponent tableType={"result"} tableHead={monthData}/>
        </Box>}
+       {chartEnable && 
+      // <ApexChart/>
+       <Charts/>
+       }
     </Box>
   );
 };

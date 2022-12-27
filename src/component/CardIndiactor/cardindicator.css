@@ -1,7 +1,7 @@
 .card-with-indicator-container{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     /* width: 45em; */
-    height:23em;
+    min-height:23em;
     border-radius: 0.5em;
 }
 .card-with-indicator-label-container{
@@ -9,6 +9,7 @@
     /* width: 10em; */
     margin-top: -1em;
     /* width: 40em; */
+    width: 80%;
     border-radius:1em;
     z-index: 1;
     padding: 1em 0.2em;

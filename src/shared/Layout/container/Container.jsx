@@ -54,7 +54,7 @@ const handleSubmit=()=>{
         <Box sx={{ bgcolor: "#ffffff80", height: "100vh" }}>
           <Paper style={styles.paperContainer}>
             <Grid container justifyContent={"center"} alignItems={"center"}>
-              <Grid item xs={12} md={12} sm={12} lg={12} marginTop="5em">
+              <Grid item marginTop="5em">
                 <img
                   src={loginHolderImage}
                   className="imageLogin"

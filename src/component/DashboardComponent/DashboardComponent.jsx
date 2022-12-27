@@ -8,6 +8,7 @@ import dashboardIamge from "../../Assest/Navigation/menu.png";
 import "./dashboard.css";
 import { resultDataHead } from "../../utils/fakedata/fakedata";
 import Cardindicator from "../CardIndiactor/Cardindicator";
+import ScrollComponent from "../ScrollComponent/ScrollComponent";
 const DashboardComponent = () => {
   return (
     <Grid container direction={"column"}>
@@ -15,12 +16,12 @@ const DashboardComponent = () => {
         headerLabel={"Dashboard"}
         headerLabelIamges={dashboardIamge}
       />
-
+      
       <Grid
         container
         direction={"row"}
-        spacing={5}
-        padding={5}
+        spacing={3}
+        padding={3}
         justifyContent={"center"}
         alignItems="center"
         zIndex={1}
@@ -55,10 +56,13 @@ const DashboardComponent = () => {
           <Cardindicator
             setDetails={"student statics pass verse fail"}
             setTitle={"Passer percentage"}
+            chartEnable={true}
             
           />
         </Grid>
       </Grid>
+     
+     
     </Grid>
   );
 };

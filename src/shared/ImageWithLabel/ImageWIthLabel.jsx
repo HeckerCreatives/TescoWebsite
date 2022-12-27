@@ -44,6 +44,7 @@ const ImageWIthLabel = ({
           >
             {setLabel}
           </Typography>
+          
       
       </Stack>
       </Link>

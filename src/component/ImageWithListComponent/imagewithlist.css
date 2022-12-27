@@ -60,11 +60,14 @@
   .image-search {
     min-height: 1em;
   }
+  #drop-menu {
+    width: 20em;
+  }
 }
 
 @media all and (max-width: 400px) {
   .search-input{
-    display: none;
+  display: none;
   }
   .search-typo-text{
     display: none;

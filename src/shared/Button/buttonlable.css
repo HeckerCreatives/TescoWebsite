@@ -1,6 +1,6 @@
 @media all and (max-width: 400px) {
     .button-class-variant{
-        width: 12em;
+        max-width: 12em;
     }
       
       

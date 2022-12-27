@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState,useRef} from "react";
 
 import DashboardComponent from "../../component/DashboardComponent/DashboardComponent";
 import QuestionChoice from "../../component/QuestionChoiceComponent/QuestionChoice";
@@ -16,9 +16,20 @@ import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDou
 import image from "../../BG.png";
 import "./dashboardPage.css";
 import ScrollComponent from "../../component/ScrollComponent/ScrollComponent";
+
 const Dashboard = () => {
   const { name } = useParams();
   const [trigger, setTrigger] = useState(false);
+  let menuRef=useRef()
+  useEffect(()=>{
+    let handler=(e)=>{
+      if(!menuRef.current.contains(e.target)){
+        setTrigger(false)
+      }
+      
+    }
+    document.addEventListener("mousedown",handler)
+  })
 
   return (
     <Grid
@@ -35,8 +46,12 @@ const Dashboard = () => {
       }
     >
       {trigger && (
-        <Grid item xl={3} lg={3} md={4} zIndex={1}>
+       
+        <Grid item xl={3} lg={3} md={4} zIndex={1} >
+          <span ref={menuRef}>
           <SideNavBar parameters={name} />
+          </span>
+        
         </Grid>
       )}
 
@@ -50,14 +65,14 @@ const Dashboard = () => {
               md={8}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "120vh" }}>
+              <ScrollComponent styles={{ height: "100vh" }}>
                 <DashboardComponent />
-              </ScrollComponent>
+             </ScrollComponent>
             </Grid>
           )}
           {name === "teacher" && (
             <Grid xl={9} lg={9} md={8} className="grid-dashboard-container">
-              <ScrollComponent styles={{ height: "120vh" }}>
+              <ScrollComponent styles={{ height: "100vh" }}>
                 <TeacherComponent />
               </ScrollComponent>
             </Grid>
@@ -70,7 +85,7 @@ const Dashboard = () => {
               md={8}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "120vh" }}>
+              <ScrollComponent styles={{ height: "100vh" }}>
                 <TopicComponent />
               </ScrollComponent>
             </Grid>
@@ -83,14 +98,14 @@ const Dashboard = () => {
               xl={9}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "120vh" }}>
+              <ScrollComponent styles={{ height: "100vh" }}>
                 <ResultComponent />
               </ScrollComponent>
             </Grid>
           )}
           {name === "question-choice" && (
             <Grid xl={9} lg={9} md={8} className="grid-dashboard-container">
-              <ScrollComponent styles={{ height: "120vh" }}>
+              <ScrollComponent styles={{ height: "100vh" }}>
                 <QuestionChoice />
               </ScrollComponent>
             </Grid>
@@ -103,7 +118,7 @@ const Dashboard = () => {
               md={8}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "120vh" }}>
+              <ScrollComponent styles={{ height: "100vh" }}>
                 <QuestionAnswer />
               </ScrollComponent>
             </Grid>
@@ -116,7 +131,7 @@ const Dashboard = () => {
               md={8}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "120vh" }}>
+              <ScrollComponent styles={{ height: "100vh" }}>
                 <Setting />
               </ScrollComponent>
             </Grid>
