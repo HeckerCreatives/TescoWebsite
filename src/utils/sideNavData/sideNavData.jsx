@@ -7,48 +7,57 @@ import arrowRightImage from "../../Assest/Navigation/arrow_right.png";
 
 import dashboardImage from "../../Assest/Navigation/1-dashboard.png";
 
+
 export const sideNavData = [
   {
     label: "Dashboard",
     image: dashboardImage,
     width:"2em",
-    height:"2em"
+    height:"2em",
+    values:"dashboard"
   },
   {
     label: "Teachers",
     image: TeacherImage,
     width:"2em",
-    height:"2em"
+    height:"2em",
+    values:"teacher"
 
   },
   {
     label: "Questions",
     image: QuestionsImage,
     width:"1.9em",
-    height:"2.9em"
+    height:"2.9em",
+    values:"question-choice"
+    
   },
   {
     label: "Topics",
     image: arrowRightImage,
     width:"2em",
-    height:"2em"
+    height:"2em",
+    values:"topic"
   },
   {
     label: "Questionnaires",
     image: arrowRightImage,
     width:"2em",
-    height:"2em"
+    heights:"2em",
+    values:"question-answer"
   },
   {
     label: "Results",
     image: resultImage,
     width:"2.5em",
-    height:"2.5em"
+    height:"2.5em",
+    values:"result"
   },
   {
     label: "Setting",
     image: settingImage,
     width:"2em",
-    height:"2em"
+    height:"2em",
+    values:"setting"
   },
 ];

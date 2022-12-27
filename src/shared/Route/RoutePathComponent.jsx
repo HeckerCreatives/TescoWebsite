@@ -5,7 +5,7 @@ const RoutePathComponent = ({path,component,id}) => {
   return (
     <React.Fragment>
       <Routes key={id}>
-      <Route path={path} element={component}/>
+      <Route path={path}  element={component}/>
       </Routes>
     
     

@@ -2,7 +2,8 @@ import { Paper } from "@mui/material";
 import React from "react";
 import "./inputlabel.css";
 import image from "../../Assest/Login/eye.png";
-const InputLabel = ({ inputPlaceHolder, setType, passwordTypes = false }) => {
+const InputLabel = ({ 
+  onChange,inputPlaceHolder, setType, passwordTypes = false }) => {
   const styles = {
     paperContainer: {
       backgroundImage: `url(${image})`,
@@ -18,6 +19,7 @@ const InputLabel = ({ inputPlaceHolder, setType, passwordTypes = false }) => {
           type={setType}
           className="input-label"
           placeholder={inputPlaceHolder}
+          onChange={onChange}
         />
         {passwordTypes && <Paper style={styles.paperContainer} />}
       </div>

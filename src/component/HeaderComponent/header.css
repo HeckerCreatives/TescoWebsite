@@ -1,0 +1,15 @@
+
+.header-container{
+    position: relative;
+}
+@media all and (max-width: 679px) {
+    .header-label-image{
+      min-height: 2em;
+    }
+    .header-image{
+        min-height:10px;
+        max-width: 100%;
+
+    }
+    
+  }
