@@ -6,6 +6,9 @@ import Login from "./pages/login/Login";
 import Setting from "./component/SettingComponent/SettingComponent";
 import QuestionChoice from "./component/QuestionChoiceComponent/QuestionChoice";
 import Dashboard from "./pages/dashboard/Dashboard";
+import TeacherDashboard from "./pages/dashboard/TeacherDashboard";
+
+
 
 function App() {
   return (
@@ -18,8 +21,10 @@ function App() {
         />
       ))} */}
       <Routes>
-      <Route path='/'  element={<Login/>}/>
-      <Route path='/:name'  element={<Dashboard/>}/>
+      <Route path='/'   element={<Login/>}/>
+      <Route path='/:name'   element={<Dashboard/>}/>
+      <Route path='/sub-dashboard/:name'   element={<TeacherDashboard/>}/>
+     
   
       </Routes>
     </div>

@@ -14,14 +14,14 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import image from "../../BG.png";
-import { sideNavData } from "../../utils/sideNavData/sideNavData";
+import { sideNavDatas } from "../../utils/sideNavData/sideNavData";
 import "./dashboardPage.css";
 import ScrollComponent from "../../component/ScrollComponent/ScrollComponent";
-import {dashboardcardData} from "../../utils/fakedata/fakedata"
-
-const Dashboard = () => {
+import { dashboardcardData, dashboardteacherData } from "../../utils/fakedata/fakedata";
+const TeacherDashboard = () => {
   const { name } = useParams();
   const [trigger, setTrigger] = useState(false);
+  console.log(name)
   let menuRef = useRef();
   useEffect(() => {
     let handler = (e) => {
@@ -84,10 +84,10 @@ const Dashboard = () => {
           </button>
         </Grid>
       )}
-      { trigger && (
+      {trigger && (
         <Grid item xl={3} lg={3} md={4} zIndex={1}>
           <span ref={menuRef}>
-            <SideNavBar parameters={name} sideNavData={sideNavData} role={"Admin"} />
+            <SideNavBar parameters={name} sideNavData={sideNavDatas} subType={true} role={"Teacher"} />
           </span>
         </Grid>
 
@@ -95,7 +95,7 @@ const Dashboard = () => {
 
       {trigger ? (
         <>
-          {name === "dashboard" && (
+          {name === "dashboard-teacher" && (
             <Grid
               item
               xl={9}
@@ -104,7 +104,7 @@ const Dashboard = () => {
               className="grid-dashboard-container"
             >
               <ScrollComponent styles={{ height: "100vh" }}>
-                <DashboardComponent  data={dashboardcardData}/>
+                <DashboardComponent  data={dashboardteacherData}/>
               </ScrollComponent>
             </Grid>
           )}
@@ -177,9 +177,9 @@ const Dashboard = () => {
         </>
       ) : (
         <>
-          {name === "dashboard" && (
+          {name === "dashboard-teacher" && (
             <Grid item md={12} lg={12} xl={12} xs={12} sm={12}>
-              <DashboardComponent data={dashboardcardData} />
+              <DashboardComponent data={dashboardteacherData}/>
             </Grid>
           )}
           {name === "teacher" && (
@@ -218,4 +218,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default TeacherDashboard;

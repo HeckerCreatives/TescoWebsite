@@ -42,9 +42,14 @@ const[error,setError]=useState("")
 
 
 const handleSubmit=()=>{
-    if(username&&password==="admin"){
-     history('/dashboard')
-    }else{
+  if(username==="admin"&&password==="admin"){
+    history('/dashboard')
+  }
+  else if(username==="teacher"&&password==="teacher")
+  {
+    history('/sub-dashboard/dashboard-teacher')
+  }
+ else{
       setError("PASSWORD OR USERNAME DOES'NT MATCH")
     }
 }

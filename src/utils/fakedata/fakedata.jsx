@@ -25,6 +25,38 @@ export const dashboardcardData = [
     number: "10",
   },
 ];
+export const dashboardteacherData = [
+  {
+    image: teacher,
+    label: "number of questionnaires",
+    number: "19",
+  },
+  {
+    image: topic,
+    label: "total number of topics",
+    number: "10",
+  },
+  {
+    image: questionnaire,
+    label: "monthly passer",
+    number: "12",
+  },
+  {
+    image: topic,
+    label: "passer percentage",
+    number: "10",
+  },
+  {
+    image: topic,
+    label: "passer percentage",
+    number: "10",
+  },
+  {
+    image: questionnaire,
+    label: "questionnaires",
+    number: "10",
+  },
+];
 export const teacherDataHead = [
   {
     title: "Id",

@@ -8,7 +8,7 @@ import logo from "../../Assest/Navigation/title.png";
 import { sideNavData } from "../../utils/sideNavData/sideNavData";
 import ButtonLabel from "../../shared/Button/ButtonLabel";
 import {useNavigate} from 'react-router-dom'
-const SideNavBar = ({ parameters }) => {
+const SideNavBar = ({ parameters,role,sideNavData,subType}) => {
   const history=useNavigate()
   const handleLogout=()=>{
     history('/')
@@ -43,7 +43,7 @@ const SideNavBar = ({ parameters }) => {
             setpath={"dashboard"}
           />
           <Typography variant="h4" fontWeight={"700"} color={"white"}>
-            Admin
+            {role}
           </Typography>
         </Stack>
         {sideNavData.map((each, index) => (
@@ -56,6 +56,7 @@ const SideNavBar = ({ parameters }) => {
               setHeight={each.height}
               setWidth={each.width}
               parameters={parameters}
+              subType={subType}
             />
           </Box>
         ))}

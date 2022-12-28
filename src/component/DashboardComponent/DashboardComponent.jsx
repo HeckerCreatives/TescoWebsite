@@ -9,7 +9,7 @@ import "./dashboard.css";
 import { resultDataHead } from "../../utils/fakedata/fakedata";
 import Cardindicator from "../CardIndiactor/Cardindicator";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
-const DashboardComponent = () => {
+const DashboardComponent = ({data=[]}) => {
   return (
     <Grid container direction={"column"}>
       <HeaderComponent
@@ -26,7 +26,7 @@ const DashboardComponent = () => {
         alignItems="center"
         zIndex={1}
       >
-        {dashboardcardData.map((each, index) => (
+        { data.map((each, index) => (
           <Grid item key={index}>
             <CardWithImage
               imagePath={each.image}
