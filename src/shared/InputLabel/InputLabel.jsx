@@ -2,8 +2,9 @@ import { Paper } from "@mui/material";
 import React from "react";
 import "./inputlabel.css";
 import image from "../../Assest/Login/eye.png";
+import { MDBInputGroup,MDBIcon } from "mdb-react-ui-kit";
 const InputLabel = ({ 
-  onChange,inputPlaceHolder, setType, passwordTypes = false }) => {
+  onChange,inputPlaceHolder, setType, passwordTypes = false,icons }) => {
   const styles = {
     paperContainer: {
       backgroundImage: `url(${image})`,
@@ -13,16 +14,20 @@ const InputLabel = ({
     },
   };
   return (
+    
     <React.Fragment>
-      <div className="input-label-container">
-        <input
+      
+      <MDBInputGroup className='mb-3' noBorder textBefore={icons}>
+      <input
           type={setType}
-          className="input-label"
+          className='form-control'
           placeholder={inputPlaceHolder}
           onChange={onChange}
         />
+        </MDBInputGroup>
+       
         {passwordTypes && <Paper style={styles.paperContainer} />}
-      </div>
+      
     </React.Fragment>
   );
 };

@@ -24,3 +24,19 @@
     }
     
   }
+  @media all and (max-width: 420px) {
+    .edit-image{
+      min-height: 0.2em;
+    }
+    .trangle-iamge{
+        min-height:0.5em
+        
+
+    }
+  
+    
+  }
+  .textArea{
+    width: 100%;
+    min-height: 5em;
+  }

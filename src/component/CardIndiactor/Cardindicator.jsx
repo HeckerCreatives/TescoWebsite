@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import "./cardindicator.css";
 import TabelComponent from "../TabelComponent/TabelComponent";
-import { monthData } from "../../utils/fakedata/fakedata";
+import { monthData, resultCellData } from "../../utils/fakedata/fakedata";
 import Charts from "../Chart/Charts";
 import ApexChart from "../ApexChart/ApexChart";
 
@@ -42,7 +42,7 @@ const Cardindicator = ({
       </Box>
       {!chartEnable && 
       <Box padding={2}>
-        <TabelComponent tableType={"result"} tableHead={monthData}/>
+        <TabelComponent pagination={true} tableType={"passer"} cellData={resultCellData} tableHead={monthData}/>
        </Box>}
        {chartEnable && 
       // <ApexChart/>

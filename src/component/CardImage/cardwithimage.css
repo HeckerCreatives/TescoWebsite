@@ -14,8 +14,8 @@
     border-bottom: 1px solid grey;
 }
 .image-card{
-  margin-top: -2em;
-  margin-left: -1.5em;
+margin-top: -1em;
+margin-left: 1em;
 }
 @media all and (max-width: 679px) {
   .image-card{

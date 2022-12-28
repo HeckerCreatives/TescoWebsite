@@ -22,7 +22,7 @@ const Setting = () => {
     <Box>
       
       {/* <ScrollComponent setHeight={"50em"}> */}
-      <Grid container padding={3} spacing={6} direction="column">
+      <Grid container padding={5} spacing={6} direction="column">
     <Grid item>
     <ImageWithListComponent
         labelList={"username"}
@@ -34,6 +34,7 @@ const Setting = () => {
         settingPlaceholder1={"old username"}
         settingPlaceholder2={"new username"}
         settingPlaceholder3={"confirm username"}
+        pagination={false}
        
        
       />
@@ -50,6 +51,7 @@ const Setting = () => {
         settingPlaceholder1={"old password"}
         settingPlaceholder2={"new password"}
         settingPlaceholder3={"confirm password"}
+        pagination={false}
         
        
       />

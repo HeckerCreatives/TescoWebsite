@@ -20,8 +20,8 @@ const DashboardComponent = () => {
       <Grid
         container
         direction={"row"}
-        spacing={3}
-        padding={3}
+        spacing={10}
+        padding={7}
         justifyContent={"center"}
         alignItems="center"
         zIndex={1}
@@ -42,7 +42,7 @@ const DashboardComponent = () => {
         alignItems="center"
         direction={"row"}
         spacing={5}
-        padding={3}
+        padding={2}
       >
         <Grid item >
           <Cardindicator

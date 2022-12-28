@@ -8,6 +8,7 @@ import DropDownMenu from "../../shared/DropDownMenu/DropDownMenu";
 import QuestionComponent from "../QuestionComponent/QuestionComponent";
 import InputLabel from "../../shared/InputLabel/InputLabel";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
+import { MDBIcon, MDBInputGroup } from "mdb-react-ui-kit";
 
 const ImageWithListComponent = ({
   tableType,
@@ -24,6 +25,7 @@ const ImageWithListComponent = ({
   settingPlaceholder1,
   settingPlaceholder2,
   settingPlaceholder3,
+  pagination=true
 }) => {
   return (
     <Box className="Image-with-list-container">
@@ -32,7 +34,7 @@ const ImageWithListComponent = ({
           <figure>
             <img src={setImage} alt="" className="image-list" />
           </figure>
-          <Typography marginLeft={"-1.6em"} variant="h6" color={"grey"}>
+          <Typography sx={{marginLeft:"0.3em"}} variant="h6" color={"grey"}>
             {labelList}
           </Typography>
         </Box>
@@ -45,17 +47,19 @@ const ImageWithListComponent = ({
             className="setting-type-container"
             paddingRight={"1em"}
           >
-            <Typography
+            {/* <Typography
               color={"grey"}
               variant="h5"
               className="search-typo-text"
             >
               Search
-            </Typography>
+            </Typography> */}
+            <MDBInputGroup className='mb-3' noBorder textBefore={"Search"} textAfter={<MDBIcon fas icon="search"/>}>
+            <input type={"text"} className="form-control"  />
+            </MDBInputGroup>
+            
 
-            <input type={"text"} className="search-input" />
-
-            <img src={searchIcon} alt="" className="image-search" />
+            
           </Box>
         )}
         {optionType === "none" && (
@@ -74,7 +78,7 @@ const ImageWithListComponent = ({
         )}
       </Box>
       {optionType === "option" && (
-        <Grid container direction={"row"} spacing={4} padding="1em">
+        <Grid container direction={"row"} spacing={4} padding="0.5em">
           <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
             <DropDownMenu defaultValue={"Choose Topics"} />
           </Grid>
@@ -87,13 +91,14 @@ const ImageWithListComponent = ({
         </Grid>
       )}
       {questionType === "table" && (
-        // <Box padding={3}>
+        <Box padding={3}>
         <DataTable
           cellData={cellData}
           tableHead={tableHead}
           tableType={tableType}
+          pagination={pagination}
         />
-        // </Box>
+        </Box>
       )}
       {questionType === "question-choice" && (
         // <ScrollComponent styles={{  padding: "1em" }}>

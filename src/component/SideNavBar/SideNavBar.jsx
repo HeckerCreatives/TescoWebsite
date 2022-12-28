@@ -19,7 +19,7 @@ const SideNavBar = ({ parameters }) => {
       backgroundImage: `url(${image})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
-      height:"auto",
+      height: "120vh",
       width: "100%",
     },
   };
@@ -60,10 +60,10 @@ const SideNavBar = ({ parameters }) => {
           </Box>
         ))}
         <Box
-       display={"flex"}
-       justifyContent="center"
-        padding={"5em"}
-       
+          sx={{
+            marginLeft: "5em",
+            marginTop: "5em",
+          }}
         >
           <ButtonLabel
             buttonLabel={"Logout"}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import trangle from "../../Assest/Questionnaire/triangle.png";
 import edit from "../../Assest/Questionnaire/edit.png";
 import './questionchoice.css'
@@ -24,11 +24,11 @@ const QuestionComponent = ({
             ],
           }}
         >
-          <Typography variant="h5" color={"white"}>
+          <Typography variant="body1" color={"white"}>
             {setPrimaryText}
           </Typography>
           <Box className="multiple-choice-container">
-            <Typography variant="h5" color={"white"}>
+            <Typography variant="body1" color={"white"} className="multiple-text">
               {setSecondarytext}
             </Typography>
             {typeValue&&
@@ -41,7 +41,7 @@ const QuestionComponent = ({
           </Box>
         </Box>
         <Box className="questionnaries-details-container">
-          <Typography variant="body1">{setDetails}</Typography>
+         <textarea  className="textArea"/>
         </Box>
       </Box>
     </Box>

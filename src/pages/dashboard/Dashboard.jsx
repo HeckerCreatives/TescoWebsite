@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React, { useEffect, useState,useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import DashboardComponent from "../../component/DashboardComponent/DashboardComponent";
 import QuestionChoice from "../../component/QuestionChoiceComponent/QuestionChoice";
@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import QuestionAnswer from "../../component/QuestionAnswer/QuestionAnswer";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
+import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import image from "../../BG.png";
 import "./dashboardPage.css";
 import ScrollComponent from "../../component/ScrollComponent/ScrollComponent";
@@ -20,16 +20,15 @@ import ScrollComponent from "../../component/ScrollComponent/ScrollComponent";
 const Dashboard = () => {
   const { name } = useParams();
   const [trigger, setTrigger] = useState(false);
-  let menuRef=useRef()
-  useEffect(()=>{
-    let handler=(e)=>{
-      if(!menuRef.current.contains(e.target)){
-        setTrigger(false)
+  let menuRef = useRef();
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef.current.contains(e.target)) {
+        setTrigger(false);
       }
-      
-    }
-    document.addEventListener("mousedown",handler)
-  })
+    };
+    document.addEventListener("mousedown", handler);
+  });
 
   return (
     <Grid
@@ -45,13 +44,49 @@ const Dashboard = () => {
         }
       }
     >
+      {!trigger && (
+        <Grid item position={"absolute"} zIndex={2} className="open-button">
+          <button
+            onClick={() => setTrigger(true)}
+            style={{
+              backgroundColor: "transparent",
+              outline:"none",
+              border:"none",
+              
+              //     border:"none",
+                cursor:"pointer",
+              // borderRadius:"50%",
+              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+            }}
+          >
+            {<KeyboardDoubleArrowRightOutlinedIcon fontSize="large" />}
+          </button>
+        </Grid>
+      )}
       {trigger && (
-       
-        <Grid item xl={3} lg={3} md={4} zIndex={1} >
+        <Grid item zIndex={2} className="close-button">
+          <button
+            onClick={() => setTrigger(false)}
+            style={{
+              backgroundColor: "transparent",
+              outline:"none",
+              border:"none",
+              
+              //     border:"none",
+              //   cursor:"pointer",
+              // borderRadius:"50%",
+              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+            }}
+          >
+            <KeyboardDoubleArrowLeftOutlinedIcon  fontSize="large" />
+          </button>
+        </Grid>
+      )}
+      {trigger && (
+        <Grid item xl={3} lg={3} md={4} zIndex={1}>
           <span ref={menuRef}>
-          <SideNavBar parameters={name} />
+            <SideNavBar parameters={name} />
           </span>
-        
         </Grid>
       )}
 
@@ -67,7 +102,7 @@ const Dashboard = () => {
             >
               <ScrollComponent styles={{ height: "100vh" }}>
                 <DashboardComponent />
-             </ScrollComponent>
+              </ScrollComponent>
             </Grid>
           )}
           {name === "teacher" && (
@@ -175,37 +210,6 @@ const Dashboard = () => {
             </Grid>
           )}
         </>
-      )}
-      {!trigger && (
-        <Grid item position={"absolute"} zIndex={1} className="open-button" >
-          <button
-            onClick={() => setTrigger(true)}
-            style={{ 
-              backgroundColor: "rgba(71, 71, 240, 0.729)",
-              border:"none",
-            cursor:"pointer",
-          borderRadius:"50%",
-        boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px;"}}
-          >
-            {<KeyboardDoubleArrowRightOutlinedIcon fontSize="large" />}
-          </button>
-        </Grid>
-      )}
-      {trigger && (
-        <Grid item zIndex={2} className="close-button">
-          <button
-            onClick={() => setTrigger(false)}
-            style={{
-              backgroundColor: "rgba(71, 71, 240, 0.729)",
-              border:"none",
-            cursor:"pointer",
-          borderRadius:"50%",
-        boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px;"
-            }}
-          >
-            <KeyboardDoubleArrowLeftOutlinedIcon fontSize="large" />
-          </button>
-        </Grid>
       )}
     </Grid>
   );

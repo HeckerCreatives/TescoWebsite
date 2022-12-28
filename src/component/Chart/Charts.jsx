@@ -22,7 +22,7 @@ const Charts = () => {
           flexDirection: "column",
         }}
       >
-        <Typography variant="h3" color={"blue"} className="chart-title">
+        <Typography variant="h3" fontWeight={700}  color={"blue"} className="chart-title">
           Passer Percentage
         </Typography>
         <PieChart width={200} height={200}>
@@ -31,8 +31,8 @@ const Charts = () => {
             data={data}
             dataKey="students"
             outerRadius={100}
-            innerRadius={50}
-           fill={colors}
+            innerRadius={70}
+           fill="rgb(241, 206, 52)"
           />
         </PieChart>
       </div>

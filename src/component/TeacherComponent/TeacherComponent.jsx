@@ -25,12 +25,7 @@ const TeacherComponent = () => {
           cellData={teacherCellData}
           tableType={"teacher"}
           optionType="none"
-          styles={{
-            fontSize:"1.2em",
-            width:"15em",
-            backgroundColor:"#ebad00",
-            color:"white"
-          }}
+         
         />
       </Grid>
     </Grid>

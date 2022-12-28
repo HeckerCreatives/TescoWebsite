@@ -6,8 +6,17 @@
     left: 0;
   }
 }
-
-@media all  and (max-width:3760px) {
+.close-button{
+  position: absolute;
+  top:4%;
+  left:0%
+}
+.open-button{
+  position: absolute;
+  top:4%;
+  left:0%
+}
+/* @media all  and (max-width:3760px) {
   .close-button {
     position: absolute;
     top: 40%;
@@ -20,7 +29,7 @@
     top: 50%;
     left:1% 
   }
-}
+} */
 
 /* @media all and (min-width:2012px) and (max-width:2659px) {
   .close-button {
@@ -49,7 +58,7 @@
 
 
 } */
-@media all and (min-width: 900px) and (max-width: 1199px) {
+/* @media all and (min-width: 900px) and (max-width: 1199px) {
   .close-button {
     position: absolute;
     top: 40%;
@@ -101,4 +110,4 @@
     left:4% 
   }
   
-}
+} */

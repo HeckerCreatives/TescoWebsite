@@ -43,7 +43,6 @@ export const teacherDataHead = [
   },
 ];
 export const resultDataHead = [
- 
   {
     title: "Name",
   },
@@ -126,5 +125,108 @@ export const topicsCellData = [
     topics: "Math",
     instructor: "jhoni oin",
     datecreated: "01/01/1999",
+  },
+];
+export const resultCellData = [
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    correct: "10",
+    wrong: "12",
+    result: "50",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    correct: "10",
+    wrong: "12",
+    result: "50",
+  },
+
+  {
+    name: "hero123",
+    topic: "Math",
+    correct: "10",
+    wrong: "1",
+    result: "90",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    correct: "10",
+    wrong: "12",
+    result: "50",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    correct: "10",
+    wrong: "12",
+    result: "50",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    correct: "10",
+    wrong: "12",
+    result: "50",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    correct: "10",
+    wrong: "12",
+    result: "50",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    correct: "10",
+    wrong: "12",
+    result: "50",
+  },
+];
+export const studentCellData = [
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    instructor: "jhonis",
+    score: "12",
+    date: "1/2/2022",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    instructor: "david",
+    score: "23",
+    date: "1/2/2022",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    instructor: "sunny",
+    score: "1",
+    date: "1/2/2022",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    instructor: "shyam",
+    score: "23",
+    date: "1/2/2022",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    instructor: "biswo",
+    score: "12",
+    date: "1/2/2022",
+  },
+  {
+    name: "jhoni Balawas",
+    topic: "Math",
+    instructor: "james",
+    score: "2",
+    date: "1/2/2022",
   },
 ];
