@@ -74,6 +74,13 @@ export const sideNavDatas = [
     height: "2em",
     values: "topic-teacher",
   },
+  {
+    label: "Questionnaires",
+    image: QuestionsImage,
+    width: "1em",
+    heights: "2em",
+    values: "question-teacher",
+  },
 
   {
     label: "Results",

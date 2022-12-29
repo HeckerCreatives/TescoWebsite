@@ -122,6 +122,13 @@ const TeacherDashboard = () => {
               </ScrollComponent>
             </Grid>
           )}
+               {name === "question-teacher" && (
+            <Grid xl={9} lg={9} md={8} className="grid-dashboard-container">
+              <ScrollComponent styles={{ height: "100vh" }}>
+                <QuestionChoice />
+              </ScrollComponent>
+            </Grid>
+          )}
           {name === "result-teacher" && (
             <Grid
               item
@@ -161,6 +168,13 @@ const TeacherDashboard = () => {
           {name === "topic-teacher" && (
             <Grid item md={12} lg={12} xl={12} sm={12} sx={12}>
               <TopicComponent />
+            </Grid>
+          )}
+                {name === "question-teacher" && (
+            <Grid md={12} lg={12} xl={12} sm={12} sx={12} className="grid-dashboard-container">
+              <ScrollComponent styles={{ height: "100vh" }}>
+                <QuestionChoice />
+              </ScrollComponent>
             </Grid>
           )}
           {name === "result-teacher" && (
