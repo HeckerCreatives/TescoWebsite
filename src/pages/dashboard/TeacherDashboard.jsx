@@ -108,14 +108,8 @@ const TeacherDashboard = () => {
               </ScrollComponent>
             </Grid>
           )}
-          {name === "teacher" && (
-            <Grid xl={9} lg={9} md={8} className="grid-dashboard-container">
-              <ScrollComponent styles={{ height: "100vh" }}>
-                <TeacherComponent />
-              </ScrollComponent>
-            </Grid>
-          )}
-          {name === "topic" && (
+         
+          {name === "topic-teacher" && (
             <Grid
               item
               xl={9}
@@ -128,7 +122,7 @@ const TeacherDashboard = () => {
               </ScrollComponent>
             </Grid>
           )}
-          {name === "result" && (
+          {name === "result-teacher" && (
             <Grid
               item
               md={8}
@@ -141,27 +135,8 @@ const TeacherDashboard = () => {
               </ScrollComponent>
             </Grid>
           )}
-          {name === "question-choice" && (
-            <Grid xl={9} lg={9} md={8} className="grid-dashboard-container">
-              <ScrollComponent styles={{ height: "100vh" }}>
-                <QuestionChoice />
-              </ScrollComponent>
-            </Grid>
-          )}
-          {name === "question-answer" && (
-            <Grid
-              item
-              xl={9}
-              lg={9}
-              md={8}
-              className="grid-dashboard-container"
-            >
-              <ScrollComponent styles={{ height: "100vh" }}>
-                <QuestionAnswer />
-              </ScrollComponent>
-            </Grid>
-          )}
-          {name === "setting" && (
+         
+          {name === "setting-teacher" && (
             <Grid
               item
               xl={9}
@@ -182,32 +157,19 @@ const TeacherDashboard = () => {
               <DashboardComponent data={dashboardteacherData}/>
             </Grid>
           )}
-          {name === "teacher" && (
-            <Grid item md={12} lg={12} xl={12} xs={12} sm={12}>
-              <TeacherComponent />
-            </Grid>
-          )}
-          {name === "topic" && (
+         
+          {name === "topic-teacher" && (
             <Grid item md={12} lg={12} xl={12} sm={12} sx={12}>
               <TopicComponent />
             </Grid>
           )}
-          {name === "result" && (
+          {name === "result-teacher" && (
             <Grid item md={12} lg={12} xl={12} sm={12} sx={12}>
               <ResultComponent />
             </Grid>
           )}
-          {name === "question-choice" && (
-            <Grid item md={12} lg={12} xl={12} sm={12} sx={12}>
-              <QuestionChoice />
-            </Grid>
-          )}
-          {name === "question-answer" && (
-            <Grid item md={12} lg={12} xl={12} sm={12} xs={12}>
-              <QuestionAnswer />
-            </Grid>
-          )}
-          {name === "setting" && (
+       
+          {name === "setting-teacher" && (
             <Grid item md={12} lg={12} xl={12} xs={12} sm={12}>
               <Setting />
             </Grid>
