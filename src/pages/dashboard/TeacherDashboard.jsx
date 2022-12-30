@@ -85,7 +85,7 @@ const TeacherDashboard = () => {
         </Grid>
       )}
       {trigger && (
-        <Grid item xl={3} lg={3} md={4} zIndex={1}>
+        <Grid item xl={3} lg={3} md={4} zIndex={1} className="grid-side-container">
           <span ref={menuRef}>
             <SideNavBar parameters={name} sideNavData={sideNavDatas} subType={true} role={"Teacher"} />
           </span>
@@ -103,7 +103,7 @@ const TeacherDashboard = () => {
               md={8}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "100vh" }}>
+              <ScrollComponent styles={{ height: "120vh" }}>
                 <DashboardComponent  data={dashboardteacherData}/>
               </ScrollComponent>
             </Grid>
@@ -117,14 +117,14 @@ const TeacherDashboard = () => {
               md={8}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "100vh" }}>
+              <ScrollComponent styles={{ height: "120vh" }}>
                 <TopicComponent />
               </ScrollComponent>
             </Grid>
           )}
                {name === "question-teacher" && (
             <Grid xl={9} lg={9} md={8} className="grid-dashboard-container">
-              <ScrollComponent styles={{ height: "100vh" }}>
+              <ScrollComponent styles={{ height: "120vh" }}>
                 <QuestionChoice />
               </ScrollComponent>
             </Grid>
@@ -137,7 +137,7 @@ const TeacherDashboard = () => {
               xl={9}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "100vh" }}>
+              <ScrollComponent styles={{ height: "120vh" }}>
                 <ResultComponent />
               </ScrollComponent>
             </Grid>
@@ -151,7 +151,7 @@ const TeacherDashboard = () => {
               md={8}
               className="grid-dashboard-container"
             >
-              <ScrollComponent styles={{ height: "100vh" }}>
+              <ScrollComponent styles={{ height: "120vh" }}>
                 <Setting />
               </ScrollComponent>
             </Grid>

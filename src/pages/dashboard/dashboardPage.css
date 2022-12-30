@@ -1,7 +1,7 @@
 @media all and (max-width: 900px) {
-  .grid-dashboard-container {
+  .grid-side-container{
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     top: 0;
     left: 0;
   }
@@ -97,17 +97,8 @@
     left:4% 
   }
 }
-@media all and (max-width:549px){
-  .close-button {
-    position: absolute;
-    top: 1%;
-    left:75%
-    
-  }
-  .open-button{
-    position:absolute;
-    top: 1%;
-    left:4% 
-  }
+ */
+ @media all and (max-width:549px){
+
   
-} */
+}

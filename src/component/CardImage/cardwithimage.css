@@ -16,6 +16,7 @@
 .image-card{
 margin-top: -1em;
 margin-left: 1em;
+cursor: pointer;
 }
 @media all and (max-width: 679px) {
   .image-card{

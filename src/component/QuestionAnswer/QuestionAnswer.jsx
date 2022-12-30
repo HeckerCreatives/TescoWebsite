@@ -7,6 +7,7 @@ import image from "../../Assest/Dashboard/Questinnaire.png";
 
 import ImageWithListComponent from "../ImageWithListComponent/ImageWithListComponent";
 import { resultDataHead, topicsCellData} from "../../utils/fakedata/fakedata";
+import ScrollComponent from "../ScrollComponent/ScrollComponent";
 
 
 const QuestionAnswer= () => {
@@ -16,6 +17,7 @@ const QuestionAnswer= () => {
       headerLabel={"Questionnaires"}
       headerLabelIamges={dashboardIamge}
     />
+    <ScrollComponent styles={{height:"100vh"}}>
     <Grid container padding={5} direction="row">
       <ImageWithListComponent
         labelList={"QUESTIONNAIRES"}
@@ -30,6 +32,8 @@ const QuestionAnswer= () => {
        
       />
     </Grid>
+    </ScrollComponent>
+   
   </Grid>
   )
 }

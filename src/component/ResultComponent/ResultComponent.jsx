@@ -11,6 +11,7 @@ import {
   topicsCellData,
  
 } from "../../utils/fakedata/fakedata";
+import ScrollComponent from "../ScrollComponent/ScrollComponent";
 
 const ResultComponent = () => {
   return (
@@ -19,6 +20,9 @@ const ResultComponent = () => {
         headerLabel={"Result"}
         headerLabelIamges={dashboardIamge}
       />
+      
+
+      
       <Grid container padding={5} direction="row">
         <ImageWithListComponent
           labelList={"Result"}

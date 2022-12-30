@@ -24,6 +24,7 @@ export default function CustomContainer({
   maxWidth,
   paperImage,
   paperImageContainer = false,
+  setUser
  
 }) {
   const styles = {
@@ -43,11 +44,15 @@ const[error,setError]=useState("")
 
 const handleSubmit=()=>{
   if(username==="admin"&&password==="admin"){
+   
+    setUser("admin")
     history('/dashboard')
+   
   }
   else if(username==="teacher"&&password==="teacher")
   {
-    history('/sub-dashboard/dashboard-teacher')
+    setUser('teacher')
+    history('/dashboard/dashboard-teacher')
   }
  else{
       setError("PASSWORD OR USERNAME DOES'NT MATCH")

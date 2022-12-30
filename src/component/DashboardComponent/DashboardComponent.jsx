@@ -11,7 +11,8 @@ import Cardindicator from "../CardIndiactor/Cardindicator";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
 const DashboardComponent = ({data=[]}) => {
   return (
-    <Grid container direction={"column"}>
+    <ScrollComponent styles={{height:"120vh"}}>
+      <Grid container direction={"column"}>
       <HeaderComponent
         headerLabel={"Dashboard"}
         headerLabelIamges={dashboardIamge}
@@ -21,11 +22,12 @@ const DashboardComponent = ({data=[]}) => {
         container
         direction={"row"}
         spacing={10}
-        padding={7}
+        padding={4}
         justifyContent={"center"}
         alignItems="center"
-        zIndex={1}
+        
       >
+        
         { data.map((each, index) => (
           <Grid item key={index}>
             <CardWithImage
@@ -41,8 +43,8 @@ const DashboardComponent = ({data=[]}) => {
         justifyContent={"center"}
         alignItems="center"
         direction={"row"}
-        spacing={5}
-        padding={2}
+        spacing={3}
+        padding={0.5}
       >
         <Grid item >
           <Cardindicator
@@ -60,10 +62,20 @@ const DashboardComponent = ({data=[]}) => {
             
           />
         </Grid>
+       
+     
       </Grid>
+     
+      
+     
+
+      
+      
      
      
     </Grid>
+    </ScrollComponent>
+    
   );
 };
 

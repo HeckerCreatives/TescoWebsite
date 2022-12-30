@@ -9,6 +9,7 @@ import QuestionComponent from "../QuestionComponent/QuestionComponent";
 import InputLabel from "../../shared/InputLabel/InputLabel";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
 import { MDBIcon, MDBInputGroup } from "mdb-react-ui-kit";
+import { motion } from "framer-motion";
 
 const ImageWithListComponent = ({
   tableType,
@@ -25,21 +26,39 @@ const ImageWithListComponent = ({
   settingPlaceholder1,
   settingPlaceholder2,
   settingPlaceholder3,
-  pagination=true
+  pagination = true,
 }) => {
   return (
     <Box className="Image-with-list-container">
       <Box className="image-with-list-main">
         <Box className="image-container">
-          <figure>
-            <img src={setImage} alt="" className="image-list" />
-          </figure>
-          <Typography sx={{marginLeft:"0.3em"}} variant="h6" color={"grey"}>
-            {labelList}
-          </Typography>
+          <motion.div animate={{ rotate: -360, transition: { duration: 0.3 } }}>
+            <figure>
+              <img src={setImage} alt="" className="image-list" />
+            </figure>
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Typography
+              sx={{ marginLeft: "0.3em" }}
+              variant="h6"
+              color={"grey"}
+            >
+              {labelList}
+            </Typography>
+          </motion.div>
         </Box>
         {searchType && (
-          <Box
+          <motion.div initial={{y:-10,opacity:0}}
+          animate={{y:0,opacity:1}}
+          exit={{y:0,opacity:0}}
+          >
+                   <Box
             display={"flex"}
             alignItems="center"
             gap={1}
@@ -54,13 +73,17 @@ const ImageWithListComponent = ({
             >
               Search
             </Typography> */}
-            <MDBInputGroup className='mb-3' noBorder textBefore={"Search"} textAfter={<MDBIcon fas icon="search"/>}>
-            <input type={"text"} className="form-control"  />
+            <MDBInputGroup
+              className="mb-3"
+              noBorder
+              textBefore={"Search"}
+              textAfter={<MDBIcon fas icon="search" />}
+            >
+              <input type={"text"} className="form-control" />
             </MDBInputGroup>
-            
-
-            
           </Box>
+          </motion.div>
+     
         )}
         {optionType === "none" && (
           <Box padding={3}>
@@ -78,33 +101,54 @@ const ImageWithListComponent = ({
         )}
       </Box>
       {optionType === "option" && (
-        <Grid container direction={"row"} spacing={4} padding="0.5em">
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
-            <DropDownMenu defaultValue={"Choose Topics"} />
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Grid
+            container
+            direction={"row"}
+            display="flex"
+            justifyContent={"center"}
+            alignItems="center"
+            gap={10}
+            padding={2}
+            
+          >
+            <Grid item xs={12} lg={12} xl={3}>
+              <DropDownMenu defaultValue={"Choose Topics"} />
+            </Grid>
+            <Grid item xs={12} lg={12} xl={3}>
+              <DropDownMenu defaultValue={"Choose year"} />
+            </Grid>
+            <Grid item xs={12} lg={12} xl={3}>
+              <DropDownMenu defaultValue={"Choose Generated code"} />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
-            <DropDownMenu defaultValue={"Choose year"} />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
-            <DropDownMenu defaultValue={"Choose Generated code"} />
-          </Grid>
-        </Grid>
+        </motion.div>
       )}
       {questionType === "table" && (
-        <Box padding={3}>
-        <DataTable
-          cellData={cellData}
-          tableHead={tableHead}
-          tableType={tableType}
-          pagination={pagination}
-        />
-        </Box>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 0.5 } }}
+          padding={3}
+        >
+          <DataTable
+            cellData={cellData}
+            tableHead={tableHead}
+            tableType={tableType}
+            pagination={pagination}
+          />
+        </motion.div>
       )}
       {questionType === "question-choice" && (
         // <ScrollComponent styles={{  padding: "1em" }}>
 
         <Grid container spacing={5} padding={2}>
           <Grid item lg={12} md={12} xl={12} xs={12} sm={12}>
+            <motion.div initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.3}}} exit={{opacity:0}}>
             <QuestionComponent
               setType={"default"}
               setPrimaryText={"QUESTION1:"}
@@ -113,9 +157,12 @@ const ImageWithListComponent = ({
                 "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
               }
             />
+            </motion.div>
+          
           </Grid>
           <Grid item lg={6} md={12} xl={6} xs={12} sm={12}>
-            <QuestionComponent
+          <motion.div initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.3}}} exit={{opacity:0}}>
+          <QuestionComponent
               setType={"correct"}
               setPrimaryText={"CHOICE 1:"}
               setSecondarytext={"Correct"}
@@ -123,9 +170,13 @@ const ImageWithListComponent = ({
                 "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
               }
             />
+          </motion.div>
+           
           </Grid>
+          
           <Grid item lg={6} md={12} xl={6} sm={12} sx={12}>
-            <QuestionComponent
+          <motion.div initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.3}}} exit={{opacity:0}}>
+          <QuestionComponent
               setType={"wrong"}
               setPrimaryText={"CHOICE 2:"}
               setSecondarytext={"Wrong"}
@@ -133,9 +184,13 @@ const ImageWithListComponent = ({
                 "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
               }
             />
+          </motion.div>
+           
           </Grid>
+          
           <Grid item lg={6} md={12} xl={6} xs={12} sm={12}>
-            <QuestionComponent
+          <motion.div initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.3}}} exit={{opacity:0}}>
+          <QuestionComponent
               setType={"wrong"}
               setPrimaryText={"CHOICE 3:"}
               setSecondarytext={"Wrong"}
@@ -143,9 +198,12 @@ const ImageWithListComponent = ({
                 "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
               }
             />
+          </motion.div>
+          
           </Grid>
           <Grid item lg={6} md={12} xl={6} sx={12} sm={12}>
-            <QuestionComponent
+          <motion.div initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.3}}} exit={{opacity:0}}>
+          <QuestionComponent
               setType={"wrong"}
               setPrimaryText={"CHOICE 4:"}
               setSecondarytext={"Wrong"}
@@ -153,6 +211,8 @@ const ImageWithListComponent = ({
                 "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
               }
             />
+          </motion.div>
+          
           </Grid>
         </Grid>
 
