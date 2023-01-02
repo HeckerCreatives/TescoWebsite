@@ -22,9 +22,9 @@ const Charts = () => {
           flexDirection: "column",
         }}
       >
-        <Typography variant="h3" fontWeight={700}  color={"blue"} className="chart-title">
+        <p  fontWeight={700}  color={"blue"} className="chart-title">
           Passer Percentage
-        </Typography>
+        </p>
         <PieChart width={200} height={200}>
           
           <Pie

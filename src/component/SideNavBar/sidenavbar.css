@@ -8,8 +8,11 @@
 @media all and (max-width:709px){
     .paper-side-bar{
      position: absolute;
-     z-index: 1;
+     z-index: 1000;
+     
     }
+   
+    
    
    
   

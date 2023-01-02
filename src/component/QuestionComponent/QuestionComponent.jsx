@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import trangle from "../../Assest/Questionnaire/triangle.png";
 import edit from "../../Assest/Questionnaire/edit.png";
@@ -11,6 +11,15 @@ const QuestionComponent = ({
   typeValue=true
 
 }) => {
+  const[editState,setEditState]=useState(true)
+  const handleEdit=()=>{
+    if(editState===true){
+setEditState(false)
+    }
+    else{
+setEditState(true)
+    }
+  }
   return (
     <Box className="questionnaries-container">
       <Box className="questionnaries-main">
@@ -36,12 +45,15 @@ const QuestionComponent = ({
             }
            
           </Box>
-          <Box className="edit-container">
+          <Box className="edit-container" style={{cursor:"pointer"}}>
+            <div onClick={handleEdit}>
             <img src={edit} alt="edit-image" className="edit-image" />
+            </div>
+           
           </Box>
         </Box>
         <Box className="questionnaries-details-container">
-         <textarea  className="textArea"/>
+         <textarea disabled={editState}  className="textArea"/>
         </Box>
       </Box>
     </Box>

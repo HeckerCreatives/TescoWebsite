@@ -18,7 +18,7 @@ import ResultComponent from "./component/ResultComponent/ResultComponent";
 import { dashboardteacherData } from "./utils/fakedata/fakedata";
 import { useState } from "react";
 function App() {
-  const[user,setUser]=useState("admin")
+  const[user,setUser]=useState("")
   console.log(user)
   return (
     <div className="App">

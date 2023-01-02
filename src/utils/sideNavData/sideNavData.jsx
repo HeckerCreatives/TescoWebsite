@@ -19,30 +19,34 @@ export const sideNavData = [
     image: dashboardImage,
     icon:<HomeIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "dashboard",
+    type:false
   },
   {
     label: "Teachers",
     image: TeacherImage,
     icon:<SchoolOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "teacher",
+    type:false
   },
   {
     label: "Questions",
     image: QuestionsImage,
     icon:<QuestionMarkIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "question-choice",
+    type:false
   },
   {
     label: "Topics",
     image: arrowRightImage,
     icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "topic",
+    type:true
   },
   {
     label: "Questionnaires",
     image: arrowRightImage,
     icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
-  
+    type:false,
     values: "question-answer",
   },
   {
@@ -50,12 +54,14 @@ export const sideNavData = [
     image: resultImage,
     icon:<StickyNote2OutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "result",
+    type:false
   },
   {
     label: "Setting",
     image: settingImage,
    icon:<SettingsIcon  sx={{fontSize:"2em",color:"white"}}/>,
-    values: "setting"
+    values: "setting",
+    type:false
   },
 ];
 export const sideNavDatas = [
@@ -64,6 +70,7 @@ export const sideNavDatas = [
     image: dashboardImage,
    icon:<HomeIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "dashboard-teacher",
+    type:false
   },
 
   {
@@ -71,12 +78,14 @@ export const sideNavDatas = [
     image: arrowRightImage,
   icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "topic-teacher",
+    type:true
   },
   {
     label: "Questionnaires",
     image: QuestionsImage,
     icon:<QuestionMarkIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "question-teacher",
+    type:false
   },
 
   {
@@ -84,11 +93,13 @@ export const sideNavDatas = [
     image: resultImage,
    icon:<StickyNote2OutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "result-teacher",
+    type:false
   },
   {
     label: "Setting",
     image: settingImage,
     icon:<SettingsIcon sx={{fontSize:"2em",color:"white"}}/>,
     values: "setting-teacher",
+    type:false
   },
 ];

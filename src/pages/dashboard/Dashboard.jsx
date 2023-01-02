@@ -19,7 +19,7 @@ import "./dashboardPage.css";
 import ScrollComponent from "../../component/ScrollComponent/ScrollComponent";
 import { dashboardcardData } from "../../utils/fakedata/fakedata";
 import { motion } from "framer-motion";
-import NavigationOpen from "../../component/Animation/NavigationOpen";
+
 
 const Dashboard = () => {
   const { name } = useParams();

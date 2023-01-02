@@ -3,6 +3,7 @@
     /* width: 45em; */
     min-height:23em;
     border-radius: 0.5em;
+    background-color: white;
 }
 .card-with-indicator-label-container{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -18,3 +19,4 @@
     display: flex;
     justify-content: center;
 }
+

@@ -244,19 +244,19 @@ const ImageWithListComponent = ({
       )}
       {setting && (
         <Grid padding={2} container spacing={5} className="setting-grid">
-          <Grid item>
+          <Grid item xl={4}>
             <InputLabel
               setType={setType}
               inputPlaceHolder={settingPlaceholder1}
             />
           </Grid>
-          <Grid item>
+          <Grid item xl={4}>
             <InputLabel
               setType={setType}
               inputPlaceHolder={settingPlaceholder2}
             />
           </Grid>
-          <Grid item>
+          <Grid item xl={4}>
             <InputLabel
               setType={setType}
               inputPlaceHolder={settingPlaceholder3}
@@ -264,7 +264,7 @@ const ImageWithListComponent = ({
           </Grid>
           <Grid
             item
-            xl={4}
+            xl={2}
             lg={4}
             md={4}
             sm={6}

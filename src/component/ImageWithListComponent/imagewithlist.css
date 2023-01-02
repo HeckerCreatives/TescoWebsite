@@ -2,7 +2,8 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   /* width: 95em;
     min-height: 20em; */
-  width: 90%;
+  /* width: 90%; */
+  background-color: white;
   
 }
 .image-container {
@@ -31,7 +32,7 @@
 }
 #drop-menu {
   outline: none;
-  min-width: 17em;
+  width: 17em;
   padding: 1em;
   border-radius: 1em;
 }
@@ -67,13 +68,14 @@
   }
 }
 
-@media all and (max-width: 391px) {
+@media all and (max-width: 420px) {
   .search-input{
   display: none;
   }
   .search-typo-text{
     display: none;
   }
+ 
  
  
 }

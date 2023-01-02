@@ -10,20 +10,27 @@ import ImageWithListComponent from "../ImageWithListComponent/ImageWithListCompo
 import { resultDataHead, topicsCellData, topicsDataHead } from "../../utils/fakedata/fakedata";
 import { Box } from "@mui/system";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
-
+import backgroundImage from "../../BG.png";
 
 const Setting = () => {
   return (
-    <Grid container direction={"column"}>
+    <Grid container direction={"column"}
+    sx={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize:"cover",
+     
+    }}
+    >
     <HeaderComponent
       headerLabel={"Setting"}
       headerLabelIamges={dashboardIamge}
     />
     <Box>
       
-      <ScrollComponent styles={{height:"120vh"}}>
+      <ScrollComponent >
       <Grid container padding={6} spacing={6} direction="column">
-    <Grid item>
+    <Grid item >
     <ImageWithListComponent
         labelList={"username"}
         setImage={image}

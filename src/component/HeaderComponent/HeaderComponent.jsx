@@ -15,7 +15,7 @@ const HeaderComponent = ({ headerLabel,headerLabelIamges}) => {
           src={headerIamge}
           alt=""
 
-          style={{minHeight:"10.7em",width:"100%"}}
+          style={{minHeight:"10em",width:"100%"}}
           className="header-image"
         />
         

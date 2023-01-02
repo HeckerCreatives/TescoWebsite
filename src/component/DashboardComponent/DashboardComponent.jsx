@@ -9,26 +9,37 @@ import "./dashboard.css";
 import { resultDataHead } from "../../utils/fakedata/fakedata";
 import Cardindicator from "../CardIndiactor/Cardindicator";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
-const DashboardComponent = ({data=[]}) => {
+import backgroundImage from "../../BG.png";
+const DashboardComponent = ({ data = [] }) => {
   return (
-    <ScrollComponent styles={{height:"120vh"}}>
-      <Grid container direction={"column"}>
+    
+    <Grid
+      container
+      direction={"column"}
+      sx={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize:"cover",
+        // height:"100%"
+       
+      }}
+      className="dashboard-component-container"
+    >
       <HeaderComponent
         headerLabel={"Dashboard"}
         headerLabelIamges={dashboardIamge}
       />
-      
-      <Grid
+<ScrollComponent >
+
+<Grid
         container
         direction={"row"}
         spacing={10}
         padding={4}
         justifyContent={"center"}
         alignItems="center"
-        
       >
-        
-        { data.map((each, index) => (
+        {data.map((each, index) => (
           <Grid item key={index}>
             <CardWithImage
               imagePath={each.image}
@@ -44,9 +55,9 @@ const DashboardComponent = ({data=[]}) => {
         alignItems="center"
         direction={"row"}
         spacing={3}
-        padding={0.5}
+        padding={3}
       >
-        <Grid item >
+        <Grid item xs={8} xl={6}>
           <Cardindicator
             darkTheme={false}
             setDetails={"Student pass for month for this september"}
@@ -54,27 +65,17 @@ const DashboardComponent = ({data=[]}) => {
             tableHead={resultDataHead}
           />
         </Grid>
-        <Grid item >
+        <Grid item xs={8} xl={6}>
           <Cardindicator
             setDetails={"student statics pass verse fail"}
             setTitle={"Passer percentage"}
             chartEnable={true}
-            
           />
         </Grid>
-       
-     
       </Grid>
-     
-      
-     
-
-      
-      
-     
-     
+</ScrollComponent>
+   
     </Grid>
-    </ScrollComponent>
     
   );
 };

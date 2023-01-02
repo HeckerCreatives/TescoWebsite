@@ -30,10 +30,11 @@ const SideNavBar = ({
   const styles = {
     paperContiner: {
       backgroundImage: isOpen ? `url(${image})` : null,
-      backgroundSize: "fill",
+      backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
-      height: "120vh",
-      minWidth: "20em",
+      height: "100%",
+      width:isOpen?"20em":"0em"
+      
     },
   };
 
@@ -57,9 +58,9 @@ const SideNavBar = ({
     document.addEventListener("mousedown", handler);
   });
   return (
-    <div className="side-bar-style-container-active" >
-      <motion.div animate={{ width: isOpen ? "20em" : "0px" }}>
-        <Box style={styles.paperContiner} className="paper-side-bar" ref={menuRef}>
+    <div className="side-bar-style-container-active"  >
+      <motion.div animate={{ width: isOpen ? "20em" : "0px" }} >
+        <Box style={styles.paperContiner} className="paper-side-bar" >
           <Grid
             container
             spacing={1}
@@ -69,25 +70,15 @@ const SideNavBar = ({
           >
             <Grid
               container
-              padding={5.5}
+              padding={5}
               direction={"row"}
               display="flex"
               justifyContent={"center"}
               alignItems={"center"}
-              gap={2}
+              gap={3}
+             
             >
-              {isOpen && (
-                <Grid item>
-                  <img
-                    src={logo}
-                    alt=""
-                    className="iamge-logonavbar"
-                    style={{ width: "10em" }}
-                  />
-                </Grid>
-              )}
-
-              <Grid item zIndex={2}>
+                 <Grid item >
                 <motion.div
                   animate={{ rotate: rotation }}
                   onClick={() => (isOpen ? close() : open())}
@@ -106,7 +97,7 @@ const SideNavBar = ({
                     }}
                   >
                     <FormatAlignRightIcon
-                      fontSize="large"
+                      fontSize="small"
                       sx={{
                         color: "white",
                       }}
@@ -114,17 +105,29 @@ const SideNavBar = ({
                   </button>
                 </motion.div>
               </Grid>
+              {isOpen && (
+                <Grid item>
+                  <img
+                    src={logo}
+                    alt=""
+                    className="iamge-logonavbar"
+                    style={{ width: "10em" }}
+                  />
+                </Grid>
+              )}
+
+           
             </Grid>
             {isOpen && (
               <Grid item>
-                <Typography variant="h5" fontWeight={"700"} color={"white"}>
+                <Typography variant="h6" fontWeight={"700"} color={"white"}>
                   {role}
                 </Typography>
               </Grid>
             )}
           </Grid>
           {isOpen && (
-            <Box
+            <Grid container
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -132,29 +135,27 @@ const SideNavBar = ({
               }}
             >
               {sideNavData.map((each, index) => (
-                <Box sx={{ marginTop: "2em", padding: "0em 1em" }} key={index}>
+                <Grid item sx={{ marginTop: "2em", padding: "0em 1em" }} key={index}>
                   <ImageWIthLabel
                     setImage={each.image}
                     setpath={each.values}
                     labelVariant={"h6"}
                     setLabel={each.label}
                     setIcon={each.icon}
-                    parameters={parameters}
                     subType={subType}
+                    parameters={parameters}
+                    setDrop={each.type}
+                    
+                    
                   />
-                </Box>
+                </Grid>
               ))}
-            </Box>
-          )}
-
-          {isOpen && (
-            <Box
+               <Grid Item
               display={"flex"}
-              alignItems="flex-end"
+              marginTop="4em"
+              marginBottom={"3.2em"}
               justifyContent={"center"}
-              sx={{
-                marginTop:"7em"
-              }}
+              
             >
               <ButtonLabel
                 buttonLabel={"Logout"}
@@ -166,8 +167,13 @@ const SideNavBar = ({
                   color: "black",
                 }}
               />
-            </Box>
+            </Grid>
+            </Grid>
           )}
+            {/* {isOpen && (
+           
+          )}
+         */}
         </Box>
       </motion.div>
 
