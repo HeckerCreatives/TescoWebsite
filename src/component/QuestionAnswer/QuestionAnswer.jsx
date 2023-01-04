@@ -12,11 +12,13 @@ import backgroundImage from "../../BG.png";
 
 const QuestionAnswer= () => {
   return (
+    <ScrollComponent>
     <Grid container direction={"column"}
     sx={{
       backgroundImage: `url(${backgroundImage})`,
       backgroundRepeat: "no-repeat",
       backgroundSize:"cover",
+      minHeight:"100%"
      
     }}
     >
@@ -24,8 +26,8 @@ const QuestionAnswer= () => {
       headerLabel={"Questionnaires"}
       headerLabelIamges={dashboardIamge}
     />
-    <ScrollComponent>
-    <Grid container paddingTop={5} paddingLeft={2} paddingRight={2} direction="row">
+  
+    <Grid container paddingTop={5} paddingBottom={5} paddingLeft={2} paddingRight={2} direction="row">
       <Grid item xl={12} xs={12}>
       <ImageWithListComponent
         labelList={"QUESTIONNAIRES"}
@@ -42,9 +44,10 @@ const QuestionAnswer= () => {
       </Grid>
      
     </Grid>
-    </ScrollComponent>
-   
+    
   </Grid>
+  </ScrollComponent>
+   
   )
 }
 

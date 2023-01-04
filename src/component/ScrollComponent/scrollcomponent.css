@@ -2,7 +2,7 @@
     height:100vh;
     overflow-y: scroll;
 }
-.fixed-scroll-container::-webkit-scrollbar{
-    display: none;
+/* .fixed-scroll-container::-webkit-scrollbar{
+    display:bloc
    
-}
+} */

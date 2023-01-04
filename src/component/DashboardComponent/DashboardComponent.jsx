@@ -12,7 +12,7 @@ import ScrollComponent from "../ScrollComponent/ScrollComponent";
 import backgroundImage from "../../BG.png";
 const DashboardComponent = ({ data = [] }) => {
   return (
-    
+    <ScrollComponent>
     <Grid
       container
       direction={"column"}
@@ -20,6 +20,8 @@ const DashboardComponent = ({ data = [] }) => {
         backgroundImage: `url(${backgroundImage})`,
         backgroundRepeat: "no-repeat",
         backgroundSize:"cover",
+        minHeight:"100%",
+        
         // height:"100%"
        
       }}
@@ -29,7 +31,7 @@ const DashboardComponent = ({ data = [] }) => {
         headerLabel={"Dashboard"}
         headerLabelIamges={dashboardIamge}
       />
-<ScrollComponent >
+
 
 <Grid
         container
@@ -73,9 +75,10 @@ const DashboardComponent = ({ data = [] }) => {
           />
         </Grid>
       </Grid>
-</ScrollComponent>
+
    
     </Grid>
+    </ScrollComponent>
     
   );
 };

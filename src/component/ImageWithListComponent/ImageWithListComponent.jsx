@@ -133,14 +133,18 @@ const ImageWithListComponent = ({
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 0.5 } }}
-          padding={3}
+          
+
         >
+          <Box padding={2}>
           <DataTable
             cellData={cellData}
             tableHead={tableHead}
             tableType={tableType}
             pagination={pagination}
           />
+          </Box>
+          
         </motion.div>
       )}
       {questionType === "question-choice" && (

@@ -9,7 +9,7 @@ const HeaderComponent = ({ headerLabel,headerLabelIamges}) => {
 
   return (
     <>
-      <Box className="header-container">
+      <Box className="header-container" position={"relative"} >
        
         <img
           src={headerIamge}

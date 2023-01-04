@@ -13,11 +13,13 @@ import backgroundImage from "../../BG.png";
 
 const QuestionChoice = () => {
   return (
+    <ScrollComponent>
     <Grid container direction={"column"}
     sx={{
       backgroundImage: `url(${backgroundImage})`,
       backgroundRepeat: "no-repeat",
       backgroundSize:"cover",
+      minHeight:"100%"
      
     }}
     className="dashboard-component-container"
@@ -26,8 +28,8 @@ const QuestionChoice = () => {
       headerLabel={"Questionnaires"}
       headerLabelIamges={dashboardIamge}
     />
-    <ScrollComponent>
-    <Grid container paddingTop={5} paddingLeft={2} paddingRight={2} direction="row">
+   
+    <Grid container paddingTop={5} paddingBottom={5} paddingLeft={2} paddingRight={2} direction="row">
       <Grid item xs={12} xl={12}>
       <ImageWithListComponent
         labelList={"QUESTIONNAIRES"}
@@ -46,10 +48,11 @@ const QuestionChoice = () => {
      
      
     </Grid>
-    </ScrollComponent>
+   
   
    
   </Grid>
+  </ScrollComponent>
   )
 }
 

@@ -16,11 +16,13 @@ import backgroundImage from "../../BG.png";
 
 const ResultComponent = () => {
   return (
+    <ScrollComponent>
     <Grid container direction={"column"}
     sx={{
       backgroundImage: `url(${backgroundImage})`,
       backgroundRepeat: "no-repeat",
       backgroundSize:"cover",
+      minHeight:"100%"
      
     }}
     >
@@ -30,8 +32,8 @@ const ResultComponent = () => {
       />
       
 
-      <ScrollComponent>
-      <Grid container padding={5} direction="row">
+      
+      <Grid container padding={5}  direction="row">
         <Grid item xl={12} xs={10}>
         <ImageWithListComponent
           labelList={"Result"}
@@ -47,9 +49,10 @@ const ResultComponent = () => {
         </Grid>
        
       </Grid>
-      </ScrollComponent>
+      
      
     </Grid>
+    </ScrollComponent>
   );
 };
 
