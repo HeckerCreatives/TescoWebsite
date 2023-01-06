@@ -5,12 +5,14 @@ import './buttonlable.css'
 export default function ButtonLabel({
   buttonVariant,
   buttonLabel,
-  handleCLick,
+  setOpen,
   setDefaultlValue,
   setSize = "medium",
   loginType=true,
-  styles
+  styles,
+  handleCLick
 }) {
+ 
   return (
     <Stack spacing={2} direction="row">
       <Button

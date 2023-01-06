@@ -17,11 +17,14 @@ import QuestionAnswer from "./component/QuestionAnswer/QuestionAnswer";
 import ResultComponent from "./component/ResultComponent/ResultComponent";
 import { dashboardteacherData } from "./utils/fakedata/fakedata";
 import { useState } from "react";
+import{QueryClientProvider,QueryClient } from 'react-query'
 function App() {
   const[user,setUser]=useState("")
-  console.log(user)
+  const queryClient=new QueryClient()
+  
   return (
-    <div className="App">
+    <QueryClientProvider client={queryClient}>
+       <div className="App">
       {/* {authRoute.map((each, index) => (
         <RoutePathComponent
           path={each?.path}
@@ -69,6 +72,8 @@ function App() {
      
      
     </div>
+    </QueryClientProvider>
+   
   );
 }
 

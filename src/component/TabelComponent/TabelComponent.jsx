@@ -85,11 +85,11 @@ const TabelComponent = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row, index) => (
+              {cellData?.data?.data?.map((row, index) => (
                 <TableRow key={row.id}>
-                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{row._id}</TableCell>
                   <TableCell>{row.username}</TableCell>
-                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.firstname}</TableCell>
                   <TableCell>{row.registerDate}</TableCell>
                   <TableCell
                     style={{
