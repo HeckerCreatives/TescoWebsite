@@ -13,6 +13,16 @@ exports.get_all_teacher= async(req,res)=>{
         res.status(500).send(err)
     }
 }
+exports.get_one_teacher= async(req,res)=>{
+    try{
+        const teacher=await TeacherModel.findOne({_id:req.params.id})
+        const{username,firstname,lastname,middlename}=teacher
+        res.status(200).json({message:'Data fetch succesfully',success:true,data:{username,firstname,lastname,middlename}})
+    }
+    catch(err){
+        res.status(500).send(err)
+    }
+}
 exports.create_teacher=async(req,res)=>{
    const hash_password=await hashPassword(req.body.password)
     try{
@@ -25,7 +35,8 @@ exports.create_teacher=async(req,res)=>{
               password:hash_password,
               firstname:req.body.firstname,
               lastname:req.body.lastname,
-              middlename:req.body.middlename
+              middlename:req.body.middlename,
+              role:"teacher"
             })
            try{
             await teacher.save()
@@ -53,7 +64,7 @@ exports.delete_teacher=async(req,res)=>{
 
 }
 exports.update_teacher=async(req,res)=>{
-    const filter=req.params.id
+    const filter=req.body.id
     try {
         const response = await TeacherModel.updateOne({_id:filter},{
             $set:{
@@ -61,6 +72,7 @@ exports.update_teacher=async(req,res)=>{
                 "lastname":req.body.lastname,
                 "username":req.body.username,
                 "middlename":req.body.middlename,
+                
                 
             }
         })

@@ -2,6 +2,7 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import './buttonlable.css'
+import CircularIndeterminate from "../Spinner/Spinner";
 export default function ButtonLabel({
   buttonVariant,
   buttonLabel,
@@ -10,7 +11,9 @@ export default function ButtonLabel({
   setSize = "medium",
   loginType=true,
   styles,
-  handleCLick
+  isLoading,
+  handleCLick,
+  disabledBtn
 }) {
  
   return (
@@ -22,8 +25,11 @@ export default function ButtonLabel({
         size={setSize}
         className={"button-class-variant"}
         sx={styles}
+        disabled={disabledBtn}
+
       >
-        {buttonLabel}
+        {isLoading?<CircularIndeterminate/>:buttonLabel}
+       
       </Button>
     </Stack>
   );

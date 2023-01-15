@@ -36,7 +36,7 @@ const SideNavBar = ({
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       minHeight: "100vh",
-      width:isOpen?"20em":"0em"
+      width:isOpen?"21em":"0em"
       
     },
   };
@@ -171,7 +171,7 @@ const SideNavBar = ({
                 styles={{
                   fontSize: "1.2em",
                   width: "10em",
-                  backgroundColor: "#ebad00",
+                  background:"linear-gradient(0deg, rgba(195,142,34,1) 0%, rgba(253,209,45,1) 45%)",
                   color: "black",
                 }}
               />

@@ -31,24 +31,27 @@ export const sideNavData = [
   {
     label: "Questions",
     image: QuestionsImage,
-    icon:<QuestionMarkIcon sx={{fontSize:"2em",color:"white"}}/>,
-    values: "question-choice",
-    type:false
-  },
-  {
-    label: "Topics",
-    image: arrowRightImage,
-    icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
-    values: "topic",
+    icon:<ArrowRightOutlinedIcon  sx={{fontSize:"2em",color:"white"}}/>,
+    values: {
+      value1:"topic",
+      value2:"question-answer"
+    },
     type:true
   },
-  {
-    label: "Questionnaires",
-    image: arrowRightImage,
-    icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
-    type:false,
-    values: "question-answer",
-  },
+  // {
+  //   label: "Topics",
+  //   image: arrowRightImage,
+  //   icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
+  //   values: "topic",
+  //   type:false
+  // },
+  // {
+  //   label: "Questionnaires",
+  //   image: arrowRightImage,
+  //   icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
+  //   type:false,
+  //   values: "question-answer",
+  // },
   {
     label: "Results",
     image: resultImage,
@@ -73,19 +76,22 @@ export const sideNavDatas = [
     type:false
   },
 
+  // {
+  //   label: "Topics",
+  //   image: arrowRightImage,
+  // icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
+  //   values: "topic-teacher",
+  //   type:false
+  // },
   {
-    label: "Topics",
-    image: arrowRightImage,
-  icon:<ArrowRightOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
-    values: "topic-teacher",
-    type:true
-  },
-  {
-    label: "Questionnaires",
+    label: "Questions",
     image: QuestionsImage,
-    icon:<QuestionMarkIcon sx={{fontSize:"2em",color:"white"}}/>,
-    values: "question-teacher",
-    type:false
+    icon:<ArrowRightOutlinedIcon  sx={{fontSize:"2em",color:"white"}}/>,
+    values: {
+      value1:"topic-teacher",
+      value2:"question-teacher"
+    },
+    type:true
   },
 
   {

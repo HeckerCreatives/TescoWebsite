@@ -9,9 +9,13 @@ import ImageWithListComponent from "../ImageWithListComponent/ImageWithListCompo
 import { topicsCellData, topicsDataHead } from "../../utils/fakedata/fakedata";
 import backgroundImage from "../../BG.png";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
+import { GetTopicHook } from "../../utils/CustomQuerHook/CustomQueryHook";
+
 
 
 const TopicComponent = () => {
+ const {isError,isLoading,data}= GetTopicHook()
+
   return (
     <Grid container direction={"column"}
     sx={{
@@ -33,12 +37,13 @@ const TopicComponent = () => {
         labelList={"Topics List"}
         setImage={image}
         searchType={true}
-        buttonLabel="Create Account"
-      
+        buttonLabel="Create Topic"
+        isLoading={isLoading}
         tableHead={topicsDataHead}
-        cellData={topicsCellData}
+        cellData={data}
         tableType={"topic"}
         optionType="none"
+        buttonFrom="topic"
        
       />
       </Grid>

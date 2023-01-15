@@ -2,7 +2,7 @@ const mongoose=require('mongoose')
  // Connect to the MongoDB cluster
 const db ={
     connection(){
-        mongoose.connect('mongodb+srv://admin:admin@cluster0.8e8qcgs.mongodb.net/?retryWrites=true&w=majority', {
+        mongoose.connect('mongodb+srv://admin:admin@cluster0.bb09zuv.mongodb.net/?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true
           });

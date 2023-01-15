@@ -6,8 +6,11 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition=require('./swagger.doc')
 const cors = require('cors');
+const Topics_Router = require('./route/Topic_route');
+const Question_Router = require('./route/Question_route');
+const Admin_Router = require('./route/Amin_route');
 const app= express()
-const PORT=5000
+const PORT=8000
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -17,7 +20,10 @@ app.use((req, res, next) => {
 
 //Here is the APi of the different routing
 app.use('/api',TeacherRoute)
-app.use(cors({"origin":"*"}))
+app.use('/api',Topics_Router)
+app.use('/api',Question_Router)
+app.use('/api',Admin_Router)
+app.use(cors())
 
 db.connection()
 

@@ -111,18 +111,23 @@ const ImageWIthLabel = ({
             <Grid
               item
               display={"flex"}
-              justifyContent="center"
-              alignItems={"center"}
+              
+             
               direction="column"
               paddingTop={"0.5em"}
+              paddingLeft={"2em"}
             >
-              <Link to={!subType?`/${setpath}`:`/dashboard/${setpath}`} style={{ textDecoration: "none" }}>
+               <Link to={!subType?`/${setpath.value1}`:`/dashboard/${setpath.value1}`} style={{ textDecoration: "none" }}>
                 <motion.div
                   style={{ display: "flex",alignItems:"center"}}
                   initial={{ y: -5, opacity: 0 }}
                   animate={{ y: 0, opacity: 1, transition: { duration: 0.3 } }}
                 >
+                  
                   <motion.div>{setIcon}</motion.div>
+                 
+
+                  
                   <Typography
                     sx={{ cursor: "pointer" }}
                     variant={labelVariant}
@@ -130,17 +135,19 @@ const ImageWIthLabel = ({
                     color={"white"}
                     
                   >
-                    Topic list 1
+                    Topics
                   </Typography>
+              
                 </motion.div>
               </Link>
 
-              <Link to={!subType?`/${setpath}`:`/dashboard/${setpath}`} style={{ textDecoration: "none" }}>
+              <Link to={!subType?`/${setpath.value2}`:`/dashboard/${setpath.value2}`} style={{ textDecoration: "none" }}>
                 <motion.div
                   style={{ display: "flex",alignItems:"center"}}
                   initial={{ y: -5, opacity: 0 }}
                   animate={{ y: 0, opacity: 1, transition: { duration: 0.4 } }}
                 >
+                
                   <motion.div>{setIcon}</motion.div>
                   <Typography
                     sx={{ cursor: "pointer" }}
@@ -149,7 +156,7 @@ const ImageWIthLabel = ({
                     color={"white"}
                     
                   >
-                    Topic list 1
+                   Questionnaires
                   </Typography>
                 </motion.div>
               </Link>

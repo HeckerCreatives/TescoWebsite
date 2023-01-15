@@ -6,11 +6,13 @@ import dashboardIamge from "../../Assest/Navigation/menu.png";
 import image from "../../Assest/Dashboard/Questinnaire.png";
 
 import ImageWithListComponent from "../ImageWithListComponent/ImageWithListComponent";
-import { resultDataHead, topicsCellData} from "../../utils/fakedata/fakedata";
+import { questionIdentifyHead, questionMultipleHead, resultDataHead, topicsCellData} from "../../utils/fakedata/fakedata";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
 import backgroundImage from "../../BG.png";
+import { GetQuestionHook } from "../../utils/CustomQuerHook/CustomQueryHook";
 
 const QuestionAnswer= () => {
+    const{data,isLoading}= GetQuestionHook()
   return (
     <ScrollComponent>
     <Grid container direction={"column"}
@@ -33,12 +35,16 @@ const QuestionAnswer= () => {
         labelList={"QUESTIONNAIRES"}
         setImage={image}
         searchType={false}
-        buttonLabel="Create Account"
-        questionType={"question-answer"}
-        tableHead={resultDataHead}
-        cellData={topicsCellData}
-        tableType={"result"}
+        buttonLabel="Create Questionnaires"
+        questionType={"table"}
+        tableHead={questionIdentifyHead}
+        cellData={data}
+        tableType={"quetion-identifier"}
         optionType={"option"}
+        buttonFrom={"question"}
+        isLoading={isLoading}
+        cellDataSecond={data}
+        tableHeadSecond={questionMultipleHead}
        
       />
       </Grid>

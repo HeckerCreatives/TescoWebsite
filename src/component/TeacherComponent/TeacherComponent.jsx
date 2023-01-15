@@ -5,15 +5,23 @@ import dashboardIamge from "../../Assest/Navigation/menu.png";
 import image from "../../Assest/Dashboard/Teacher.png";
 import backgroundImage from "../../BG.png";
 import ImageWithListComponent from "../ImageWithListComponent/ImageWithListComponent";
-import { teacherCellData, teacherDataHead } from "../../utils/fakedata/fakedata";
+import {teacherDataHead } from "../../utils/fakedata/fakedata";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
-import {useQuery} from 'react-query'
-import axios from "axios";
+
+import { GetTeacherHook } from "../../utils/CustomQuerHook/CustomQueryHook";
 const TeacherComponent = () => {
-  const{isError,isLoading,data}=useQuery('fetch-teacher',()=>{
-    return axios.get("http://localhost:5000/api/teacher")
-  })
-  // console.log('iam',data.data.data)
+
+  
+  const onSuccess=(data)=>{
+    console.log('data',data)
+  }
+  const onError=(error)=>{
+    console.log(error)
+  }
+  const{isError,isLoading,data}= GetTeacherHook()
+
+    
+  
     return (
     <ScrollComponent>
     <Grid container direction={"column"}
@@ -29,26 +37,28 @@ const TeacherComponent = () => {
         headerLabel={"Teacher"}
         headerLabelIamges={dashboardIamge}
       />
-      {isLoading?<h1 style={{textAlign:"center"}}>Loding</h1>:
+      
       <Grid container paddingTop={5} paddingLeft={2} paddingRight={2} paddingBottom={5} direction="row">
       <Grid item xl={12} lg={12} xs={9} md={12}>
+      
       <ImageWithListComponent
         labelList={"Teacher List"}
         setImage={image}
         searchType={false}
         buttonLabel="Create Account"
-        
         tableHead={teacherDataHead}
         cellData={data}
+        isLoading={isLoading}
         tableType={"teacher"}
         optionType="none"
        
       />
+    
 
       </Grid>
      
     </Grid>
-      }
+   
       
 
    

@@ -41,6 +41,8 @@ const QuestionChoice = () => {
         cellData={topicsCellData}
         tableType={"result"}
         optionType={"option"}
+        buttonFrom={"question"}
+
        
       />
       </Grid>

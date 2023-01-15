@@ -32,7 +32,8 @@
 }
 #drop-menu {
   outline: none;
-  width: 17em;
+ 
+  width:100%;
   padding: 1em;
   border-radius: 1em;
 }

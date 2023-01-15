@@ -32,7 +32,7 @@ const Cardindicator = ({
           <Box
             className="card-with-indicator-label-container"
             sx={{
-              backgroundColor: darkTheme ? "rgb(18, 88, 240)" : "#ebad00",
+              background: darkTheme ? "linear-gradient(0deg, rgba(25,53,207,1) 0%, rgba(25,80,227,1) 48%)" : " linear-gradient(0deg, rgba(195,142,34,1) 0%, rgba(253,209,45,1) 45%)",
               padding: "1em",
             }}
           >

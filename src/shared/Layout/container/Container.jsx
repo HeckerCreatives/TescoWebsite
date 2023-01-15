@@ -20,13 +20,16 @@ import CheckboxLabels from "../../CheckBox/CheckBox";
 import ButtonLabel from "../../Button/ButtonLabel";
 import { useState } from "react";
 import{useNavigate} from 'react-router-dom'
-export default function CustomContainer({
+import {UseLogin } from "../../../utils/CustomQuerHook/CustomQueryHook";
+
+
+const CustomContainer=({
   maxWidth,
   paperImage,
   paperImageContainer = false,
   setUser
  
-}) {
+})=> {
   const styles = {
     paperContainer: {
       backgroundImage: `url(${image})`,
@@ -37,26 +40,62 @@ export default function CustomContainer({
     },
   };
  const history=useNavigate()
+  
 const [username,setUsername]=useState("")
 const[password,setPassword]=useState("")
-const[error,setError]=useState("")
+const[errors,setError]=useState("")
+const[checked,setChecked]=useState(false)
 
+console.log(checked,'checked')
+const handleCheck=()=>{
+  if(checked===false){
+    setChecked(true)
+  }else{
+    setChecked(false)
+  }
+
+}
+
+const{mutate,isSuccess,isLoading,error}=UseLogin(setError)
+ 
+console.log(isSuccess,'success')
+   
+console.log(error,'data')
+React.useEffect(()=>{
+  if(isSuccess===true){
+  
+        setUser(checked?"admin":"teacher")
+    history(checked?'/dashboard':"/dashboard/dashboard-teacher")
+  }
+},[isSuccess])
 
 const handleSubmit=()=>{
-  if(username==="admin"&&password==="admin"){
-   
-    setUser("admin")
-    history('/dashboard')
-   
+  const data={
+    username:username,
+    password:password,
+    role:checked?"admin":"teacher"
+    
   }
-  else if(username==="teacher"&&password==="teacher")
-  {
-    setUser('teacher')
-    history('/dashboard/dashboard-teacher')
-  }
- else{
-      setError("PASSWORD OR USERNAME DOES'NT MATCH")
-    }
+  mutate(data)
+  
+
+//   if(username==="admin"&&password==="admin"){
+//     localStorage.setItem("tesco", "admin");
+   
+//     setUser("admin")
+//     history('/dashboard')
+   
+//   }
+//   else if(username==="teacher"&&password==="teacher")
+//   {
+//     localStorage.setItem("tesco", "teacher");
+    
+//     setUser('teacher')
+//     history('/dashboard/dashboard-teacher')
+//   }
+//  else{
+//       setError("PASSWORD OR USERNAME DOES'NT MATCH")
+//     }
 }
   return (
     <React.Fragment>
@@ -117,11 +156,13 @@ const handleSubmit=()=>{
                   />
                 </Grid>
                 <Grid item xs={6} lg={8}>
-                  <CheckboxLabels checkBoxLabel={"Remeber me"} />
+                  <CheckboxLabels checkBoxLabel={"Admin"} checked={checked} handleChange={handleCheck}/>
+                 
                 </Grid>
+                
                 {error&&
                 <Grid item>
-                <Typography variant="body1" color={"red"}>{error}</Typography>
+                <Typography variant="body1" color={"red"}>{error.response.data.message}</Typography>
               </Grid>
                 }
                 
@@ -131,6 +172,7 @@ const handleSubmit=()=>{
                     setSize={"large"}
                     buttonLabel={"Login"}
                     handleCLick={handleSubmit}
+                    isLoading={isLoading}
                     styles={{
                       fontSize:"1.2em",
                       width: "20em",
@@ -139,6 +181,7 @@ const handleSubmit=()=>{
                     }}
                   />
                 </Grid>
+                
               </Grid>
             </Grid>
           </Paper>
@@ -147,3 +190,4 @@ const handleSubmit=()=>{
     </React.Fragment>
   );
 }
+export default CustomContainer

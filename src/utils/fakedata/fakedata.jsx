@@ -3,6 +3,18 @@ import teacher from "../../Assest/Dashboard/Teacher.png";
 import student from "../../Assest/Dashboard/Student.png";
 import questionnaire from "../../Assest/Dashboard/Questinnaire.png";
 
+
+export const dropData=[
+  {
+    label:"Multiple Choice",
+    value:0
+  },
+  {
+    label:"identification",
+    value:1
+  }
+]
+
 export const dashboardcardData = [
   {
     image: teacher,
@@ -140,6 +152,55 @@ export const topicsDataHead = [
   },
   {
     title: "Date Created",
+  },
+  {
+    title: "Action",
+  },
+];
+export const questionIdentifyHead = [
+  {
+    title: "Question",
+  },
+  {
+    title: "Correct",
+  },
+  {
+    title:"Topic"
+  },
+  {
+    title:"Date"
+  },
+  {
+    title:"Generated Code"
+  },
+  {
+    title: "Action",
+  },
+];
+export const questionMultipleHead = [
+  {
+    title: "Question",
+  },
+  {
+    title: "Choice A",
+  },
+  {
+    title: "Choice B",
+  },
+  {
+    title: "Choice C",
+  },
+  {
+    title: "Topic",
+  },
+  {
+    title: "Date",
+  },
+  {
+    title: "Generated Code",
+  },
+  {
+    title: "Correct",
   },
   {
     title: "Action",

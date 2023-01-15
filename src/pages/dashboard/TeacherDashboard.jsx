@@ -21,7 +21,7 @@ import { dashboardcardData, dashboardteacherData } from "../../utils/fakedata/fa
 const TeacherDashboard = () => {
   const { name } = useParams();
   const [trigger, setTrigger] = useState(false);
-  console.log(name)
+  // console.log(name)
   let menuRef = useRef();
   useEffect(() => {
     let handler = (e) => {

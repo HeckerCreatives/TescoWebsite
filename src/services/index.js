@@ -1,12 +1,12 @@
-import { resultCellData } from "../utils/fakedata/fakedata"
+
 const service={
     getData:({from,to,raw})=>{
         
 
         return new Promise((resolve,reject)=>{
-            const datas=raw.slice(from,to)
+            const datas=raw&&raw?.slice(from,to)
             resolve({
-                count:raw.length,
+                count:raw&&raw?.length,
                 data:datas
             })
         })

@@ -36,6 +36,10 @@ const TeacherSchema= new Schema({
     registerDate: {
         type: Date,
         default: Date.now
+      },
+      role:{
+        type:String,
+        required:true
       }
 
 })

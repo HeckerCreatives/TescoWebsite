@@ -3,12 +3,19 @@ import { Box, TextField, Typography } from "@mui/material";
 import trangle from "../../Assest/Questionnaire/triangle.png";
 import edit from "../../Assest/Questionnaire/edit.png";
 import './questionchoice.css'
+
+import DropDownMenu from "../../shared/DropDownMenu/DropDownMenu";
+import DropMenu from "../../shared/DropDownMenu/DropMenu";
 const QuestionComponent = ({
   setPrimaryText,
   setType="default",
   setSecondarytext,
+  setDropValue,
   setDetails,
-  typeValue=true
+  typeValue=true,
+  dropData,
+  optionChangeHandler,
+  setTextChange
 
 }) => {
   const[editState,setEditState]=useState(true)
@@ -19,6 +26,10 @@ setEditState(false)
     else{
 setEditState(true)
     }
+  }
+
+  const handleChange=(value)=>{
+    setTextChange(value)
   }
   return (
     <Box className="questionnaries-container">
@@ -37,12 +48,8 @@ setEditState(true)
             {setPrimaryText}
           </Typography>
           <Box className="multiple-choice-container">
-            <Typography variant="body1" color={"white"} className="multiple-text">
-              {setSecondarytext}
-            </Typography>
-            {typeValue&&
-             <img src={trangle} alt="" className="trangle-iamge" />
-            }
+           <DropMenu dropValue={dropData} optionChangeHandler={optionChangeHandler} setDropValue={setDropValue}/>
+            
            
           </Box>
           <Box className="edit-container" style={{cursor:"pointer"}}>
@@ -53,7 +60,7 @@ setEditState(true)
           </Box>
         </Box>
         <Box className="questionnaries-details-container">
-         <textarea disabled={editState}  className="textArea"/>
+         <textarea disabled={editState} onChange={(e)=>handleChange(e.target.value)}  className="textArea"/>
         </Box>
       </Box>
     </Box>
