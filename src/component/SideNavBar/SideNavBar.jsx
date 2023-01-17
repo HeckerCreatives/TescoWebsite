@@ -12,9 +12,12 @@ import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
 
 import { useNavigate } from "react-router-dom";
 import "./sidenavbar.css";
-import { useRef,useEffect} from "react";
+import { useRef, useEffect } from "react";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import SideScroll from "../ScrollComponent/SideScroll";
+import { Menu } from "@mui/icons-material";
 const SideNavBar = ({
   parameters,
   role,
@@ -22,12 +25,12 @@ const SideNavBar = ({
   subType,
   setTigger,
   children,
-  setUser
+  setUser,
 }) => {
   const history = useNavigate();
   const handleLogout = () => {
     history("/");
-    setUser("")
+    setUser("");
   };
   const [isOpen, setOpen] = useState(true);
   const styles = {
@@ -36,8 +39,7 @@ const SideNavBar = ({
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       minHeight: "100vh",
-      width:isOpen?"21em":"0em"
-      
+      width: isOpen ? "21em" : "0em",
     },
   };
 
@@ -47,7 +49,7 @@ const SideNavBar = ({
   };
   const close = () => {
     setOpen(false);
-    setRotaion(rotation - 180);
+    setRotaion(rotation+180);
   };
 
   const [rotation, setRotaion] = useState(0);
@@ -61,9 +63,21 @@ const SideNavBar = ({
     document.addEventListener("mousedown", handler);
   });
   return (
-    <div className="side-bar-style-container-active" style={{postion:"relative"}} >
-      <motion.div animate={{ width: isOpen ? "20em" : "0px",transition:{duration:0.2}}}  >
-        <Paper style={styles.paperContiner} className="paper-side-bar" ref={menuRef} >
+    <div
+      className="side-bar-style-container-active"
+      style={{ postion: "relative" }}
+    >
+      <motion.div
+        animate={{
+          width: isOpen ? "20em" : "0px",
+          transition: { duration: 0.2 },
+        }}
+      >
+        <Paper
+          style={styles.paperContiner}
+          className="paper-side-bar"
+          ref={menuRef}
+        >
           <Grid
             container
             spacing={1}
@@ -79,33 +93,43 @@ const SideNavBar = ({
               justifyContent={"center"}
               alignItems={"center"}
               gap={3}
-             
             >
-                 <Grid item  zIndex={2}>
+              <Grid item zIndex={2}>
                 <motion.div
                   animate={{ rotate: rotation }}
-                  onClick={() => (isOpen ? close() : open())}
+                  
                 >
                   <button
-                    onClick={""}
+                   onClick={() => (isOpen ? close() : open())}
                     style={{
                       backgroundColor: "transparent",
                       outline: "none",
                       border: "none",
-                      
-
-                      //     border:"none",
-                      //   cursor:"pointer",
-                      // borderRadius:"50%",
-                      boxShadow:"rgb(79, 78, 78) 0px 0px 0px 3px"
                     }}
-                  >
-                    <FormatAlignRightIcon
+                  >{
+                    isOpen?
+                    <CloseIcon 
+                    fontSize="large"
+                    sx={{
+                      color: "white",
+                    }}
+                  /> :
+                    <Menu
+                    fontSize="large"
+                    sx={{
+                      color: "white",
+                    }}
+                    />
+                   
+
+                  }
+                    
+                    {/* <FormatAlignRightIcon
                       fontSize="small"
                       sx={{
                         color: "rgb(79, 78, 78)",
                       }}
-                    />
+                    /> */}
                   </button>
                 </motion.div>
               </Grid>
@@ -119,67 +143,67 @@ const SideNavBar = ({
                   />
                 </Grid>
               )}
-
-           
             </Grid>
             {isOpen && (
               <Grid item>
-                <Typography variant="h6" fontWeight={"700"} color={"white"} >
+                <Typography variant="h6" fontWeight={"700"} color={"white"}>
                   {role}
                 </Typography>
               </Grid>
             )}
           </Grid>
           {isOpen && (
-            <Grid container
+            <Grid
+              container
               sx={{
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
-               
               }}
             >
-              <SideScroll >
-              {sideNavData.map((each, index) => (
-                <Grid item sx={{ marginTop: "2em", padding: "0em 1em" }} key={index}>
-                  <ImageWIthLabel
-                    setImage={each.image}
-                    setpath={each.values}
-                    labelVariant={"h6"}
-                    setLabel={each.label}
-                    setIcon={each.icon}
-                    subType={subType}
-                    parameters={parameters}
-                    setDrop={each.type}
-                    
-                    
+              <SideScroll>
+                {sideNavData.map((each, index) => (
+                  <Grid
+                    item
+                    sx={{ marginTop: "2em", padding: "0em 1em" }}
+                    key={index}
+                  >
+                    <ImageWIthLabel
+                      setImage={each.image}
+                      setpath={each.values}
+                      labelVariant={"h6"}
+                      setLabel={each.label}
+                      setIcon={each.icon}
+                      subType={subType}
+                      parameters={parameters}
+                      setDrop={each.type}
+                    />
+                  </Grid>
+                ))}
+
+                <Grid
+                  Item
+                  display={"flex"}
+                  marginTop="4em"
+                  marginBottom={"4em"}
+                  justifyContent={"center"}
+                >
+                  <ButtonLabel
+                    buttonLabel={"Logout"}
+                    handleCLick={handleLogout}
+                    styles={{
+                      fontSize: "1.2em",
+                      width: "10em",
+                      background:
+                        "linear-gradient(0deg, rgba(195,142,34,1) 0%, rgba(253,209,45,1) 45%)",
+                      color: "black",
+                    }}
                   />
                 </Grid>
-              ))}
-           
-          
-               <Grid Item
-              display={"flex"}
-              marginTop="4em"
-              marginBottom={"4em"}
-              justifyContent={"center"}
-              
-            >
-              <ButtonLabel
-                buttonLabel={"Logout"}
-                handleCLick={handleLogout}
-                styles={{
-                  fontSize: "1.2em",
-                  width: "10em",
-                  background:"linear-gradient(0deg, rgba(195,142,34,1) 0%, rgba(253,209,45,1) 45%)",
-                  color: "black",
-                }}
-              />
-            </Grid>
-            </SideScroll>
+              </SideScroll>
             </Grid>
           )}
-            {/* {isOpen && (
+          {/* {isOpen && (
            
           )}
          */}

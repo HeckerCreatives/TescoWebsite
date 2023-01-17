@@ -149,14 +149,14 @@ console.log('ress',responses)
  
   const [count, setCount] = useState(1);
 
-  const { data, isSuccess: teacheGetSucces } = GetTeacherHook();
+  const { data, isSuccess:teacheGetSucces } = GetTeacherHook();
   const[multipleData,setMulitpleData]=useState([])
   const[identificationData,setIdentificationData]=useState([])
   
 
   const {
     mutate,
-
+    isSuccess,
     isError,
   } = UseCreateTeacherHooks();
   const { mutate: topicMutate, isError: topicError } = UseCreateTopicHooks();
@@ -181,7 +181,9 @@ console.log('ress',responses)
       showConfirmButton: false,
       timer: 1500,
     });
+   
   };
+  
   const handleSubmitQuestion=(value)=>{
     const data={
       

@@ -1,13 +1,27 @@
 const hashPassword = require('../middleware/PasswordHash/passwordhash')
+const AdminModal = require('../model/admin_model')
 const TeacherModel=require('../model/Teacher_model')
-
+const generateUniqueInteger=require("../middleware/GenerateCode/generateCode")
 
 // Get all teacher Data
 
 exports.get_all_teacher= async(req,res)=>{
     try{
-        const teacher=await TeacherModel.find({})
-        res.status(200).json({message:'Data fetch succesfully',success:true,data:teacher})
+        const dataList=[]
+        const teacher=await AdminModal.find({})
+        teacher.forEach(each=>{
+            if(each.role==="teacher"){
+                dataList.push({
+                    _id:each._id,
+                    id:each.id,
+                    username:each.username,
+                    role:each.role,
+                    name:each.firstname,
+                    date:each.registerDate
+                })
+            }
+        })
+        res.status(200).json({message:'Data fetch succesfully',success:true,data:dataList})
     }
     catch(err){
         res.status(500).send(err)
@@ -25,12 +39,14 @@ exports.get_one_teacher= async(req,res)=>{
 }
 exports.create_teacher=async(req,res)=>{
    const hash_password=await hashPassword(req.body.password)
+   const randomCode = generateUniqueInteger();
     try{
-        const teachers=await TeacherModel.findOne({username:req.body.username})
+        const teachers=await AdminModal.findOne({username:req.body.username})
         if(teachers){
             res.status(400).json({message:"username already exits",success:false})
         }else{
-          const teacher=  new TeacherModel({
+          const teacher=  new AdminModal({
+              id:randomCode,
               username:req.body.username,
               password:hash_password,
               firstname:req.body.firstname,
@@ -55,7 +71,7 @@ exports.create_teacher=async(req,res)=>{
 
 exports.delete_teacher=async(req,res)=>{
     try{
-        const response=await TeacherModel.deleteOne({_id:req.params.id})
+        const response=await AdminModal.deleteOne({_id:req.params.id})
         response&&res.status(200).json({message:"data has been deleted",sucess:true,data:response})
     }
     catch(err){
@@ -66,7 +82,7 @@ exports.delete_teacher=async(req,res)=>{
 exports.update_teacher=async(req,res)=>{
     const filter=req.body.id
     try {
-        const response = await TeacherModel.updateOne({_id:filter},{
+        const response = await AdminModal.updateOne({_id:filter},{
             $set:{
                 "firstname":req.body.firstname,
                 "lastname":req.body.lastname,

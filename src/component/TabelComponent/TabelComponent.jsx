@@ -28,7 +28,7 @@ import Swal from "sweetalert2";
 import { topicSchema } from "../../utils/validationSchema/validationSchema";
 
 const TabelComponent = ({
-  cellData,
+  cellData=[],
   pagination,
   tableHead = [],
   tableType,
@@ -276,11 +276,11 @@ const TabelComponent = ({
             <TableBody>
               {cellData &&
                 cellData?.data?.data?.map((row, index) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row._id}</TableCell>
+                  <TableRow key={index}>
+                    <TableCell>{row.id}</TableCell>
                     <TableCell>{row.username}</TableCell>
-                    <TableCell>{row.firstname}</TableCell>
-                    <TableCell>{row.registerDate}</TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.date}</TableCell>
                     <TableCell
                       style={{
                         display: "flex",
@@ -318,6 +318,7 @@ const TabelComponent = ({
             </TableBody>
           </Table>
         </TableContainer>
+      
       )}
       {/* **modal for delete component** */}
       {

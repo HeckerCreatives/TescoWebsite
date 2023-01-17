@@ -73,6 +73,7 @@ export const UseLogin=(setError)=>{
   return useMutation(loginUser,{
     onSuccess: () => {
       queryClient.invalidateQueries("user-data");
+      
     }
   })
 }

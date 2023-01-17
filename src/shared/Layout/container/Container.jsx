@@ -2,7 +2,7 @@ import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import {MDBIcon } from "mdb-react-ui-kit";
+import { MDBIcon } from "mdb-react-ui-kit";
 import {
   Checkbox,
   Divider,
@@ -19,17 +19,15 @@ import InputLabel from "../../InputLabel/InputLabel";
 import CheckboxLabels from "../../CheckBox/CheckBox";
 import ButtonLabel from "../../Button/ButtonLabel";
 import { useState } from "react";
-import{useNavigate} from 'react-router-dom'
-import {UseLogin } from "../../../utils/CustomQuerHook/CustomQueryHook";
+import { useNavigate } from "react-router-dom";
+import { UseLogin } from "../../../utils/CustomQuerHook/CustomQueryHook";
 
-
-const CustomContainer=({
+const CustomContainer = ({
   maxWidth,
   paperImage,
   paperImageContainer = false,
-  setUser
- 
-})=> {
+  setUser,
+}) => {
   const styles = {
     paperContainer: {
       backgroundImage: `url(${image})`,
@@ -39,68 +37,71 @@ const CustomContainer=({
       width: "100%",
     },
   };
- const history=useNavigate()
-  
-const [username,setUsername]=useState("")
-const[password,setPassword]=useState("")
-const[errors,setError]=useState("")
-const[checked,setChecked]=useState(false)
+  const history = useNavigate();
 
-console.log(checked,'checked')
-const handleCheck=()=>{
-  if(checked===false){
-    setChecked(true)
-  }else{
-    setChecked(false)
-  }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setError] = useState("");
+  const [checked, setChecked] = useState(false);
 
-}
+  const handleCheck = () => {
+    if(checked===false){
+      setChecked(true)
+      
 
-const{mutate,isSuccess,isLoading,error}=UseLogin(setError)
+    }else{
+      setChecked(false)
+    }
+  };
+
+  const { mutate, isLoading, error, data } = UseLogin(setError);
+
  
-console.log(isSuccess,'success')
-   
-console.log(error,'data')
-React.useEffect(()=>{
-  if(isSuccess===true){
-  
-        setUser(checked?"admin":"teacher")
-    history(checked?'/dashboard':"/dashboard/dashboard-teacher")
-  }
-},[isSuccess])
+  React.useEffect(() => {
+    if (data && data?.status === 201) {
+      setUser("admin");
+      localStorage.setItem("tesco", "admin");
+      history("/dashboard");
+    } else if (data && data?.status === 200) {
+      setUser("teacher");
+      localStorage.setItem("tesco", "teacher");
+      history("/dashboard/dashboard-teacher");
+    } else {
+      setUser("");
+      history("/");
+    }
+  }, [data]);
 
-const handleSubmit=()=>{
-  const data={
-    username:username,
-    password:password,
-    role:checked?"admin":"teacher"
-    
-  }
-  mutate(data)
-  
+  const handleSubmit = () => {
+    const data = {
+      username: username,
+      password: password,
+      role: checked ? "admin" : "teacher",
+    };
+    mutate(data);
 
-//   if(username==="admin"&&password==="admin"){
-//     localStorage.setItem("tesco", "admin");
-   
-//     setUser("admin")
-//     history('/dashboard')
-   
-//   }
-//   else if(username==="teacher"&&password==="teacher")
-//   {
-//     localStorage.setItem("tesco", "teacher");
-    
-//     setUser('teacher')
-//     history('/dashboard/dashboard-teacher')
-//   }
-//  else{
-//       setError("PASSWORD OR USERNAME DOES'NT MATCH")
-//     }
-}
+    //   if(username==="admin"&&password==="admin"){
+    //     localStorage.setItem("tesco", "admin");
+
+    //     setUser("admin")
+    //     history('/dashboard')
+
+    //   }
+    //   else if(username==="teacher"&&password==="teacher")
+    //   {
+    //     localStorage.setItem("tesco", "teacher");
+
+    //     setUser('teacher')
+    //     history('/dashboard/dashboard-teacher')
+    //   }
+    //  else{
+    //       setError("PASSWORD OR USERNAME DOES'NT MATCH")
+    //     }
+  };
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth={maxWidth} >
+      <Container maxWidth={maxWidth}>
         <Box sx={{ bgcolor: "#ffffff80", height: "100vh" }}>
           <Paper style={styles.paperContainer}>
             <Grid container justifyContent={"center"} alignItems={"center"}>
@@ -117,12 +118,12 @@ const handleSubmit=()=>{
                   }}
                 />
               </Grid>
-              <Grid container
+              <Grid
+                container
                 direction={"column"}
                 spacing={1}
                 alignItems={"center"}
                 position="absolute"
-
               >
                 <Grid item xs={12} md={12} sm={12} lg={12} marginTop="1em">
                   <img
@@ -137,35 +138,38 @@ const handleSubmit=()=>{
                     }}
                   />
                 </Grid>
-                <Grid item xs={12} lg={12} md={12} sx={{marginTop:"1em"}}>
+                <Grid item xs={12} lg={12} md={12} sx={{ marginTop: "1em" }}>
                   <InputLabel
                     setType={"text"}
                     inputPlaceHolder="Enter your username"
-                    onChange={(e)=>setUsername(e.target.value)}
-                 
-                    icons={<MDBIcon fas icon='at' />}
-                    
+                    onChange={(e) => setUsername(e.target.value)}
+                    icons={<MDBIcon fas icon="at" />}
                   />
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                   <InputLabel
                     setType={"password"}
                     inputPlaceHolder="Enter your password"
-                    onChange={(e)=>setPassword(e.target.value)}
-                    icons={<MDBIcon fas icon='key' />}
+                    onChange={(e) => setPassword(e.target.value)}
+                    icons={<MDBIcon fas icon="key" />}
                   />
                 </Grid>
                 <Grid item xs={6} lg={8}>
-                  <CheckboxLabels checkBoxLabel={"Admin"} checked={checked} handleChange={handleCheck}/>
-                 
+                  <CheckboxLabels
+                    checkBoxLabel={"Remember me"}
+                    checked={checked}
+                    handleChange={handleCheck}
+                  />
                 </Grid>
-                
-                {error&&
-                <Grid item>
-                <Typography variant="body1" color={"red"}>{error.response.data.message}</Typography>
-              </Grid>
-                }
-                
+
+                {error && (
+                  <Grid item>
+                    <Typography variant="body1" color={"red"}>
+                      {error.response.data.message}
+                    </Typography>
+                  </Grid>
+                )}
+
                 <Grid item xs={8} lg={8}>
                   <ButtonLabel
                     buttonVariant={"contained"}
@@ -174,14 +178,13 @@ const handleSubmit=()=>{
                     handleCLick={handleSubmit}
                     isLoading={isLoading}
                     styles={{
-                      fontSize:"1.2em",
+                      fontSize: "1.2em",
                       width: "20em",
-                      backgroundColor:"#ebad00",
-                      color:"black"
+                      backgroundColor: "#ebad00",
+                      color: "black",
                     }}
                   />
                 </Grid>
-                
               </Grid>
             </Grid>
           </Paper>
@@ -189,5 +192,5 @@ const handleSubmit=()=>{
       </Container>
     </React.Fragment>
   );
-}
-export default CustomContainer
+};
+export default CustomContainer;

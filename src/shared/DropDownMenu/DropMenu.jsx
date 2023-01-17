@@ -13,7 +13,7 @@ const DropMenu = ({dropValue,setDropValue,inputDropmenu=false}) => {
       <select name="drop-down-input" id="drop-down-input" onChange={onOptionChangeHandler}>
         {dropValue&&dropValue?.data?.map((each,index)=>{
             return(
-            <option value={each.username}>{each.username}</option>
+            <option value={each.name}>{each.name}</option>
             )
              
         })}

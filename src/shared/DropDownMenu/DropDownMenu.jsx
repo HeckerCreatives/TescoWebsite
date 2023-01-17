@@ -30,7 +30,7 @@ const DropDownMenu = ({
   return (
     <>
       <select name="drop-menu" id="drop-menu" onChange={onOptionChangeHandler}>
-      <option defaultValue={"Topic"}></option>
+      <option defaultValue={"Topic"}>Please select topic</option>
         {topicType &&
           dropValue &&
           dropValue?.data?.data?.map((each, index) => (
