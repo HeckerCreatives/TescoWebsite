@@ -13,10 +13,25 @@ const app= express()
 const PORT=8000
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+const corsConfig = {
+  origin: "http://localhost:3000", // change this to server of frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  allowedHeaders: [
+    "Origin",
+    "Content-Type",
+    "X-Requested-With",
+    "Accept",
+    "Authorization",
+  ],
+};
+
+app.use(cors(corsConfig));
+
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Headers', "Access-Control-Allow-Origin", 'Content-Type');
+//   next();
+// });
 
 //Here is the APi of the different routing
 app.use('/api',TeacherRoute)
