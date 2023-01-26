@@ -41,7 +41,7 @@ const CustomContainer = ({
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setError] = useState("");
+  const [token, setToken] = useState("");
   const [checked, setChecked] = useState(false);
 
   const handleCheck = () => {
@@ -54,15 +54,21 @@ const CustomContainer = ({
     }
   };
 
-  const { mutate, isLoading, error, data } = UseLogin(setError);
+  const { mutate, isLoading, error, data } = UseLogin(setToken);
 
  
   React.useEffect(() => {
     if (data && data?.status === 201) {
       setUser("admin");
+      localStorage.setItem("token",data?.data?.refreshToken)
+      localStorage.setItem("_id",data?.data?.data)
+      localStorage.setItem("role",data?.data?.message)
       localStorage.setItem("tesco", "admin");
       history("/dashboard");
     } else if (data && data?.status === 200) {
+      localStorage.setItem("token",data?.data?.refreshToken)
+      localStorage.setItem("role",data?.data?.message)
+      localStorage.setItem("_id",data?.data?.data)
       setUser("teacher");
       localStorage.setItem("tesco", "teacher");
       history("/dashboard/dashboard-teacher");
@@ -73,12 +79,13 @@ const CustomContainer = ({
   }, [data]);
 
   const handleSubmit = () => {
-    const data = {
+    const datas = {
       username: username,
       password: password,
-      role: checked ? "admin" : "teacher",
+      // role: checked ? "admin" : "teacher",
     };
-    mutate(data);
+    mutate(datas);
+    
 
     //   if(username==="admin"&&password==="admin"){
     //     localStorage.setItem("tesco", "admin");

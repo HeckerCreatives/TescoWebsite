@@ -1,14 +1,34 @@
+const jwt = require("jsonwebtoken");
 const generateUniqueInteger = require("../middleware/GenerateCode/generateCode");
 const TopicsModel = require("../model/Topics_model");
+const SCRETE_KEY = "iamscrete";
 
 exports.create_topics = async (req, res) => {
   const randomCode = generateUniqueInteger();
   try {
-    const response = new TopicsModel({
+    const authHeader = req.headers.authorization;
+    if(!authHeader){
+      return res.status(401).json({isAuth:false,message:"not authorized"})
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token || token === '') {
+      return res.status(401).json({isAuth:false,message:"invalid token"})
+      
+  }
+  let decodeToken;
+  try {
+    decodeToken=jwt.verify(token,SCRETE_KEY)
+    const{role,firstname,id}=decodeToken
+    
+     const response = new TopicsModel({
       generatedCode: randomCode,
       topic: req.body.topic,
-      instructor: req.body.instructor,
-    });
+      description: req.body.description,
+      user_id:id,
+      name:firstname,
+      role:role,
+
+      });
     if (response) {
       await response.save();
       return res
@@ -17,6 +37,14 @@ exports.create_topics = async (req, res) => {
     } else {
       return res.status(201).json({ success: false, msg: response });
     }
+
+
+  } catch (error) {
+    return res.status(500).json({data:error,message:"Something went wrong"});
+  }
+   
+
+   
   } catch (error) {
    return res.status(500).send(error);
   }
@@ -30,7 +58,7 @@ exports.get_all_topics=async(req,res)=>{
         .status(200)
         .json({ sucess: true, message: "Topic fetched",data:response });
       }else{
-        return res.status(201).json({ success: false, msg: response });
+        return res.status(201).json({ success: false, msg:response });
       }
 
         
@@ -55,7 +83,7 @@ exports.update_topic=async(req,res)=>{
         const response = await TopicsModel.updateOne({_id:filter},{
             $set:{
                 "topic":req.body.topic,
-                "instructor":req.body.instructor,
+                "description":req.body.description,
                
                 
             }

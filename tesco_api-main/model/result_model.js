@@ -1,18 +1,26 @@
 const mongoose=require("mongoose")
 const Schema=mongoose.Schema
+const answerSchema=new Schema({
+    answer:{
+        type:String,
+        required:true
+    }
+})
 const resultSchema=new Schema({
-    name:{
+    firstname:{
         type:String,
         required:true
     },
-    Topic:{
+    middlename:{
+        type:String,
+        
+    },
+    lastname:{
         type:String,
         required:true
     },
-    instructor:{
-        type:String,
-        required:true
-    },
+   answer:[answerSchema],
+   
     score:{
         type:String,
         required:true

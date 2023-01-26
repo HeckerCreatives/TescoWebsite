@@ -31,15 +31,22 @@ const SideNavBar = ({
   const handleLogout = () => {
     history("/");
     setUser("");
+    localStorage.removeItem("token")
+    localStorage.removeItem("tesco")
+    localStorage.removeItem("_id")
+    localStorage.removeItem("role")
   };
   const [isOpen, setOpen] = useState(true);
   const styles = {
     paperContiner: {
       backgroundImage: isOpen ? `url(${image})` : null,
-      backgroundSize: "cover",
+      backgroundSize: "fill",
       backgroundRepeat: "no-repeat",
       minHeight: "100vh",
-      width: isOpen ? "21em" : "0em",
+      position: "absolute",
+      zIndex: 1000,
+      boxShadow:isOpen?"rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px":""
+      
     },
   };
 
@@ -63,17 +70,20 @@ const SideNavBar = ({
     document.addEventListener("mousedown", handler);
   });
   return (
+    
     <div
       className="side-bar-style-container-active"
       style={{ postion: "relative" }}
     >
       <motion.div
+     
         animate={{
           width: isOpen ? "20em" : "0px",
-          transition: { duration: 0.2 },
+          
+          transition: { duration: 0.9},
         }}
       >
-        <Paper
+        <Box
           style={styles.paperContiner}
           className="paper-side-bar"
           ref={menuRef}
@@ -207,7 +217,7 @@ const SideNavBar = ({
            
           )}
          */}
-        </Paper>
+        </Box>
       </motion.div>
 
       <main className="main-child-container">{children}</main>

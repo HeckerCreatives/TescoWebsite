@@ -1,6 +1,6 @@
 @media all and (max-width: 480px) {
   img {
-    min-height: 35em;
+    min-height:3.3em;
   }
   .imageLogo{
     min-width:2em;
@@ -9,7 +9,7 @@
 }
 @media all and (max-width: 678px) { 
     img {
-      min-height: 35em;
+      min-height: 3.3em;
     }
     .imageLogo{
       min-width:2em;

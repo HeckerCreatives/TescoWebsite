@@ -12,9 +12,14 @@ export const endpoints={
     updateTopic:"/api/update-topic",
 
     createQuestion:"/api/create-question",
+    updateQuestion: "/api/update-question",
     getQuestion:"/api/question",
+    deleteQuestion:"/api/question",
 
-    login:"/api/login"
+    login:"/api/login",
+
+    getResult:"/api/result",
+
 
 
     

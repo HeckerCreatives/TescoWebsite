@@ -9,13 +9,21 @@ const TopicsSchema=new Schema({
         type:String,
         required:true
     },
-    instructor:{
+    description:{
         type:String,
         required:true
     },
     date:{
         type:Date,
         default:Date.now
+    },
+    user_id:{
+        type:String,
+        required:true
+    },
+    name:{
+        type:String,
+        required:true 
     }
     
     

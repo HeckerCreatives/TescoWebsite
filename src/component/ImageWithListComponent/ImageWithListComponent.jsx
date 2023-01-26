@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ButtonLabel from "../../shared/Button/ButtonLabel";
 import searchIcon from "../../Assest/Topic/SearchBtn.png";
-import { Box, Grid, Typography, Modal, Button } from "@mui/material";
+import { Box, Grid, Typography, Modal, Button,TextField } from "@mui/material";
 import DataTable from "../TabelComponent/TabelComponent";
 import "./imagewithlist.css";
 import DropDownMenu from "../../shared/DropDownMenu/DropDownMenu";
 import QuestionComponent from "../QuestionComponent/QuestionComponent";
 import InputLabel from "../../shared/InputLabel/InputLabel";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
-import { Form, Field, Formik } from "formik";
+import { Form, Field, Formik, useField } from "formik";
 import { MDBIcon, MDBInputGroup } from "mdb-react-ui-kit";
 import { motion } from "framer-motion";
 import * as Yup from "yup";
@@ -26,6 +26,7 @@ import { topicSchema } from "../../utils/validationSchema/validationSchema";
 import { dropData } from "../../utils/fakedata/fakedata";
 import DropMenu from "../../shared/DropDownMenu/DropMenu";
 import QuestionTabComponent from "../QuestionTabComponent/QuestionTabComponent";
+import ModalScroll from "../ScrollComponent/ModalScroll";
 
 const style = {
   position: "absolute",
@@ -95,28 +96,39 @@ const ImageWithListComponent = ({
   isLoading,
   cellDataSecond,
   tableHeadSecond,
-
   pagination = true,
+  setSearchParams,
   buttonFrom = "teacher",
 }) => {
+  const { mutate: questionMutate, isSuccess: questionSucess } =
+    UseCreateQuestionHooks();
+  const [responses, setResponse] = useState({});
+  const [rest, setRest] = useState({});
 
-  const{mutate:questionMutate,isSuccess:questionSucess}=UseCreateQuestionHooks()
-  const[responses,setResponse]=useState({})
-  const[rest,setRest]=useState({})
-
-  useEffect(()=>{
-    setRest(responses)
-  },[responses])
-  const{data:topicData}=GetTopicHook()
+  useEffect(() => {
+    setRest(responses);
+  }, [responses]);
+  const { data: topicData } = GetTopicHook();
   const [open, setOpen] = useState({
     openTeacher: false,
     openTopic: false,
   });
   const [openQuestion, setOpenQuestion] = useState(false);
   const [openTopic, setOpenTopic] = useState(false);
-  const[topicBtn,setTopicBtn]=useState(true)
+  const [topicBtn, setTopicBtn] = useState(true);
+  const [questionTitle, setQuestionTitle] = useState("");
+  const [dropState, setDropState] = useState(null);
+  const [searchBtn, setSearchBtn] = useState(false);
 
-console.log('ress',responses)
+  const handleuestionSearch = () => {
+    if (searchBtn === true) {
+      setSearchParams(null);
+      setSearchBtn(false);
+    } else {
+      setSearchParams(dropState);
+      setSearchBtn(true);
+    }
+  };
 
   const initialValues = {
     firstName: "",
@@ -127,6 +139,7 @@ console.log('ress',responses)
   };
   const initialValuesTopic = {
     topic: "",
+    description: "",
   };
 
   const handleOpen = () => {
@@ -135,34 +148,34 @@ console.log('ress',responses)
   };
   const handleCreateQuestion = () => {
     setOpenQuestion(true);
-    setTopicBtn(true)
+    setTopicBtn(true);
   };
   const handleClose = () => {
     setOpen(false);
     setOpenQuestion(false);
     setOpenTopic(false);
-    setTabComponentQuestion([])
-    
+    setTabComponentQuestion([]);
+    setCount(1);
+    setQuestionList([]);
   };
   const [error, setError] = useState("");
   const [dropValue, setDropValue] = useState("0");
- 
+
   const [count, setCount] = useState(1);
 
-  const { data, isSuccess:teacheGetSucces } = GetTeacherHook();
-  const[multipleData,setMulitpleData]=useState([])
-  const[identificationData,setIdentificationData]=useState([])
-  
+  const { data, isSuccess: teacheGetSucces } = GetTeacherHook();
+  const [questionList, setQuestionList] = useState([]);
 
-  const {
-    mutate,
-    isSuccess,
-    isError,
-  } = UseCreateTeacherHooks();
+  const [token, setToken] = useState("");
+
+  const { mutate, isSuccess, isError } = UseCreateTeacherHooks();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setToken(token);
+  }, []);
   const { mutate: topicMutate, isError: topicError } = UseCreateTopicHooks();
 
   const handleSubmit = (values) => {
-    
     mutate({
       username: values.userName,
       password: values.password,
@@ -181,64 +194,80 @@ console.log('ress',responses)
       showConfirmButton: false,
       timer: 1500,
     });
-   
   };
-  
-  const handleSubmitQuestion=(value)=>{
-    const data={
-      
-      questionNumber:count?count:null,
-      multipleChoice:multipleData.length>0?multipleData:null,
-      identicationChoice:identificationData.length>0?identificationData:null
-    }
-    
-    if(data.identicationChoice===null&&data.multipleChoice===null){
-      setError("need to fill data first")
-    }else{
-      questionMutate(data)
-      setError([])
-      setMulitpleData([])
-      setIdentificationData([])
-      setOpenQuestion(false)
-      Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Question created successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
 
+  const handleSubmitQuestion = (value) => {
+    const data = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      topic_name: responses && responses?.topic,
+      questionnaire_title: questionTitle,
+      questions: questionList,
+    };
 
-    }
+    questionMutate(data);
+    setError([]);
+    setTabComponentQuestion([]);
+    setCount(1);
+    setQuestionList([]);
 
-    
-   
-    
-
-
-  }
+    setOpenQuestion(false);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Question created successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+  const MyTextArea = ({ label, ...props }) => {
+    // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
+    // which we can spread on <input> and alse replace ErrorMessage entirely.
+    const [field, meta] = useField(props);
+    return (
+      <>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <textarea
+          className="text-area"
+          style={{ height: "10em" }}
+          {...field}
+          {...props}
+        />
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </>
+    );
+  };
   const [tabComponentQuestion, setTabComponentQuestion] = useState([]);
-    //  useEffect(()=>{
-    //   setTabComponentQuestion([{
-    //     id:count,
-    //     component:<QuestionTabComponent index={1} responseCode={responses&&responses?.generatedCode} responseDate={responses&&responses?.date} responseTopic={responses&&responses?.topic} setIdentification={identificationData} setMultiple={multipleData}/>
-    //    }])
-    //  },[])
-    
+
   const handleTabComponent = () => {
     setCount(count + 1);
     const newTab = {
       id: count,
-      component: <QuestionTabComponent index={count} responseCode={responses&&responses?.generatedCode} responseDate={responses&&responses?.date} responseTopic={responses&&responses?.topic}  setMultiple={multipleData} setIdentification={identificationData} />,
+      component: (
+        <QuestionTabComponent
+          index={count}
+          setQuestions={questionList}
+          setQuestionTitle={setQuestionTitle}
+        />
+      ),
     };
     setTabComponentQuestion([...tabComponentQuestion, newTab]);
   };
 
-  const handleSubmitTopics = (values) => {
-    topicMutate({
+  const handleSubmitTopics = async (values) => {
+    const body = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       topic: values.topic,
-      instructor: dropValue,
-    });
+      description: values.description,
+    };
+    topicMutate(body);
 
     if (topicError) {
       return setError(isError), setOpen({ openTopic: true });
@@ -278,7 +307,7 @@ console.log('ress',responses)
             </Typography>
           </motion.div>
         </Box>
-        {searchType && (
+        {/* {searchType && (
           <motion.div
             initial={{ y: -10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -292,13 +321,7 @@ console.log('ress',responses)
               className="setting-type-container"
               paddingRight={"1em"}
             >
-              {/* <Typography
-              color={"grey"}
-              variant="h5"
-              className="search-typo-text"
-            >
-              Search
-            </Typography> */}
+              
               <MDBInputGroup
                 className="mb-3"
                 noBorder
@@ -309,7 +332,7 @@ console.log('ress',responses)
               </MDBInputGroup>
             </Box>
           </motion.div>
-        )}
+        )} */}
         {optionType === "none" && (
           <Box padding={3}>
             <ButtonLabel
@@ -423,16 +446,23 @@ console.log('ress',responses)
                     }}
                   >
                     <Typography variant="h6">Add Topics</Typography>
+                    <Typography>Topic :</Typography>
                     <Field name="topic" placeholder="enter topics" />
                     {errors.topic && touched.topic ? (
                       <p style={{ fontSize: "1em", color: "red" }}>
                         {errors.topic}
                       </p>
                     ) : null}
-                    <DropMenu
+                    {/* <DropMenu
                       inputDropmenu={true}
                       dropValue={data && data.data}
                       setDropValue={setDropValue}
+                    /> */}
+
+                    <MyTextArea
+                      label={"Description"}
+                      name="description"
+                      placeholder="enter your description"
                     />
 
                     <Button type="submit">Apply</Button>
@@ -463,7 +493,7 @@ console.log('ress',responses)
                 initialValues={initialValuesTopic}
                 // validationSchema={topicSchema}
                 onSubmit={(values) => {
-                  handleSubmitQuestion(values)
+                  handleSubmitQuestion(values);
                 }}
               >
                 {({ errors, touched }) => (
@@ -474,30 +504,48 @@ console.log('ress',responses)
                       flexDirection: "column",
                       gap: 10,
                     }}
-                  > 
-                  
+                  >
                     <Typography variant="h6" marginBottom={"1em"}>
                       CREATE QUESTIONS
                     </Typography>
-                    {error&&<Typography color={"red"} variant="body2">{error}</Typography>}
-                    {tabComponentQuestion?.map((each, index) => (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{
-                          opacity: 1,
-                          y: 0,
-                          transition: { duration: 0.3 },
-                        }}
-                        exit={{
-                          opacity: 0,
-                          y: -10,
-                          transition: { duration: 0.3 },
-                        }}
-                        key={index}
-                      >
-                        {each.component}
-                      </motion.div>
-                    ))}
+                    <Box padding={2}>
+                      <TextField
+                        color="secondary"
+                        fullWidth="true"
+                        id="outlined-basic"
+                        onChange={(e) => setQuestionTitle(e.target.value)}
+                        label="Questionnaries title"
+                        variant="outlined"
+                      />
+                    </Box>
+
+                    {error && (
+                      <Typography color={"red"} variant="body2">
+                        {error}
+                      </Typography>
+                    )}
+                    <ModalScroll>
+                      {tabComponentQuestion?.map((each, index) => (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                            transition: { duration: 0.3 },
+                          }}
+                          exit={{
+                            opacity: 0,
+                            y: -10,
+                            transition: { duration: 0.3 },
+                          }}
+                          key={index}
+                          style={{ marginBottom: "1em" }}
+                        >
+                          {each.component}
+                        </motion.div>
+                      ))}
+                    </ModalScroll>
+
                     <Button onClick={handleTabComponent}>Add New Form</Button>
                     <Button type="submit">Apply</Button>
                     <Button onClick={handleClose}>Close</Button>
@@ -516,16 +564,22 @@ console.log('ress',responses)
             padding={2}
           >
             <Grid item xs={12} lg={3} xl={3}>
-              <DropDownMenu defaultValue={"Choose Topics"} setTopic={setTopicBtn} dropValue={topicData} setResponse={setResponse} topicType={true} yearType={true} />
+              <DropDownMenu
+                defaultValue={"Choose Topics"}
+                setTopic={setTopicBtn}
+                dropValue={topicData}
+                setResponse={setResponse}
+                topicType={true}
+                yearType={true}
+              />
             </Grid>
             <Grid item xs={12} lg={3} xl={3}>
               <Typography>Date</Typography>
-              <Typography>{responses&&responses?.date}</Typography>
+              <Typography>{responses && responses?.date}</Typography>
             </Grid>
             <Grid item xs={12} lg={3} xl={3}>
-            <Typography>Generated Code</Typography>
-              <Typography>{responses&&responses?.generatedCode}</Typography>
-              
+              <Typography>Generated Code</Typography>
+              <Typography>{responses && responses?.generatedCode}</Typography>
             </Grid>
             <Grid item xs={12} lg={12} xl={12}>
               <ButtonLabel
@@ -542,6 +596,20 @@ console.log('ress',responses)
               />
             </Grid>
           </Grid>
+          <Box padding={2} display="flex" alignItems={"center"} gap={5}>
+            <DropDownMenu
+              defaultValue={"Choose Topics"}
+              dropValue={topicData}
+              topicType={true}
+              yearType={true}
+              returnType={true}
+              getDropState={setDropState}
+            />
+
+            <Button variant="outlined" onClick={handleuestionSearch}>
+              {searchBtn ? "Cancel" : "Search"}
+            </Button>
+          </Box>
         </motion.div>
       )}
       {questionType === "table" && (

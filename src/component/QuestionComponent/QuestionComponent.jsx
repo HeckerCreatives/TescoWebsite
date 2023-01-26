@@ -15,7 +15,8 @@ const QuestionComponent = ({
   typeValue=true,
   dropData,
   optionChangeHandler,
-  setTextChange
+  setTextChange,setValue,
+  defaultValue
 
 }) => {
   const[editState,setEditState]=useState(true)
@@ -60,7 +61,7 @@ setEditState(true)
           </Box>
         </Box>
         <Box className="questionnaries-details-container">
-         <textarea disabled={editState} onChange={(e)=>handleChange(e.target.value)}  className="textArea"/>
+         <textarea disabled={editState} value={defaultValue}  onChange={(e)=>handleChange(e.target.value)}  className="textArea"/>
         </Box>
       </Box>
     </Box>

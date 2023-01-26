@@ -11,9 +11,10 @@ const DropMenu = ({dropValue,setDropValue,inputDropmenu=false}) => {
     {inputDropmenu===true?<>
     
       <select name="drop-down-input" id="drop-down-input" onChange={onOptionChangeHandler}>
+      <option value={""}>Select instructor</option>
         {dropValue&&dropValue?.data?.map((each,index)=>{
             return(
-            <option value={each.name}>{each.name}</option>
+            <option value={each.firstname}>{each.firstname}</option>
             )
              
         })}

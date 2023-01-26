@@ -102,7 +102,59 @@ export const resultDataHead = [
   {
     title: "Date",
   },
+  {
+    title:"Action"
+  }
 ];
+export const resultShowData=[
+  {
+    title:"Question"
+  },
+  {
+    title:"Correct Answer"
+  },
+  {
+    title:"Topic"
+  },
+  {
+    title:"Date"
+  },
+  {
+    title:"Generated Code"
+  },
+  {
+    title:"Student Answer"
+  },
+]
+export const resultMultipleData=[
+  {
+    title:"Question"
+  },
+  {
+    title:"Choice A"
+  },
+  {
+    title:"Choice B"
+  },
+  {
+    title:"Choice C"
+  },
+  {
+    title:"Topic"
+  },
+  {
+    title:"Date"
+  },
+  {
+    title:"Generated Code"
+  },
+  {
+    title:"Correct"
+  },
+  {
+    title:"Student Answer"
+  },
+]
 export const monthData = [
   {
     title: "Name",
@@ -159,19 +211,19 @@ export const topicsDataHead = [
 ];
 export const questionIdentifyHead = [
   {
-    title: "Question",
+    title: "Questionnaries ID",
   },
   {
-    title: "Correct",
+    title: "Topic Name",
   },
   {
-    title:"Topic"
+    title:"Questionnarie Name"
+  },
+  {
+    title:"instructor"
   },
   {
     title:"Date"
-  },
-  {
-    title:"Generated Code"
   },
   {
     title: "Action",

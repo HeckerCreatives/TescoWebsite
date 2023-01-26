@@ -1,6 +1,6 @@
 const hashPassword = require('../middleware/PasswordHash/passwordhash')
 const AdminModal = require('../model/admin_model')
-const TeacherModel=require('../model/Teacher_model')
+
 const generateUniqueInteger=require("../middleware/GenerateCode/generateCode")
 
 // Get all teacher Data
@@ -16,8 +16,10 @@ exports.get_all_teacher= async(req,res)=>{
                     id:each.id,
                     username:each.username,
                     role:each.role,
-                    name:each.firstname,
-                    date:each.registerDate
+                    firstname:each.firstname,
+                    date:each.registerDate,
+                    lastname:each.lastname,
+                    middlename:each.middlename
                 })
             }
         })

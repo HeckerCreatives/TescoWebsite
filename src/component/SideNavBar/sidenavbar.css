@@ -6,18 +6,17 @@
     justify-content: center; */
     
 }
-/* .paper-side-bar{
-    position: absolute;
-    z-index: 1000;
+.paper-side-bar{
    
-} */
+   
+}
 @media all and (max-width:709px){
-    .paper-side-bar{
+    /* .paper-side-bar{
      position: absolute;
      z-index: 1000;
      
      
-    }
+    } */
    
     
    

@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Grid, } from "@mui/material";
 import HeaderComponent from "../HeaderComponent/HeaderComponent";
 import dashboardIamge from "../../Assest/Navigation/menu.png";
@@ -9,10 +9,15 @@ import ImageWithListComponent from "../ImageWithListComponent/ImageWithListCompo
 import { questionIdentifyHead, questionMultipleHead, resultDataHead, topicsCellData} from "../../utils/fakedata/fakedata";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
 import backgroundImage from "../../BG.png";
-import { GetQuestionHook } from "../../utils/CustomQuerHook/CustomQueryHook";
+import { getQuestion, GetQuestionHook } from "../../utils/CustomQuerHook/CustomQueryHook";
+import { useQuery } from "react-query";
 
 const QuestionAnswer= () => {
-    const{data,isLoading}= GetQuestionHook()
+  const[tp,setQuery]=useState(null)
+  
+ const{data,isLoading}= useQuery(['question-data',tp],getQuestion)
+ 
+    
   return (
     <ScrollComponent>
     <Grid container direction={"column"}
@@ -45,7 +50,7 @@ const QuestionAnswer= () => {
         isLoading={isLoading}
         cellDataSecond={data}
         tableHeadSecond={questionMultipleHead}
-       
+       setSearchParams={setQuery}
       />
       </Grid>
      

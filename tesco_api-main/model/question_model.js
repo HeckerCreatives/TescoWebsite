@@ -1,65 +1,60 @@
 const mongoose=require('mongoose')
 const Schema=mongoose.Schema
-const multipleChoiceSchema=new Schema({
-    question:{
-        type:String,
-        
-    },
-    choiceA:{
-        type:String,
-        
-    },
-    choiceB:{
-        type:String,
-        
-    },
-    choiceC:{
-        type:String,
-        
-    },
-    correct:{
-        type:String,
-       
-    },
-    generatedCode:{
-        type:String,
-    },
-    date:{
-        type:String
-    },
-    topic:{
-        type:String
-    }
-
-})
-const identicationChoiceSchema=new Schema({
-    question:{
-        type:String,
-       
-    },
-
-    correct:{
-        type:String,
-       
-    },
-    generatedCode:{
-        type:String,
-    },
-    date:{
-        type:String
-    },
-    topic:{
-        type:String
-    }
-
-})
 const questionSchema=new Schema({
-    questionNumber:{
+    type:{
+        type:String,
+    },
+    question:{
+        type:String,
+        
+    },
+    choice1:{
+        type:String,
+        
+    },
+    choice2:{
+        type:String,
+        
+    },
+    choice3:{
+        type:String,
+        
+    },
+   number:{
+        type:String,
+        
+    },
+    answer:{
+        type:String
+    }
+   
+    
+
+})
+
+const questionsSchema=new Schema({
+    questionnaire_id:{
+        type:Number,
+        required:true
+    },
+    topic_name:{
         type:String,
         required:true
     },
-    multipleChoice:[multipleChoiceSchema],
-    identicationChoice:[identicationChoiceSchema]
+    questionnaire_title:{
+        type:String,
+        required:true
+    },
+    instructor:{
+        type:String,
+        required:true
+    },
+    date:{
+        type:Date,
+        default:Date.now
+    },
+    questions:[questionSchema],
+    
 })
-const QuestionModal=mongoose.model('Question',questionSchema)
+const QuestionModal=mongoose.model('Question',questionsSchema)
 module.exports=QuestionModal

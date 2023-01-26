@@ -30,11 +30,12 @@ function App() {
       
       <Routes>
         <Route path="/" element={<Login setUser={setUser}/>} />
-       
+      
        
       </Routes>
       {user==="admin"&&
-       <SideNavBar sideNavData={sideNavData} role="ADMIN" setUser={setUser}>
+      <>
+       <SideNavBar sideNavData={sideNavData} role="ADMIN" setUser={setUser}/>
        <Routes>
        <Route path="/dashboard" element={<DashboardComponent data={dashboardcardData}/>} />
        <Route path="/teacher" element={<TeacherComponent/>} />
@@ -44,11 +45,14 @@ function App() {
        <Route path="/result" element={<ResultComponent/>}/>
        <Route path="/setting" element={<Setting/>}/>
        </Routes>
+      </>
+      
      
-     </SideNavBar>
+     
       }
      {user==="teacher"&&
-      <SideNavBar sideNavData={sideNavDatas} role="Teacher" subType={true} setUser={setUser}>
+     <>
+     <SideNavBar sideNavData={sideNavDatas} role="Teacher" subType={true} setUser={setUser}/>
       <Routes>
       <Route path="/dashboard/dashboard-teacher" element={<DashboardComponent data={dashboardteacherData}/>} />
       <Route path="/dashboard/topic-teacher" element={<TopicComponent/>} />
@@ -62,7 +66,8 @@ function App() {
      
       </Routes>
     
-    </SideNavBar>
+     </>
+      
      }
      
      

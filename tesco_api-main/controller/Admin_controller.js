@@ -3,10 +3,12 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const SCRETE_KEY = "iamscrete";
 const hashPassword = require("../middleware/PasswordHash/passwordhash");
-const TeacherModel = require("../model/Teacher_model");
+
+const generateUniqueInteger=require('../middleware/GenerateCode/generateCode')
 
 exports.sign_up = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password,firstname,lastname,middlename } = req.body;
+  const randomCode = generateUniqueInteger();
   try {
     const existingUser = await AdminModal.findOne({ username: username });
     if (existingUser) {
@@ -18,7 +20,11 @@ exports.sign_up = async (req, res) => {
     const result = await AdminModal.create({
       username: username,
       password: hashedPassword,
+      firstname:firstname,
+      lastname:lastname,
+      middlename:middlename,
       role: "admin",
+      id:randomCode,
     });
     await result.save();
     const token = jwt.sign(
@@ -44,22 +50,31 @@ exports.login = async (req, res) => {
         password,
         existingUser.password
       )
-    !matchPassword&&(res.status(400).json({ message: "invalid cridentials" }))
-    const token=jwt.sign({username:existingUser.username,role:existingUser.role,id:existingUser._id},SCRETE_KEY)
-    
-    token&&res.status(201).json({refreshToken:token,message:"admmin",success:true})
-
+    if(!matchPassword){
+      return res.status(400).json({ message: "invalid cridentials" })
     }
-    if (existingUser.role === "teacher") {
+    const token=jwt.sign({username:existingUser.username,role:existingUser.role,firstname:existingUser.firstname,id:existingUser._id},SCRETE_KEY)
+    
+    if(token){
+      return res.status(201).json({refreshToken:token,message:"admin",success:true,data:existingUser._id})
+
+    } 
+    }
+   else if (existingUser.role === "teacher") {
         const matchPassword = await bcrypt.compare(
           password,
           existingUser.password
         )
-      !matchPassword&&(res.status(400).json({ message: "invalid cridentials" }))
-      const token=jwt.sign({username:existingUser.username,role:existingUser.role,id:existingUser._id},SCRETE_KEY)
-      token&&res.status(200).json({refreshToken:token,message:"teacher"})
+        if(!matchPassword){
+          return res.status(400).json({ message: "invalid cridentials" })
+        }
+        const token=jwt.sign({username:existingUser.username,role:existingUser.role,firstname:existingUser.firstname,id:existingUser._id},SCRETE_KEY)
+      if(token){
+        return res.status(200).json({refreshToken:token,message:"teacher",data:existingUser._id})
+      }
   
       }
+    
     
   } catch (err) {
     res

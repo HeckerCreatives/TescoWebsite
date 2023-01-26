@@ -21,11 +21,28 @@ const getSingleTeacher = async (data) => {
   return await axios.get(`http://localhost:5000/api/teacher/${data}`);
 };
 
-const createQuestion=async(data)=>{
-  return await axios.post(`${process.env.REACT_APP_BASE_URL}${endpoints.createQuestion}`, data);
+const deleteQuestion=async(id)=>{
+  return await axios.delete(`${process.env.REACT_APP_BASE_URL}${endpoints.deleteQuestion}/${id}`)
+
 }
-const getQuestion=async()=>{
-  return await axios.get(`${process.env.REACT_APP_BASE_URL}${endpoints.getQuestion}`);
+
+const createQuestion=async(data)=>{
+  const{headers,...datas}=data
+  return await axios.post(`${process.env.REACT_APP_BASE_URL}${endpoints.createQuestion}`,datas,{headers});
+}
+const updateQuestion=async(data)=>{
+  const{headers,...datas}=data
+  return await axios.put(`${process.env.REACT_APP_BASE_URL}${endpoints.updateQuestion}`,datas,{headers});
+}
+export const getQuestion=async(tp)=>{
+ console.log(tp,'tp')
+ const{queryKey}=tp&&tp
+  return await axios.get(`${process.env.REACT_APP_BASE_URL}${endpoints.getQuestion}/?tp=${queryKey&&queryKey[1]}`);
+}
+
+
+const getResult=async()=>{
+  return await axios.get(`${process.env.REACT_APP_BASE_URL}${endpoints.getResult}`)
 }
 
 //user authentication 
@@ -36,8 +53,9 @@ return response
 
 
 const createTopic=async(data)=>{
+const{headers,...datas}=data
 
-  return await axios.post(`${process.env.REACT_APP_BASE_URL}${endpoints.createTopic}`,data)
+  return await axios.post(`${process.env.REACT_APP_BASE_URL}${endpoints.createTopic}`,datas,{headers})
 }
 const getTopic=async()=>{
   return await axios.get(`${process.env.REACT_APP_BASE_URL}${endpoints.getAllTopic}`);
@@ -60,12 +78,36 @@ export const UseCreateQuestionHooks=()=>{
     },
   });
 }
-export const GetQuestionHook = (onSuccess, onError) => {
-  return useQuery("question-data",getQuestion, {
+export const UseUpdateQuestionHooks=()=>{
+  const queryClient = useQueryClient();
+  return useMutation(updateQuestion, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("question-data");
+    },
+  });
+}
+export const GetQuestionHook =(query) => {
+  
+  return useQuery(['question-data',query],getQuestion);
+};
+export const DeleteQuestionHook = (setDeletionError) => {
+  const queryClient = useQueryClient();
+  return useMutation(deleteQuestion, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("question-data");
+    },
+    onError: ({ message }) => {
+      setDeletionError(message);
+    },
+  });
+};
+
+export const GetResultHook=(onSuccess,onError)=>{
+  return useQuery("result-data", getResult, {
     onSuccess,
     onError,
   });
-};
+}
 
 
 export const UseLogin=(setError)=>{
