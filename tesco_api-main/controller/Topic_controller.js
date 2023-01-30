@@ -63,11 +63,15 @@ exports.get_all_topics = async (req, res) => {
 exports.get_topics_by_user = async (req, res) => {
   try {
     const { userId } = req.params;
-
-    const topics = await TopicsModel.find({
-      user_id: userId,
-    });
-
+    const topics = await TopicsModel.find(
+      {
+        user_id: userId,
+      },
+      {
+        _id: 0,
+        topic: 1,
+      }
+    );
     return res.status(200).json({ success: true, data: topics });
   } catch (err) {
     return res.status(500).send(err);
