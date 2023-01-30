@@ -47,6 +47,8 @@ import { useReactToPrint } from "react-to-print";
 import { getQuestion } from "../../utils/CustomQuerHook/CustomQueryHook";
 import { useQuery } from "react-query";
 import logo from "../../Assest/Navigation/title.png";
+import Questionaires from "../PrintComponents/Questionaires/Questionaires";
+import ReactPDF from "@react-pdf/renderer";
 
 const TabelComponent = ({
   cellData,
@@ -93,6 +95,7 @@ const TabelComponent = ({
     topic_name: "",
     questions: [],
   });
+  const [activeQuestions, setActiveQuestions] = useState({});
   const [questionCount, setQuestionCount] = useState(0);
   const [dropValue, setDropValue] = useState("");
   const { mutate, isError } = DeleteTeacherHook();
@@ -218,9 +221,13 @@ const TabelComponent = ({
     topic: "",
     description: "",
   };
-  const handleShowClick = () => {
+
+  const handleShowClick = data => {
+    console.log(data);
+    setActiveQuestions(data);
     setOpenShow(true);
   };
+
   useEffect(() => {
     const token = localStorage.getItem("_id");
     const role = localStorage.getItem("role");
@@ -348,6 +355,11 @@ const TabelComponent = ({
       timer: 1500,
     });
   };
+
+  const handlePrintResult = () => {
+    ReactPDF.render(<Questionaires />);
+  };
+
   return (
     <>
       {tableType === "topic" && (
@@ -782,7 +794,7 @@ const TabelComponent = ({
       {
         <ModalComponent open={openShow} handleClose={handleClose}>
           <>
-            <Typography
+            {/* <Typography
               sx={{
                 backgroundColor: "rgb(61, 142, 61)",
                 color: "white",
@@ -929,7 +941,10 @@ const TabelComponent = ({
               >
                 <PaginationAdd setProducts={e => setData(e)} rawData={""} />
               </Box>
-            </TableContainer>
+            </TableContainer> */}
+
+            {activeQuestions.questionnaire_title}
+
             <Grid container padding={2} display={"flex"}>
               <Grid item xl={8}>
                 <Typography>Identification problem: 10/10</Typography>
@@ -1060,12 +1075,12 @@ const TabelComponent = ({
                           borderRadius: "0.5em",
                           border: "none",
                         }}
-                        onClick={() => setOpenPrintModal(true)}
+                        onClick={handlePrintResult}
                       >
                         print
                       </button>
                       <button
-                        onClick={handleShowClick}
+                        onClick={() => handleShowClick(each)}
                         style={{
                           color: "white",
                           backgroundColor: "red",
