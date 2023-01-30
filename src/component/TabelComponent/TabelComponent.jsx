@@ -129,7 +129,7 @@ const TabelComponent = ({
     setQuestionnareEdit(false);
     openPrintModal(false);
   };
-  const handleOpen = (_id) => {
+  const handleOpen = _id => {
     setOpen(true);
     setId(_id);
   };
@@ -160,7 +160,7 @@ const TabelComponent = ({
       timer: 1500,
     });
   };
-  const handleSubmitTopicEdit = async (values) => {
+  const handleSubmitTopicEdit = async values => {
     const data = {
       id: ids,
       topic: values.topic,
@@ -189,7 +189,7 @@ const TabelComponent = ({
     console.log(initialValueQuestionnaires, "setQuestionsClone");
   };
 
-  const handleSubmitEdit = async (values) => {
+  const handleSubmitEdit = async values => {
     const data = {
       id: ids,
       username: values.userName,
@@ -241,7 +241,7 @@ const TabelComponent = ({
     // console.log(indexs, "indexs");
     cellData?.data?.response?.map((each, index) => {
       if (index === indexs) {
-        setInitialValueQuestionnaires((prev) => {
+        setInitialValueQuestionnaires(prev => {
           return {
             ...prev,
             _id: each._id,
@@ -266,7 +266,7 @@ const TabelComponent = ({
       }
     });
   }, [indexs, initialValues, cellData]);
-  const handleTopicModal = (_id) => {
+  const handleTopicModal = _id => {
     setTopicDelete(true);
     setId(_id);
   };
@@ -313,27 +313,27 @@ const TabelComponent = ({
       .max(50, "maximum 50 character")
       .required("Required"),
   });
-  const requestTopicSearch = (values) => {
-    const filterData = cellData?.data?.data.filter((row) => {
+  const requestTopicSearch = values => {
+    const filterData = cellData?.data?.data.filter(row => {
       return row.topic.toLowerCase().includes(values.toLowerCase());
     });
     setRows(filterData);
   };
-  const requestInstructorSearch = (values) => {
-    const filterData = cellData?.data?.data.filter((row) => {
+  const requestInstructorSearch = values => {
+    const filterData = cellData?.data?.data.filter(row => {
       return row.name.toLowerCase().includes(values.toLowerCase());
     });
     setRows(filterData);
   };
 
-  const requestGeneratedSearch = (values) => {
-    const filterData = cellData?.data?.data.filter((row) => {
+  const requestGeneratedSearch = values => {
+    const filterData = cellData?.data?.data.filter(row => {
       return row.generatedCode.toLowerCase().includes(values.toLowerCase());
     });
     setRows(filterData);
   };
 
-  const handleDeleteQuestion = (_id) => {
+  const handleDeleteQuestion = _id => {
     setOpenQuestionDelete(true);
     setId(_id);
   };
@@ -383,7 +383,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map((each) => (
+                {tableHead.map(each => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -482,7 +482,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map((each) => (
+                {tableHead.map(each => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -574,7 +574,7 @@ const TabelComponent = ({
             <Formik
               initialValues={initialValues}
               validationSchema={teacherSchema}
-              onSubmit={(values) => {
+              onSubmit={values => {
                 handleSubmitEdit(values);
               }}
             >
@@ -628,7 +628,7 @@ const TabelComponent = ({
           <Formik
             initialValues={initialValueTopic}
             // validationSchema={topicSchema}
-            onSubmit={(values) => {
+            onSubmit={values => {
               handleSubmitTopicEdit(values);
             }}
           >
@@ -691,8 +691,8 @@ const TabelComponent = ({
                     id="outlined-basic"
                     name="title"
                     value={initialValueQuestionnaires.topic_name}
-                    onChange={(e) =>
-                      setInitialValueQuestionnaires((prev) => {
+                    onChange={e =>
+                      setInitialValueQuestionnaires(prev => {
                         return {
                           ...prev,
                           topic_name: e.target.value,
@@ -710,38 +710,46 @@ const TabelComponent = ({
                   </Typography>
                 )} */}
                 <ModalScroll>
-                  {initialValueQuestionnaires?.questions?.map((each, index) => (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration: 0.3 },
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: -10,
-                        transition: { duration: 0.3 },
-                      }}
-                      key={index}
-                      style={{ marginBottom: "1em" }}
-                    >
-                      <QuestionTabComponent
-                        index={index + 1}
-                        setQuestions={initialValueQuestionnaires?.questions}
-                        setQuestionTitle={setQuestionTitle}
-                        type="update"
-                        defaultQuestionValue={each.question}
-                        dropModalType={each.type}
-                        defaultAnswerValue={each.answer}
-                      />
-                    </motion.div>
-                  ))}
+                  {initialValueQuestionnaires?.questions?.map((each, index) => {
+                    console.log(each);
+                    return (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          transition: { duration: 0.3 },
+                        }}
+                        exit={{
+                          opacity: 0,
+                          y: -10,
+                          transition: { duration: 0.3 },
+                        }}
+                        key={index}
+                        style={{ marginBottom: "1em" }}
+                      >
+                        <QuestionTabComponent
+                          index={index + 1}
+                          setQuestions={initialValueQuestionnaires?.questions}
+                          setQuestionTitle={setQuestionTitle}
+                          type="update"
+                          defaultQuestionValue={each.question}
+                          dropModalType={each.type}
+                          defaultAnswerValue={each.answer}
+                          defaultChoices={{
+                            choice1: each.choice1,
+                            choice2: each.choice2,
+                            choice3: each.choice3,
+                          }}
+                        />
+                      </motion.div>
+                    );
+                  })}
                 </ModalScroll>
 
                 <Button
                   onClick={() => {
-                    setInitialValueQuestionnaires((prev) => {
+                    setInitialValueQuestionnaires(prev => {
                       return {
                         ...prev,
                         questions: [
@@ -788,14 +796,14 @@ const TabelComponent = ({
               <Table aria-label="table-container">
                 <TableHead>
                   <TableRow>
-                    {resultShowData.map((each) => (
+                    {resultShowData.map(each => (
                       <TableCell>{each.title}</TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {cellData &&
-                    cellData?.data?.response?.map((each) =>
+                    cellData?.data?.response?.map(each =>
                       each.identicationChoice?.map((eachs, index) => (
                         <TableRow key={index}>
                           <TableCell>{eachs.question}</TableCell>
@@ -844,7 +852,7 @@ const TabelComponent = ({
                 display={"flex"}
                 margin="2em 0em"
               >
-                <PaginationAdd setProducts={(e) => setData(e)} rawData={""} />
+                <PaginationAdd setProducts={e => setData(e)} rawData={""} />
               </Box>
             </TableContainer>
 
@@ -862,14 +870,14 @@ const TabelComponent = ({
               <Table aria-label="table-container">
                 <TableHead>
                   <TableRow>
-                    {resultMultipleData.map((each) => (
+                    {resultMultipleData.map(each => (
                       <TableCell>{each.title}</TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {cellData &&
-                    cellData?.data?.response?.map((each) =>
+                    cellData?.data?.response?.map(each =>
                       each.identicationChoice?.map((eachs, index) => (
                         <TableRow key={index}>
                           <TableCell>{eachs.question}</TableCell>
@@ -919,7 +927,7 @@ const TabelComponent = ({
                 display={"flex"}
                 margin="2em 0em"
               >
-                <PaginationAdd setProducts={(e) => setData(e)} rawData={""} />
+                <PaginationAdd setProducts={e => setData(e)} rawData={""} />
               </Box>
             </TableContainer>
             <Grid container padding={2} display={"flex"}>
@@ -1021,7 +1029,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map((each) => (
+                {tableHead.map(each => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -1080,7 +1088,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map((each) => (
+                {tableHead.map(each => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -1111,7 +1119,7 @@ const TabelComponent = ({
             <Table aria-label="table-container">
               <TableHead>
                 <TableRow>
-                  {tableHead.map((each) => (
+                  {tableHead.map(each => (
                     <TableCell>{each.title}</TableCell>
                   ))}
                 </TableRow>
@@ -1171,7 +1179,7 @@ const TabelComponent = ({
               display={"flex"}
               margin="2em 0em"
             >
-              <PaginationAdd setProducts={(e) => setData(e)} rawData={""} />
+              <PaginationAdd setProducts={e => setData(e)} rawData={""} />
             </Box>
           </TableContainer>
         </>

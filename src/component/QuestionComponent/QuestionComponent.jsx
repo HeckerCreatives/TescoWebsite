@@ -2,36 +2,36 @@ import React, { useState } from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import trangle from "../../Assest/Questionnaire/triangle.png";
 import edit from "../../Assest/Questionnaire/edit.png";
-import './questionchoice.css'
+import "./questionchoice.css";
 
 import DropDownMenu from "../../shared/DropDownMenu/DropDownMenu";
 import DropMenu from "../../shared/DropDownMenu/DropMenu";
 const QuestionComponent = ({
   setPrimaryText,
-  setType="default",
+  setType = "default",
   setSecondarytext,
   setDropValue,
   setDetails,
-  typeValue=true,
+  typeValue = true,
   dropData,
   optionChangeHandler,
-  setTextChange,setValue,
-  defaultValue
-
+  setTextChange,
+  setValue,
+  defaultValue,
 }) => {
-  const[editState,setEditState]=useState(true)
-  const handleEdit=()=>{
-    if(editState===true){
-setEditState(false)
+  const [editState, setEditState] = useState(true);
+  const handleEdit = () => {
+    if (editState === true) {
+      setEditState(false);
+    } else {
+      setEditState(true);
     }
-    else{
-setEditState(true)
-    }
-  }
+  };
 
-  const handleChange=(value)=>{
-    setTextChange(value)
-  }
+  const handleChange = value => {
+    setTextChange(value);
+  };
+
   return (
     <Box className="questionnaries-container">
       <Box className="questionnaries-main">
@@ -49,19 +49,25 @@ setEditState(true)
             {setPrimaryText}
           </Typography>
           <Box className="multiple-choice-container">
-           <DropMenu dropValue={dropData} optionChangeHandler={optionChangeHandler} setDropValue={setDropValue}/>
-            
-           
+            <DropMenu
+              dropValue={dropData}
+              optionChangeHandler={optionChangeHandler}
+              setDropValue={setDropValue}
+            />
           </Box>
-          <Box className="edit-container" style={{cursor:"pointer"}}>
+          <Box className="edit-container" style={{ cursor: "pointer" }}>
             <div onClick={handleEdit}>
-            <img src={edit} alt="edit-image" className="edit-image" />
+              <img src={edit} alt="edit-image" className="edit-image" />
             </div>
-           
           </Box>
         </Box>
         <Box className="questionnaries-details-container">
-         <textarea disabled={editState} value={defaultValue}  onChange={(e)=>handleChange(e.target.value)}  className="textArea"/>
+          <textarea
+            disabled={editState}
+            value={defaultValue}
+            onChange={e => handleChange(e.target.value)}
+            className="textArea"
+          />
         </Box>
       </Box>
     </Box>

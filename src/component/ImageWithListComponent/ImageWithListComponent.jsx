@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ButtonLabel from "../../shared/Button/ButtonLabel";
 import searchIcon from "../../Assest/Topic/SearchBtn.png";
-import { Box, Grid, Typography, Modal, Button,TextField } from "@mui/material";
+import { Box, Grid, Typography, Modal, Button, TextField } from "@mui/material";
 import DataTable from "../TabelComponent/TabelComponent";
 import "./imagewithlist.css";
 import DropDownMenu from "../../shared/DropDownMenu/DropDownMenu";
@@ -175,7 +175,7 @@ const ImageWithListComponent = ({
   }, []);
   const { mutate: topicMutate, isError: topicError } = UseCreateTopicHooks();
 
-  const handleSubmit = (values) => {
+  const handleSubmit = values => {
     mutate({
       username: values.userName,
       password: values.password,
@@ -196,7 +196,7 @@ const ImageWithListComponent = ({
     });
   };
 
-  const handleSubmitQuestion = (value) => {
+  const handleSubmitQuestion = value => {
     const data = {
       headers: {
         "Content-Type": "application/json",
@@ -258,7 +258,7 @@ const ImageWithListComponent = ({
     setTabComponentQuestion([...tabComponentQuestion, newTab]);
   };
 
-  const handleSubmitTopics = async (values) => {
+  const handleSubmitTopics = async values => {
     const body = {
       headers: {
         "Content-Type": "application/json",
@@ -267,6 +267,7 @@ const ImageWithListComponent = ({
       topic: values.topic,
       description: values.description,
     };
+    console.log(body);
     topicMutate(body);
 
     if (topicError) {
@@ -357,7 +358,7 @@ const ImageWithListComponent = ({
                 <Formik
                   initialValues={initialValues}
                   validationSchema={teacherSchema}
-                  onSubmit={(values) => {
+                  onSubmit={values => {
                     handleSubmit(values);
                   }}
                 >
@@ -432,7 +433,7 @@ const ImageWithListComponent = ({
               <Formik
                 initialValues={initialValuesTopic}
                 // validationSchema={topicSchema}
-                onSubmit={(values) => {
+                onSubmit={values => {
                   handleSubmitTopics(values);
                 }}
               >
@@ -492,7 +493,7 @@ const ImageWithListComponent = ({
               <Formik
                 initialValues={initialValuesTopic}
                 // validationSchema={topicSchema}
-                onSubmit={(values) => {
+                onSubmit={values => {
                   handleSubmitQuestion(values);
                 }}
               >
@@ -513,7 +514,7 @@ const ImageWithListComponent = ({
                         color="secondary"
                         fullWidth="true"
                         id="outlined-basic"
-                        onChange={(e) => setQuestionTitle(e.target.value)}
+                        onChange={e => setQuestionTitle(e.target.value)}
                         label="Questionnaries title"
                         variant="outlined"
                       />

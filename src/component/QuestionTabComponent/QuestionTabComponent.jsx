@@ -29,6 +29,7 @@ const QuestionTabComponent = ({
   defaultQuestionValue,
   defaultAnswerValue,
   type = "add",
+  defaultChoices = {},
 }) => {
   const [openModalContainer, setModalContainer] = useState(false);
   const [dropModalValue, setDropModalValue] = useState(dropModalType);
@@ -193,6 +194,7 @@ const QuestionTabComponent = ({
                           "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
                         }
                         setTextChange={setChoiceA}
+                        defaultValue={defaultChoices.choice1}
                       />
                     </motion.div>
                   </Grid>
@@ -222,6 +224,7 @@ const QuestionTabComponent = ({
                           "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
                         }
                         setTextChange={setChoiceB}
+                        defaultValue={defaultChoices.choice2}
                       />
                     </motion.div>
                   </Grid>
@@ -251,6 +254,7 @@ const QuestionTabComponent = ({
                           "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
                         }
                         setTextChange={setChoiceC}
+                        defaultValue={defaultChoices.choice3}
                       />
                     </motion.div>
                   </Grid>
@@ -278,6 +282,7 @@ const QuestionTabComponent = ({
                           "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used"
                         }
                         setTextChange={setCorrect}
+                        defaultValue={defaultAnswerValue}
                       />
                     </motion.div>
                   </Grid>
