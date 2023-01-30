@@ -4,10 +4,10 @@ const bcrypt = require("bcrypt");
 const SCRETE_KEY = "iamscrete";
 const hashPassword = require("../middleware/PasswordHash/passwordhash");
 
-const generateUniqueInteger=require('../middleware/GenerateCode/generateCode')
+const generateUniqueInteger = require("../middleware/GenerateCode/generateCode");
 
 exports.sign_up = async (req, res) => {
-  const { username, password,firstname,lastname,middlename } = req.body;
+  const { username, password, firstname, lastname, middlename } = req.body;
   const randomCode = generateUniqueInteger();
   try {
     const existingUser = await AdminModal.findOne({ username: username });
@@ -20,11 +20,11 @@ exports.sign_up = async (req, res) => {
     const result = await AdminModal.create({
       username: username,
       password: hashedPassword,
-      firstname:firstname,
-      lastname:lastname,
-      middlename:middlename,
+      firstname: firstname,
+      lastname: lastname,
+      middlename: middlename,
       role: "admin",
-      id:randomCode,
+      id: randomCode,
     });
     await result.save();
     const token = jwt.sign(
@@ -37,7 +37,7 @@ exports.sign_up = async (req, res) => {
   }
 };
 exports.login = async (req, res) => {
-  const{username,password}=req.body
+  const { username, password } = req.body;
   try {
     const existingUser = await AdminModal.findOne({
       username: username,
@@ -49,33 +49,55 @@ exports.login = async (req, res) => {
       const matchPassword = await bcrypt.compare(
         password,
         existingUser.password
-      )
-    if(!matchPassword){
-      return res.status(400).json({ message: "invalid cridentials" })
-    }
-    const token=jwt.sign({username:existingUser.username,role:existingUser.role,firstname:existingUser.firstname,id:existingUser._id},SCRETE_KEY)
-    
-    if(token){
-      return res.status(201).json({refreshToken:token,message:"admin",success:true,data:existingUser._id})
+      );
+      if (!matchPassword) {
+        return res.status(400).json({ message: "invalid cridentials" });
+      }
+      const token = jwt.sign(
+        {
+          username: existingUser.username,
+          role: existingUser.role,
+          firstname: existingUser.firstname,
+          id: existingUser._id,
+        },
+        SCRETE_KEY
+      );
 
-    } 
+      if (token) {
+        return res.status(201).json({
+          refreshToken: token,
+          message: "admin",
+          success: true,
+          data: existingUser._id,
+          username: existingUser.username,
+        });
+      }
+    } else if (existingUser.role === "teacher") {
+      const matchPassword = await bcrypt.compare(
+        password,
+        existingUser.password
+      );
+      if (!matchPassword) {
+        return res.status(400).json({ message: "invalid cridentials" });
+      }
+      const token = jwt.sign(
+        {
+          username: existingUser.username,
+          role: existingUser.role,
+          firstname: existingUser.firstname,
+          id: existingUser._id,
+        },
+        SCRETE_KEY
+      );
+      if (token) {
+        return res.status(200).json({
+          refreshToken: token,
+          message: "teacher",
+          data: existingUser._id,
+          username: existingUser.username,
+        });
+      }
     }
-   else if (existingUser.role === "teacher") {
-        const matchPassword = await bcrypt.compare(
-          password,
-          existingUser.password
-        )
-        if(!matchPassword){
-          return res.status(400).json({ message: "invalid cridentials" })
-        }
-        const token=jwt.sign({username:existingUser.username,role:existingUser.role,firstname:existingUser.firstname,id:existingUser._id},SCRETE_KEY)
-      if(token){
-        return res.status(200).json({refreshToken:token,message:"teacher",data:existingUser._id})
-      }
-  
-      }
-    
-    
   } catch (err) {
     res
       .status(401)
