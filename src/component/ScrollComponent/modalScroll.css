@@ -1,16 +1,18 @@
-.fixed-modal-scroll-container{
-  max-height:40vh;
+.fixed-modal-scroll-container {
+  max-height: 40vh;
   overflow-y: scroll;
   width: 100%;
   padding: 1em;
   padding-left: 3em;
-    
-
-   
-   
-    
 }
-.fixed-modal-scroll-container::-webkit-scrollbar{
-    /* display: none; */
-   
+
+.fixed-modal-scroll-container::-webkit-scrollbar {
+  /* display: none; */
+}
+
+.result-scroll-container {
+  height: 50vh;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 100%;
 }

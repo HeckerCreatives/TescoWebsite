@@ -6,7 +6,7 @@ import image from "../../Assest/Dashboard/Student.png";
 import "./resultcomponent.css";
 import ImageWithListComponent from "../ImageWithListComponent/ImageWithListComponent";
 import {
-  questionIdentifyHead,
+  resultsHeader,
   resultDataHead,
   studentCellData,
   topicsCellData,
@@ -15,14 +15,17 @@ import ScrollComponent from "../ScrollComponent/ScrollComponent";
 import backgroundImage from "../../BG.png";
 import {
   getQuestion,
+  getResultsByUser,
   GetResultHook,
 } from "../../utils/CustomQuerHook/CustomQueryHook";
 import { useQuery } from "react-query";
 
 const ResultComponent = () => {
   const { data, isLoading, isError } = GetResultHook();
-  const questions = useQuery(["question-data", null], getQuestion);
 
+  const questions = useQuery(["question-data", null], getQuestion);
+  const results = useQuery(["result-by-user"], () => getResultsByUser("admin"));
+  // console.log(results);
   return (
     <ScrollComponent>
       <Grid
@@ -47,8 +50,8 @@ const ResultComponent = () => {
               setImage={image}
               searchType={false}
               buttonLabel="Create Account"
-              tableHead={questionIdentifyHead}
-              cellData={questions?.data}
+              tableHead={resultsHeader}
+              cellData={results?.data}
               tableType={"result"}
               isLoading={isLoading}
             />

@@ -15,6 +15,23 @@ exports.get_all_result = async (req, res) => {
   }
 };
 
+exports.get_results_by_user = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    const response = await ResultModal.find({
+      teacher: username,
+    }).populate("questionaireId");
+
+    return res.status(200).json({
+      success: true,
+      results: response,
+    });
+  } catch (err) {
+    return res.status(500).json({ message: "something went wrong", err });
+  }
+};
+
 exports.create_result = async (req, res) => {
   const {
     firstname,

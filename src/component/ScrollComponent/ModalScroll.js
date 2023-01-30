@@ -1,12 +1,8 @@
-import React from 'react'
+import React from "react";
 
-import './modalScroll.css'
-const ModalScroll = ({children}) => {
-  return (
-    <div className="fixed-modal-scroll-container">
-    {children}
-     </div>
-  )
-}
+import "./modalScroll.css";
+const ModalScroll = ({ children }) => {
+  return <div className="fixed-modal-scroll-container">{children}</div>;
+};
 
-export default ModalScroll
+export default ModalScroll;

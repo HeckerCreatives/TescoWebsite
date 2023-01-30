@@ -19,6 +19,7 @@ const resultSchema = new Schema({
   },
   questionaireId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "Question",
     required: true,
   },
   firstname: {

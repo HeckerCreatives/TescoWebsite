@@ -3,17 +3,16 @@ import teacher from "../../Assest/Dashboard/Teacher.png";
 import student from "../../Assest/Dashboard/Student.png";
 import questionnaire from "../../Assest/Dashboard/Questinnaire.png";
 
-
-export const dropData=[
+export const dropData = [
   {
-    label:"Multiple Choice",
-    value:0
+    label: "Multiple Choice",
+    value: 0,
   },
   {
-    label:"identification",
-    value:1
-  }
-]
+    label: "identification",
+    value: 1,
+  },
+];
 
 export const dashboardcardData = [
   {
@@ -103,58 +102,58 @@ export const resultDataHead = [
     title: "Date",
   },
   {
-    title:"Action"
-  }
+    title: "Action",
+  },
 ];
-export const resultShowData=[
+export const resultShowData = [
   {
-    title:"Question"
+    title: "Question",
   },
   {
-    title:"Correct Answer"
+    title: "Correct Answer",
   },
   {
-    title:"Topic"
+    title: "Topic",
   },
   {
-    title:"Date"
+    title: "Date",
   },
   {
-    title:"Generated Code"
+    title: "Generated Code",
   },
   {
-    title:"Student Answer"
+    title: "Student Answer",
   },
-]
-export const resultMultipleData=[
+];
+export const resultMultipleData = [
   {
-    title:"Question"
-  },
-  {
-    title:"Choice A"
+    title: "Question",
   },
   {
-    title:"Choice B"
+    title: "Choice A",
   },
   {
-    title:"Choice C"
+    title: "Choice B",
   },
   {
-    title:"Topic"
+    title: "Choice C",
   },
   {
-    title:"Date"
+    title: "Topic",
   },
   {
-    title:"Generated Code"
+    title: "Date",
   },
   {
-    title:"Correct"
+    title: "Generated Code",
   },
   {
-    title:"Student Answer"
+    title: "Correct",
   },
-]
+  {
+    title: "Student Answer",
+  },
+];
 export const monthData = [
   {
     title: "Name",
@@ -217,13 +216,36 @@ export const questionIdentifyHead = [
     title: "Topic Name",
   },
   {
-    title:"Questionnarie Name"
+    title: "Questionnarie Name",
   },
   {
-    title:"instructor"
+    title: "instructor",
   },
   {
-    title:"Date"
+    title: "Date",
+  },
+  {
+    title: "Action",
+  },
+];
+export const resultsHeader = [
+  {
+    title: "Full Name",
+  },
+  {
+    title: "Questionnaries ID",
+  },
+  {
+    title: "Topic Name",
+  },
+  {
+    title: "Questionnarie Name",
+  },
+  {
+    title: "instructor",
+  },
+  {
+    title: "Date",
   },
   {
     title: "Action",

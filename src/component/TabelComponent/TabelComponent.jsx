@@ -47,8 +47,10 @@ import { useReactToPrint } from "react-to-print";
 import { getQuestion } from "../../utils/CustomQuerHook/CustomQueryHook";
 import { useQuery } from "react-query";
 import logo from "../../Assest/Navigation/title.png";
-import Questionaires from "../PrintComponents/Questionaires/Questionaires";
+import PrintResults from "../PrintComponents/Results/Results";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import { MDBIcon } from "mdb-react-ui-kit";
+import Questionaires from "../PrintComponents/Questionaires/Questionaires";
 
 const TabelComponent = ({
   cellData,
@@ -59,6 +61,8 @@ const TabelComponent = ({
   cellData2,
   tableHeadSecond,
 }) => {
+  console.log(cellData.data?.response);
+
   const resultRef = useRef();
   const MyTextArea = ({ label, ...props }) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -101,7 +105,7 @@ const TabelComponent = ({
   const { mutate, isError } = DeleteTeacherHook();
   const questions = useQuery(["question-data", null], getQuestion);
 
-  const [rows, setRows] = useState(cellData && cellData?.data?.data);
+  const [rows, setRows] = useState(cellData && cellData?.data?.results);
   const [token, setToken] = useState("");
   const [role, setRole] = useState();
   const [openQuestionDelete, setOpenQuestionDelete] = useState(false);
@@ -222,12 +226,6 @@ const TabelComponent = ({
     description: "",
   };
 
-  const handleShowClick = data => {
-    console.log(data);
-    setActiveQuestions(data);
-    setOpenShow(true);
-  };
-
   useEffect(() => {
     const token = localStorage.getItem("_id");
     const role = localStorage.getItem("role");
@@ -244,6 +242,7 @@ const TabelComponent = ({
       }
     });
   }, [indexs, initialValueTopic, cellData]);
+
   useEffect(() => {
     // console.log(indexs, "indexs");
     cellData?.data?.response?.map((each, index) => {
@@ -262,6 +261,10 @@ const TabelComponent = ({
   }, [indexs, cellData]);
 
   useEffect(() => {
+    console.log(rows);
+  }, [rows]);
+
+  useEffect(() => {
     // console.log(indexs,'indexs')
     cellData?.data?.data?.map((each, index) => {
       if (index === indexs) {
@@ -273,20 +276,24 @@ const TabelComponent = ({
       }
     });
   }, [indexs, initialValues, cellData]);
+
   const handleTopicModal = _id => {
     setTopicDelete(true);
     setId(_id);
   };
+
   const handleTopicEditModal = (_id, index) => {
     setTopicEdit(true);
     setId(_id);
     setIndex(index);
   };
+
   const handleQuestionnaresEdit = (_id, index) => {
     setQuestionnareEdit(true);
     setId(_id);
     setIndex(index);
   };
+
   const handleTopicDelete = () => {
     topicDeleteMutate(ids);
     if (topicDeleteError) {
@@ -320,12 +327,14 @@ const TabelComponent = ({
       .max(50, "maximum 50 character")
       .required("Required"),
   });
+
   const requestTopicSearch = values => {
     const filterData = cellData?.data?.data.filter(row => {
       return row.topic.toLowerCase().includes(values.toLowerCase());
     });
     setRows(filterData);
   };
+
   const requestInstructorSearch = values => {
     const filterData = cellData?.data?.data.filter(row => {
       return row.name.toLowerCase().includes(values.toLowerCase());
@@ -356,6 +365,66 @@ const TabelComponent = ({
     });
   };
 
+  const handleShowClick = data => {
+    console.log(data);
+    setActiveQuestions(data);
+    setOpenShow(true);
+  };
+
+  const ShowQuestions = data => {
+    const questions = data.questionaireId?.questions;
+    const answers = data.answer;
+
+    if (questions) {
+      let texts = [];
+
+      questions?.map(question => {
+        let ans = answers.find(e => e.questionId === question._id);
+        texts.push({
+          question: question.question,
+          answer: ans.answer,
+          correct: question.answer,
+          isCorrect: ans.answer === question.answer,
+        });
+      });
+
+      return texts.map((text, i) => (
+        <div>
+          <div>
+            {text.isCorrect ? (
+              <MDBIcon far icon="check-circle" color="success" />
+            ) : (
+              <MDBIcon far icon="times-circle" color="danger" />
+            )}
+            &nbsp;
+            {i + 1}. {text.question}{" "}
+          </div>
+          <div>
+            Your answer: {text.answer} (
+            {!text.isCorrect && <span>Correct Answer: {text.correct}</span>})
+          </div>
+          <br />
+        </div>
+      ));
+    }
+  };
+
+  const handleScore = data => {
+    const questions = data.questionaireId?.questions;
+    const answers = data.answer;
+
+    if (questions) {
+      let total = 0;
+
+      questions.map(question => {
+        let ans = answers.find(e => e.questionId === question._id);
+        if (ans.answer === question.answer) total++;
+      });
+
+      return `${total}/${questions.length}`;
+    }
+  };
+
   return (
     <>
       {tableType === "topic" && (
@@ -368,26 +437,6 @@ const TabelComponent = ({
             lableSnd={"Search with instructor"}
             lableThd="Search with generated code"
           />
-          {/* <Grid container spacing={2}>
-          <Grid item>
-          <TextField
-         id="fullWidth"
-         label="Search with topic"
-         onChange={(searchVal)=>requestTopicSearch(searchVal.target.value)}
-       
-         />
-          </Grid>
-          <Grid item>
-          <TextField
-         id="fullWidth"
-         label="Search with instructor"
-         onChange={(searchVal)=>requestInstructorSearch(searchVal.target.value)}
-       
-         />
-          </Grid>
-
-        </Grid> */}
-
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
@@ -402,7 +451,9 @@ const TabelComponent = ({
                   role === "teacher" ? (
                     row.user_id === token && (
                       <TableRow key={index}>
-                        <TableCell>{row.generatedCode}</TableCell>
+                        <TableCell>
+                          {row.questionaireId?.questionnaire_id}
+                        </TableCell>
                         <TableCell>{row.topic}</TableCell>
                         <TableCell>{row.name}</TableCell>
                         <TableCell>{row.date}</TableCell>
@@ -442,7 +493,9 @@ const TabelComponent = ({
                     )
                   ) : (
                     <TableRow key={index}>
-                      <TableCell>{row.generatedCode}</TableCell>
+                      <TableCell>
+                        {row.questionaireId?.questionnaire_id}
+                      </TableCell>
                       <TableCell>{row.topic}</TableCell>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>{row.date}</TableCell>
@@ -790,169 +843,18 @@ const TabelComponent = ({
       {
         <ModalComponent open={openShow} handleClose={handleClose}>
           <>
-            {/* <Typography
-              sx={{
-                backgroundColor: "rgb(61, 142, 61)",
-                color: "white",
-              }}
-              variant="h6"
-              padding={"0.3em"}
-            >
-              Identification
+            <Typography fontSize={25} marginBottom={2.5} fontWeight="bold">
+              {activeQuestions.questionaireId?.questionnaire_title}
             </Typography>
-            <TableContainer component={Paper}>
-              <Table aria-label="table-container">
-                <TableHead>
-                  <TableRow>
-                    {resultShowData.map(each => (
-                      <TableCell>{each.title}</TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {cellData &&
-                    cellData?.data?.response?.map(each =>
-                      each.identicationChoice?.map((eachs, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{eachs.question}</TableCell>
-                          <TableCell>{eachs.correct}</TableCell>
-                          <TableCell>{eachs.topic}</TableCell>
-                          <TableCell>{eachs.date}</TableCell>
-                          <TableCell>{eachs.generatedCode}</TableCell>
-                          <TableCell
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.2em",
-                            }}
-                          >
-                            <button
-                              style={{
-                                color: "white",
-                                backgroundColor: "blue",
-                                minWidth: "5em",
-                                borderRadius: "0.5em",
-                                border: "none",
-                              }}
-                            >
-                              edit
-                            </button>
-                            <button
-                              style={{
-                                color: "white",
-                                backgroundColor: "red",
-                                minWidth: "5em",
-                                borderRadius: "0.5em",
-                                border: "none",
-                              }}
-                            >
-                              delete
-                            </button>
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                </TableBody>
-              </Table>
-              <Box
-                justifyContent={"center"}
-                alignItems="center"
-                display={"flex"}
-                margin="2em 0em"
-              >
-                <PaginationAdd setProducts={e => setData(e)} rawData={""} />
-              </Box>
-            </TableContainer>
+            <div className="result-scroll-container">
+              {ShowQuestions(activeQuestions)}
+            </div>
 
-            <Typography
-              sx={{
-                backgroundColor: "rgb(37, 113, 234)",
-                color: "white",
-              }}
-              variant="h6"
-              padding={"0.3em"}
-            >
-              Mutliple Question
+            <Typography fontWeight="bold" textAlign="right">
+              Overall Score: {handleScore(activeQuestions)}
             </Typography>
-            <TableContainer component={Paper}>
-              <Table aria-label="table-container">
-                <TableHead>
-                  <TableRow>
-                    {resultMultipleData.map(each => (
-                      <TableCell>{each.title}</TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {cellData &&
-                    cellData?.data?.response?.map(each =>
-                      each.identicationChoice?.map((eachs, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{eachs.question}</TableCell>
-                          <TableCell>{eachs.correct}</TableCell>
-                          <TableCell>{eachs.topic}</TableCell>
-                          <TableCell>{eachs.date}</TableCell>
-                          <TableCell>{eachs.generatedCode}</TableCell>
-                          <TableCell
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.2em",
-                            }}
-                          >
-                            <button
-                              style={{
-                                color: "white",
-                                backgroundColor: "blue",
-                                minWidth: "5em",
-                                borderRadius: "0.5em",
-                                border: "none",
-                              }}
-                            >
-                              edit
-                            </button>
-                            <button
-                              style={{
-                                color: "white",
-                                backgroundColor: "red",
-                                minWidth: "5em",
-                                borderRadius: "0.5em",
-                                border: "none",
-                              }}
-                            >
-                              delete
-                            </button>
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                </TableBody>
-              </Table>
+            <br />
 
-              <Box
-                justifyContent={"center"}
-                alignItems="center"
-                display={"flex"}
-                margin="2em 0em"
-              >
-                <PaginationAdd setProducts={e => setData(e)} rawData={""} />
-              </Box>
-            </TableContainer> */}
-
-            {activeQuestions.questionnaire_title}
-
-            <Grid container padding={2} display={"flex"}>
-              <Grid item xl={8}>
-                <Typography>Identification problem: 10/10</Typography>
-                <Typography>Multiple Choice: 10/10</Typography>
-                <Typography>Overall Score: 20</Typography>
-              </Grid>
-              <Grid item xl={4}>
-                <Typography>Identification problem: 7/10</Typography>
-                <Typography>Multiple Choice: 8/10</Typography>
-                <Typography>Overall Score: 15</Typography>
-              </Grid>
-            </Grid>
             <Button onClick={handleClose}>Close</Button>
           </>
         </ModalComponent>
@@ -1047,14 +949,29 @@ const TabelComponent = ({
             </TableHead>
             <TableBody>
               {cellData &&
-                cellData?.data?.response?.map((each, index) => (
+                cellData?.data?.results?.map((each, index) => (
                   <TableRow key={index}>
-                    <TableCell>{each?.questionnaire_id}</TableCell>
-                    <TableCell>{each?.topic_name}</TableCell>
-                    <TableCell>{each?.questionnaire_title}</TableCell>
-                    <TableCell>{each?.instructor}</TableCell>
+                    <TableCell>
+                      <span style={{ textTransform: "capitalize" }}>{`${
+                        each.lastname
+                      }, ${each.firstname} ${
+                        each.middlename && each.middlename?.substring(0, 1)
+                      }.`}</span>
+                    </TableCell>
+                    <TableCell>
+                      {each?.questionaireId?.questionnaire_id}
+                    </TableCell>
+                    <TableCell>{each?.questionaireId?.topic_name}</TableCell>
+                    <TableCell>
+                      {each?.questionaireId?.questionnaire_title}
+                    </TableCell>
+                    <TableCell>{each?.questionaireId?.instructor}</TableCell>
 
-                    <TableCell>{each?.date}</TableCell>
+                    <TableCell>
+                      {new Date(
+                        each?.questionaireId?.date
+                      ).toLocaleDateString()}
+                    </TableCell>
 
                     <TableCell
                       style={{
@@ -1064,16 +981,20 @@ const TabelComponent = ({
                       }}
                     >
                       <PDFDownloadLink
-                        document={<Questionaires />}
+                        document={<PrintResults data={each} />}
+                        fileName={`${each.firstname}-${each.lastname}-${each?.questionaireId?.questionnaire_title}`}
                         style={{
                           color: "white",
                           backgroundColor: "blue",
                           minWidth: "5em",
+                          fontSize: "0.8rem",
+                          padding: "0.05rem 0",
                           borderRadius: "0.5em",
                           border: "none",
+                          textAlign: "center",
                         }}
                       >
-                        print
+                        Print
                       </PDFDownloadLink>
                       <button
                         onClick={() => handleShowClick(each)}
@@ -1081,6 +1002,8 @@ const TabelComponent = ({
                           color: "white",
                           backgroundColor: "red",
                           minWidth: "5em",
+                          fontSize: "0.8rem",
+                          padding: "0.05rem 0",
                           borderRadius: "0.5em",
                           border: "none",
                         }}
@@ -1144,7 +1067,9 @@ const TabelComponent = ({
                       <TableCell>{each?.questionnaire_title}</TableCell>
                       <TableCell>{each?.instructor}</TableCell>
 
-                      <TableCell>{each?.date}</TableCell>
+                      <TableCell>
+                        {new Date(each?.date).toLocaleDateString()}
+                      </TableCell>
 
                       <TableCell
                         style={{
@@ -1153,11 +1078,31 @@ const TabelComponent = ({
                           gap: "0.2em",
                         }}
                       >
+                        <PDFDownloadLink
+                          document={<Questionaires data={each} />}
+                          fileName={`${each?.questionnaire_title}-${new Date(
+                            each?.date
+                          ).toLocaleDateString()}`}
+                          style={{
+                            color: "white",
+                            backgroundColor: "blue",
+                            minWidth: "5em",
+                            fontSize: "0.8rem",
+                            padding: "0.05rem 0",
+                            borderRadius: "0.5em",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        >
+                          Print
+                        </PDFDownloadLink>
                         <button
                           style={{
                             color: "white",
                             backgroundColor: "blue",
                             minWidth: "5em",
+                            fontSize: "0.8rem",
+                            padding: "0.05rem 0",
                             borderRadius: "0.5em",
                             border: "none",
                           }}
@@ -1165,7 +1110,7 @@ const TabelComponent = ({
                             handleQuestionnaresEdit(each._id, index)
                           }
                         >
-                          edit
+                          Edit
                         </button>
                         <button
                           onClick={() => handleDeleteQuestion(each._id)}
@@ -1174,10 +1119,12 @@ const TabelComponent = ({
                             backgroundColor: "red",
                             minWidth: "5em",
                             borderRadius: "0.5em",
+                            fontSize: "0.8rem",
+                            padding: "0.05rem 0",
                             border: "none",
                           }}
                         >
-                          delete
+                          Delete
                         </button>
                       </TableCell>
                     </TableRow>
