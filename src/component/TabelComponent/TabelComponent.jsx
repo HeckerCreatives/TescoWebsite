@@ -48,7 +48,7 @@ import { getQuestion } from "../../utils/CustomQuerHook/CustomQueryHook";
 import { useQuery } from "react-query";
 import logo from "../../Assest/Navigation/title.png";
 import Questionaires from "../PrintComponents/Questionaires/Questionaires";
-import ReactPDF from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const TabelComponent = ({
   cellData,
@@ -354,10 +354,6 @@ const TabelComponent = ({
       showConfirmButton: false,
       timer: 1500,
     });
-  };
-
-  const handlePrintResult = () => {
-    ReactPDF.render(<Questionaires />);
   };
 
   return (
@@ -1067,7 +1063,8 @@ const TabelComponent = ({
                         gap: "0.2em",
                       }}
                     >
-                      <button
+                      <PDFDownloadLink
+                        document={<Questionaires />}
                         style={{
                           color: "white",
                           backgroundColor: "blue",
@@ -1075,10 +1072,9 @@ const TabelComponent = ({
                           borderRadius: "0.5em",
                           border: "none",
                         }}
-                        onClick={handlePrintResult}
                       >
                         print
-                      </button>
+                      </PDFDownloadLink>
                       <button
                         onClick={() => handleShowClick(each)}
                         style={{

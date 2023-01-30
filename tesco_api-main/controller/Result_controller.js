@@ -14,10 +14,13 @@ exports.get_all_result = async (req, res) => {
     return res.status(500).json({ message: "something went wrong", error });
   }
 };
+
 exports.create_result = async (req, res) => {
-  const { firstname, lastname, middlename, score, answer } = req.body;
+  const { firstname, lastname, middlename, score, answer, questionaireId } =
+    req.body;
   try {
     const response = new ResultModal({
+      questionaireId,
       firstname: firstname,
       lastname: lastname,
       middlename: middlename,

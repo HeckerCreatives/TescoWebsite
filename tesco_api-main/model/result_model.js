@@ -13,6 +13,10 @@ const answerSchema = new Schema({
 });
 
 const resultSchema = new Schema({
+  questionaireId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
   firstname: {
     type: String,
     required: true,
