@@ -18,12 +18,12 @@ exports.create_question = async (req, res) => {
     try {
       decodeToken = jwt.verify(token, SCRETE_KEY);
 
-      const { firstname } = decodeToken;
+      const { username } = decodeToken;
       const response = new QuestionModal({
         questionnaire_id: question_id,
         topic_name: req.body.topic_name,
         questionnaire_title: req.body.questionnaire_title,
-        instructor: firstname,
+        instructor: username,
         questions: req.body.questions,
       });
       await response.save();
