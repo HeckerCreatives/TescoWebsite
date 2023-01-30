@@ -5,6 +5,7 @@ const {
   delete_question,
   update_question,
   get_filtered_questions,
+  get_questions_by_user,
 } = require("../controller/Question_controller");
 const Question_Router = express.Router();
 
@@ -16,4 +17,5 @@ Question_Router.get(
   "/questions/:username/:topicName/:questionId",
   get_filtered_questions
 );
+Question_Router.get("/questions/filter/:username", get_questions_by_user);
 module.exports = Question_Router;
