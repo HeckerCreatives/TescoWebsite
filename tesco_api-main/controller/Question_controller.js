@@ -31,7 +31,7 @@ exports.create_question = async (req, res) => {
         .status(200)
         .json({ sucess: true, message: "Question data added" });
     } catch (err) {
-      return res.status(500).json({ message: "something went wrong", error });
+      return res.status(500).json({ message: "something went wrong", err });
     }
   } catch (error) {
     return res.status(500).json({ message: "something went wrong", error });
@@ -96,6 +96,25 @@ exports.delete_question = async (req, res) => {
       message: "question deleted succesfully",
       success: true,
       data: data,
+    });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
+exports.get_filtered_questions = async (req, res) => {
+  try {
+    const { username, topicName, questionId } = req.params;
+
+    const questions = await QuestionModal.find({
+      instructor: username,
+      questionnaire_id: questionId,
+      topic_name: topicName,
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: questions,
     });
   } catch (error) {
     return res.status(500).json({ error });
