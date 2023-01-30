@@ -13,6 +13,10 @@ const answerSchema = new Schema({
 });
 
 const resultSchema = new Schema({
+  teacher: {
+    type: String,
+    required: true,
+  },
   questionaireId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -29,7 +33,6 @@ const resultSchema = new Schema({
     required: true,
   },
   answer: [answerSchema],
-
   score: {
     type: String,
     required: true,

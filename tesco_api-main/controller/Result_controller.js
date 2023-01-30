@@ -16,11 +16,20 @@ exports.get_all_result = async (req, res) => {
 };
 
 exports.create_result = async (req, res) => {
-  const { firstname, lastname, middlename, score, answer, questionaireId } =
-    req.body;
+  const {
+    firstname,
+    lastname,
+    middlename,
+    score,
+    answer,
+    questionaireId,
+    teacher,
+  } = req.body;
+
   try {
     const response = new ResultModal({
       questionaireId,
+      teacher,
       firstname: firstname,
       lastname: lastname,
       middlename: middlename,
