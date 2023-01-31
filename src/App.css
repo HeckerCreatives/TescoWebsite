@@ -6,3 +6,15 @@
   }
 }
 
+.changepass-btn {
+  font-size: 1.2em;
+  width: 13em;
+  background-color: rgb(68, 68, 242);
+  color: white;
+}
+
+.changepass-input {
+  width: 100%;
+  font-size: 1.2em;
+  padding: 0.25em 1em;
+}

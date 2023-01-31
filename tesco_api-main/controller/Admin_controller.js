@@ -36,6 +36,7 @@ exports.sign_up = async (req, res) => {
     return res.status(401).json({ message: "Something went wrong" });
   }
 };
+
 exports.login = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -165,3 +166,23 @@ exports.login = async (req, res) => {
 //     }
 
 // }
+
+exports.changePassword = async (req, res) => {
+  const { username, password, oldPassword } = req.body;
+  AdminModal.findOne({ username })
+    .then(async user => {
+      const matchPassword = await bcrypt.compare(oldPassword, user.password);
+      console.log(matchPassword);
+      if (user && matchPassword) {
+        const hashedPassword = await hashPassword(password);
+        AdminModal.findByIdAndUpdate(user._id, {
+          password: hashedPassword,
+        }).then(() => {
+          res.json({ success: true });
+        });
+      } else {
+        res.json({ error: "Username and Password does not match." });
+      }
+    })
+    .catch(error => res.status(400).json({ error: error.message }));
+};

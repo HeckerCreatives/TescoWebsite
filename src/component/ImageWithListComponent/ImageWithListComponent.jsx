@@ -27,6 +27,9 @@ import { dropData } from "../../utils/fakedata/fakedata";
 import DropMenu from "../../shared/DropDownMenu/DropMenu";
 import QuestionTabComponent from "../QuestionTabComponent/QuestionTabComponent";
 import ModalScroll from "../ScrollComponent/ModalScroll";
+import { useRef } from "react";
+import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const style = {
   position: "absolute",
@@ -167,6 +170,7 @@ const ImageWithListComponent = ({
   const [questionList, setQuestionList] = useState([]);
 
   const [token, setToken] = useState("");
+  const auth = jwtDecode(localStorage.getItem("token"));
 
   const { mutate, isSuccess, isError } = UseCreateTeacherHooks();
   useEffect(() => {
@@ -280,6 +284,67 @@ const ImageWithListComponent = ({
       showConfirmButton: false,
       timer: 1500,
     });
+  };
+
+  // password change
+
+  const oldPassRef = useRef(null);
+  const newPassRef = useRef(null);
+  const confirmPassRef = useRef(null);
+  const [passLoading, setPassLoading] = useState(false);
+
+  const handleChangePassword = async () => {
+    const oldPass = oldPassRef.current.value;
+    const newPass = newPassRef.current.value;
+    const confirmPass = confirmPassRef.current.value;
+
+    console.log(oldPass, newPass, confirmPass);
+
+    if (oldPass === "" || newPass === "" || confirmPass === "") {
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "Please complete inputs to change password.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else if (newPass !== confirmPass) {
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "New Password and Confirm New Password must match.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      setPassLoading(true);
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/change-password`,
+        {
+          username: auth.username,
+          password: newPass,
+          oldPassword: oldPass,
+        }
+      );
+      if (res.data?.success) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully changed!.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: res.data?.error,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      setPassLoading(false);
+    }
   };
 
   return (
@@ -845,21 +910,27 @@ const ImageWithListComponent = ({
       {setting && (
         <Grid padding={2} container spacing={5} className="setting-grid">
           <Grid item xl={4}>
-            <InputLabel
-              setType={setType}
-              inputPlaceHolder={settingPlaceholder1}
+            <input
+              type="password"
+              placeholder="Old Password"
+              ref={oldPassRef}
+              className="changepass-input"
             />
           </Grid>
           <Grid item xl={4}>
-            <InputLabel
-              setType={setType}
-              inputPlaceHolder={settingPlaceholder2}
+            <input
+              type="password"
+              placeholder="New Password"
+              ref={newPassRef}
+              className="changepass-input"
             />
           </Grid>
           <Grid item xl={4}>
-            <InputLabel
-              setType={setType}
-              inputPlaceHolder={settingPlaceholder3}
+            <input
+              type="password"
+              placeholder="Confirm New Password"
+              ref={confirmPassRef}
+              className="changepass-input"
             />
           </Grid>
           <Grid
@@ -872,15 +943,14 @@ const ImageWithListComponent = ({
             padding={2}
             marginLeft="auto"
           >
-            <ButtonLabel
+            <button
+              onClick={handleChangePassword}
               buttonLabel="Save"
-              styles={{
-                fontSize: "1.2em",
-                width: "15em",
-                backgroundColor: "rgb(68, 68, 242)",
-                color: "white",
-              }}
-            />
+              className="changepass-btn"
+              disabled={passLoading}
+            >
+              SAVE
+            </button>
           </Grid>
         </Grid>
       )}
