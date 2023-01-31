@@ -298,8 +298,6 @@ const ImageWithListComponent = ({
     const newPass = newPassRef.current.value;
     const confirmPass = confirmPassRef.current.value;
 
-    console.log(oldPass, newPass, confirmPass);
-
     if (oldPass === "" || newPass === "" || confirmPass === "") {
       Swal.fire({
         position: "center",

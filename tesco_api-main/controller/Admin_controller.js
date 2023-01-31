@@ -172,7 +172,6 @@ exports.changePassword = async (req, res) => {
   AdminModal.findOne({ username })
     .then(async user => {
       const matchPassword = await bcrypt.compare(oldPassword, user.password);
-      console.log(matchPassword);
       if (user && matchPassword) {
         const hashedPassword = await hashPassword(password);
         AdminModal.findByIdAndUpdate(user._id, {
