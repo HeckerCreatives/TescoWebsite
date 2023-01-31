@@ -61,7 +61,7 @@ const TabelComponent = ({
   cellData2,
   tableHeadSecond,
 }) => {
-  console.log(cellData.data?.response);
+  console.log(cellData);
 
   const resultRef = useRef();
   const MyTextArea = ({ label, ...props }) => {
@@ -105,7 +105,9 @@ const TabelComponent = ({
   const { mutate, isError } = DeleteTeacherHook();
   const questions = useQuery(["question-data", null], getQuestion);
 
-  const [rows, setRows] = useState(cellData && cellData?.data?.results);
+  const [rows, setRows] = useState(
+    cellData && (cellData?.data?.results || cellData?.data?.data)
+  );
   const [token, setToken] = useState("");
   const [role, setRole] = useState();
   const [openQuestionDelete, setOpenQuestionDelete] = useState(false);
@@ -451,9 +453,7 @@ const TabelComponent = ({
                   role === "teacher" ? (
                     row.user_id === token && (
                       <TableRow key={index}>
-                        <TableCell>
-                          {row.questionaireId?.questionnaire_id}
-                        </TableCell>
+                        <TableCell>{row.generatedCode}</TableCell>
                         <TableCell>{row.topic}</TableCell>
                         <TableCell>{row.name}</TableCell>
                         <TableCell>{row.date}</TableCell>
@@ -493,9 +493,7 @@ const TabelComponent = ({
                     )
                   ) : (
                     <TableRow key={index}>
-                      <TableCell>
-                        {row.questionaireId?.questionnaire_id}
-                      </TableCell>
+                      <TableCell>{row.generatedCode}</TableCell>
                       <TableCell>{row.topic}</TableCell>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>{row.date}</TableCell>
