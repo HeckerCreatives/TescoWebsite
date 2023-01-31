@@ -70,6 +70,7 @@ exports.login = async (req, res) => {
           success: true,
           data: existingUser._id,
           username: existingUser.username,
+          fullname: `${existingUser.firstname} ${existingUser.lastname}`,
         });
       }
     } else if (existingUser.role === "teacher") {
@@ -95,6 +96,7 @@ exports.login = async (req, res) => {
           message: "teacher",
           data: existingUser._id,
           username: existingUser.username,
+          fullname: `${existingUser.firstname} ${existingUser.lastname}`,
         });
       }
     }
