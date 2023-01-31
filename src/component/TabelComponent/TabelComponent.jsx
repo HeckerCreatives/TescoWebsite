@@ -235,19 +235,18 @@ const TabelComponent = ({
   });
 
   useEffect(() => {
-    // console.log(indexs,'indexs')
     cellData?.data?.data?.map((each, index) => {
       if (index === indexs) {
-        initialValueTopic.description = each?.description;
-        initialValueTopic.topic = each?.topic;
+        initialValueTopic.description = each?.questionnaire_title;
+        initialValueTopic.topic = each?.topic_name;
       }
     });
   }, [indexs, initialValueTopic, cellData]);
 
   useEffect(() => {
-    // console.log(indexs, "indexs");
-    cellData?.data?.response?.map((each, index) => {
+    cellData?.data?.data?.map((each, index) => {
       if (index === indexs) {
+        console.log(each);
         setInitialValueQuestionnaires(prev => {
           return {
             ...prev,
