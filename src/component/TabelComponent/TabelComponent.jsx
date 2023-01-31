@@ -61,8 +61,6 @@ const TabelComponent = ({
   cellData2,
   tableHeadSecond,
 }) => {
-  console.log(cellData);
-
   const resultRef = useRef();
   const MyTextArea = ({ label, ...props }) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -108,6 +106,7 @@ const TabelComponent = ({
   const [rows, setRows] = useState(
     cellData && (cellData?.data?.results || cellData?.data?.data)
   );
+
   const [token, setToken] = useState("");
   const [role, setRole] = useState();
   const [openQuestionDelete, setOpenQuestionDelete] = useState(false);
@@ -1058,7 +1057,7 @@ const TabelComponent = ({
               </TableHead>
               <TableBody>
                 {cellData &&
-                  cellData?.data?.response?.map((each, index) => (
+                  cellData?.data?.data?.map((each, index) => (
                     <TableRow key={index}>
                       <TableCell>{each?.questionnaire_id}</TableCell>
                       <TableCell>{each?.topic_name}</TableCell>

@@ -19,12 +19,16 @@ import {
   GetResultHook,
 } from "../../utils/CustomQuerHook/CustomQueryHook";
 import { useQuery } from "react-query";
+import jwtDecode from "jwt-decode";
 
 const ResultComponent = () => {
   const { data, isLoading, isError } = GetResultHook();
-
+  const token = jwtDecode(localStorage.getItem("token"));
   const questions = useQuery(["question-data", null], getQuestion);
-  const results = useQuery(["result-by-user"], () => getResultsByUser("admin"));
+  const results = useQuery(["result-by-user"], () =>
+    getResultsByUser(token.username)
+  );
+
   // console.log(results);
   return (
     <ScrollComponent>

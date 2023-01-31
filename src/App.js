@@ -71,7 +71,7 @@ function App() {
 
               <Route
                 path="/dashboard/question-teacher"
-                element={<QuestionChoice />}
+                element={<QuestionAnswer />}
               />
               <Route
                 path="/dashboard/result-teacher"

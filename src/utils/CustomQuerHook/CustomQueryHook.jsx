@@ -38,6 +38,12 @@ export const getResultsByUser = async username => {
   );
 };
 
+export const getQuestionairesByUser = async (username, role) => {
+  return await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/api/questions-by-user/${username}/${role}`
+  );
+};
+
 const deleteQuestion = async id => {
   return await axios.delete(
     `${process.env.REACT_APP_BASE_URL}${endpoints.deleteQuestion}/${id}`
@@ -153,6 +159,17 @@ export const GetResultByUserHook = (username, onSuccess, onError) => {
     onSuccess,
     onError,
   });
+};
+
+export const GetQuestionsByUserHook = (username, role, onSuccess, onError) => {
+  return useQuery(
+    "question-by-user",
+    () => getQuestionairesByUser(username, role),
+    {
+      onSuccess,
+      onError,
+    }
+  );
 };
 
 export const UseLogin = setError => {

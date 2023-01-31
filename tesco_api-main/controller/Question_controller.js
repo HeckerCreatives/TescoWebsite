@@ -132,9 +132,33 @@ exports.get_questions_by_user = async (req, res) => {
       {
         questionnaire_title: 1,
         questionnaire_id: 1,
+        topic_name: 1,
         _id: 0,
       }
     );
+
+    return res.status(200).json({
+      success: true,
+      data: questions,
+    });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
+exports.get_questions_by_user_web = async (req, res) => {
+  try {
+    const { username, role } = req.params;
+
+    let questions = [];
+
+    if (role !== "admin") {
+      questions = await QuestionModal.find({
+        instructor: username,
+      });
+    } else {
+      questions = await QuestionModal.find({});
+    }
 
     return res.status(200).json({
       success: true,
