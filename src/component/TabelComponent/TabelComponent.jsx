@@ -262,10 +262,6 @@ const TabelComponent = ({
   }, [indexs, cellData]);
 
   useEffect(() => {
-    console.log(rows);
-  }, [rows]);
-
-  useEffect(() => {
     // console.log(indexs,'indexs')
     cellData?.data?.data?.map((each, index) => {
       if (index === indexs) {
@@ -367,7 +363,6 @@ const TabelComponent = ({
   };
 
   const handleShowClick = data => {
-    console.log(data);
     setActiveQuestions(data);
     setOpenShow(true);
   };
@@ -769,7 +764,6 @@ const TabelComponent = ({
                 )} */}
                 <ModalScroll>
                   {initialValueQuestionnaires?.questions?.map((each, index) => {
-                    console.log(each);
                     return (
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}

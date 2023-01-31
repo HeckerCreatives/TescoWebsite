@@ -47,7 +47,7 @@ exports.create_topics = async (req, res) => {
 
 exports.get_all_topics = async (req, res) => {
   try {
-    const response = await TopicsModel.find();
+    const response = await TopicsModel.find().populate("user_id");
     if (response) {
       return res
         .status(200)

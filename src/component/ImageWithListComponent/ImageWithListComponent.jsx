@@ -267,7 +267,6 @@ const ImageWithListComponent = ({
       topic: values.topic,
       description: values.description,
     };
-    console.log(body);
     topicMutate(body);
 
     if (topicError) {
