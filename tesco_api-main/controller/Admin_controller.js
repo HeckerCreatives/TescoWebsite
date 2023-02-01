@@ -11,6 +11,7 @@ exports.sign_up = async (req, res) => {
   const randomCode = generateUniqueInteger();
   try {
     const existingUser = await AdminModal.findOne({ username: username });
+    
     if (existingUser) {
       return res
         .status(400)
