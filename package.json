@@ -33,9 +33,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build --legacy-peer-deps",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm install --legacy-peer-deps --prefix ./client && npm run build --prefix ./client"
   },
   "eslintConfig": {
     "extends": [
