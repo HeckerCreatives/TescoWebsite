@@ -13,15 +13,12 @@ const db = {
 
     // Handle connection events
     mongoose.connection.on("connected", () => {
-      console.log("Mongoose connection opened");
     });
 
     mongoose.connection.on("error", (err) => {
-      console.log(`Mongoose connection error: ${err}`);
     });
 
     mongoose.connection.on("disconnected", () => {
-      console.log("Mongoose connection closed");
     });
   },
 };

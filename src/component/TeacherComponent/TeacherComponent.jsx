@@ -13,10 +13,8 @@ const TeacherComponent = () => {
 
   
   const onSuccess=(data)=>{
-    console.log('data',data)
   }
   const onError=(error)=>{
-    console.log(error)
   }
   const{isError,isLoading,data}= GetTeacherHook()
 

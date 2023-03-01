@@ -210,7 +210,6 @@ const ImageWithListComponent = ({
       questionnaire_title: questionTitle,
       questions: questionList,
     };
-
     questionMutate(data);
     setError([]);
     setTabComponentQuestion([]);

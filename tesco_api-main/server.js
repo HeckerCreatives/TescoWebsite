@@ -61,5 +61,4 @@ app.get('/',(req,res)=>{
     res.end("Welcome to tesoc backend")
 })
 app.listen(PORT,()=>{
-    console.log(`Serve is running on port:${PORT}`)
 })

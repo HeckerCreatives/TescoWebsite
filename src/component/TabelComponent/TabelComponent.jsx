@@ -194,7 +194,6 @@ const TabelComponent = ({
       ...initialValueQuestionnaires,
     };
     questionMutate(data);
-    console.log(initialValueQuestionnaires, "setQuestionsClone");
   };
 
   const handleSubmitEdit = async values => {
@@ -246,7 +245,6 @@ const TabelComponent = ({
   useEffect(() => {
     cellData?.data?.data?.map((each, index) => {
       if (index === indexs) {
-        console.log(each);
         setInitialValueQuestionnaires(prev => {
           return {
             ...prev,

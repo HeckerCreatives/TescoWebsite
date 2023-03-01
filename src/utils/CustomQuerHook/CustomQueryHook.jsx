@@ -69,7 +69,6 @@ const updateQuestion = async data => {
 };
 
 export const getQuestion = async tp => {
-  console.log(tp, "tp");
   const { queryKey } = tp && tp;
   return await axios.get(
     `${process.env.REACT_APP_BASE_URL}${endpoints.getQuestion}/?tp=${
