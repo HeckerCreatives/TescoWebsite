@@ -1,35 +1,49 @@
+// ** React
+import { useRef } from "react";
 import React, { useEffect, useState } from "react";
-import ButtonLabel from "../../shared/Button/ButtonLabel";
-import searchIcon from "../../Assest/Topic/SearchBtn.png";
-import { Box, Grid, Typography, Modal, Button, TextField } from "@mui/material";
-import DataTable from "../TabelComponent/TabelComponent";
-import "./imagewithlist.css";
-import DropDownMenu from "../../shared/DropDownMenu/DropDownMenu";
-import QuestionComponent from "../QuestionComponent/QuestionComponent";
-import InputLabel from "../../shared/InputLabel/InputLabel";
-import ScrollComponent from "../ScrollComponent/ScrollComponent";
+
+// ** Third Party Components
+import axios from "axios";
+import jwtDecode from "jwt-decode";
+import * as Yup from "yup";
+import Swal from "sweetalert2";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Form, Field, Formik, useField } from "formik";
 import { MDBIcon, MDBInputGroup } from "mdb-react-ui-kit";
-import { motion } from "framer-motion";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Box, Grid, Typography, Modal, Button, TextField } from "@mui/material";
+
+// ** Images
+import searchIcon from "../../Assest/Topic/SearchBtn.png";
+
+// ** Style
+import "./imagewithlist.css";
+
+// ** Components
+
+import { dropData } from "../../utils/fakedata/fakedata";
+import ModalScroll from "../ScrollComponent/ModalScroll";
+import DropMenu from "../../shared/DropDownMenu/DropMenu";
+import CircularIndeterminate from "../../shared/Spinner/Spinner";
+import InputLabel from "../../shared/InputLabel/InputLabel";
+import ScrollComponent from "../ScrollComponent/ScrollComponent";
+import ButtonLabel from "../../shared/Button/ButtonLabel";
+import DropDownMenu from "../../shared/DropDownMenu/DropDownMenu";
+import QuestionComponent from "../QuestionComponent/QuestionComponent";
+import DataTable from "../TabelComponent/TabelComponent";
+import QuestionTabComponent from "../QuestionTabComponent/QuestionTabComponent";
+
+// ** Fake Data
+import { topicSchema } from "../../utils/validationSchema/validationSchema";
+
 import {
   UseCreateTeacherHooks,
   UseCreateTopicHooks,
   GetTeacherHook,
   UseCreateQuestionHooks,
   GetTopicHook,
+  getQuestionairesByUser,
 } from "../../utils/CustomQuerHook/CustomQueryHook";
-import CircularIndeterminate from "../../shared/Spinner/Spinner";
-import Swal from "sweetalert2";
-import { topicSchema } from "../../utils/validationSchema/validationSchema";
-import { dropData } from "../../utils/fakedata/fakedata";
-import DropMenu from "../../shared/DropDownMenu/DropMenu";
-import QuestionTabComponent from "../QuestionTabComponent/QuestionTabComponent";
-import ModalScroll from "../ScrollComponent/ModalScroll";
-import { useRef } from "react";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
 
 const style = {
   position: "absolute",
@@ -179,7 +193,7 @@ const ImageWithListComponent = ({
   }, []);
   const { mutate: topicMutate, isError: topicError } = UseCreateTopicHooks();
 
-  const handleSubmit = values => {
+  const handleSubmit = (values) => {
     mutate({
       username: values.userName,
       password: values.password,
@@ -198,9 +212,11 @@ const ImageWithListComponent = ({
       showConfirmButton: false,
       timer: 1500,
     });
+    GetTeacherHook();
   };
 
-  const handleSubmitQuestion = value => {
+  const handleSubmitQuestion = (value) => {
+    console.log("dasdasd");
     const data = {
       headers: {
         "Content-Type": "application/json",
@@ -215,6 +231,7 @@ const ImageWithListComponent = ({
     setTabComponentQuestion([]);
     setCount(1);
     setQuestionList([]);
+    getQuestionairesByUser(auth.username, auth.role);
 
     setOpenQuestion(false);
     Swal.fire({
@@ -261,7 +278,7 @@ const ImageWithListComponent = ({
     setTabComponentQuestion([...tabComponentQuestion, newTab]);
   };
 
-  const handleSubmitTopics = async values => {
+  const handleSubmitTopics = async (values) => {
     const body = {
       headers: {
         "Content-Type": "application/json",
@@ -276,6 +293,8 @@ const ImageWithListComponent = ({
       return setError(isError), setOpen({ openTopic: true });
     }
     setOpenTopic(false);
+    GetTopicHook();
+
     Swal.fire({
       position: "center",
       icon: "success",
@@ -419,7 +438,7 @@ const ImageWithListComponent = ({
                 <Formik
                   initialValues={initialValues}
                   validationSchema={teacherSchema}
-                  onSubmit={values => {
+                  onSubmit={(values) => {
                     handleSubmit(values);
                   }}
                 >
@@ -494,7 +513,7 @@ const ImageWithListComponent = ({
               <Formik
                 initialValues={initialValuesTopic}
                 // validationSchema={topicSchema}
-                onSubmit={values => {
+                onSubmit={(values) => {
                   handleSubmitTopics(values);
                 }}
               >
@@ -554,7 +573,7 @@ const ImageWithListComponent = ({
               <Formik
                 initialValues={initialValuesTopic}
                 // validationSchema={topicSchema}
-                onSubmit={values => {
+                onSubmit={(values) => {
                   handleSubmitQuestion(values);
                 }}
               >
@@ -575,7 +594,7 @@ const ImageWithListComponent = ({
                         color="secondary"
                         fullWidth="true"
                         id="outlined-basic"
-                        onChange={e => setQuestionTitle(e.target.value)}
+                        onChange={(e) => setQuestionTitle(e.target.value)}
                         label="Questionnaries title"
                         variant="outlined"
                       />

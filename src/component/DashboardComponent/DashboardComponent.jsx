@@ -1,16 +1,81 @@
-import { Grid } from "@mui/material";
-import React from "react";
+// ** React
+import { useEffect, useState } from "react";
 
-import CardWithImage from "../CardImage/CardWithImage";
-import { dashboardcardData } from "../../utils/fakedata/fakedata";
-import HeaderComponent from "../HeaderComponent/HeaderComponent";
-import dashboardIamge from "../../Assest/Navigation/menu.png";
-import "./dashboard.css";
+// ** Third Party Component
+import { useQuery } from "react-query";
+import { Grid } from "@mui/material";
+
+// ** FakeData
+// import { dashboardcardData } from "../../utils/fakedata/fakedata";
 import { resultDataHead } from "../../utils/fakedata/fakedata";
+import { dashboardcardData } from "../../utils/fakedata/fakedata";
+
+import {
+  CountTeachersHook,
+  CountTopicsHook,
+  CountQuestionsHook,
+  CountMyTopicsHook,
+  CountMyQuestionsHook,
+} from "../../utils/CustomQuerHook/CustomQueryHook";
+
+// ** Components
+import CardWithImage from "../CardImage/CardWithImage";
+import HeaderComponent from "../HeaderComponent/HeaderComponent";
 import Cardindicator from "../CardIndiactor/Cardindicator";
 import ScrollComponent from "../ScrollComponent/ScrollComponent";
+
+// ** Style
+import "./dashboard.css";
+
+// ** Images
+import dashboardIamge from "../../Assest/Navigation/menu.png";
 import backgroundImage from "../../BG.png";
-const DashboardComponent = ({ data = [] }) => {
+import topic from "../../Assest/Dashboard/Topic.png";
+import teacher from "../../Assest/Dashboard/Teacher.png";
+import student from "../../Assest/Dashboard/Student.png";
+import questionnaire from "../../Assest/Dashboard/Questinnaire.png";
+
+const DashboardComponent = () => {
+  // ** Vars
+  const role = localStorage.getItem("role");
+  const username = localStorage.getItem("username");
+  const user_id = localStorage.getItem("_id");
+
+  // ** React States
+  const [topicsCount, setTopicsCount] = useState([]);
+  const [teachersCount, setTeachersCount] = useState([]);
+  const [QuestionsCount, setQuestionsCount] = useState([]);
+  const [myTopicsCount, setMytopicsCount] = useState([]);
+  const [myQuestionsCount, setMyQuestionsCount] = useState([]);
+
+  // ** Datas
+
+  useEffect(() => {
+    const loadData = async () => {
+      if (role === "teacher") {
+        const MyTopicsCountData = await CountMyTopicsHook({
+          user_id,
+        });
+        const MyQuestionCountData = await CountMyQuestionsHook({ username });
+
+        setMytopicsCount(MyTopicsCountData);
+        setMyQuestionsCount(MyQuestionCountData);
+      } else {
+        const TeacherCountdata = CountTeachersHook();
+        const TopicCountdata = CountTopicsHook();
+        const QuestionCountData = CountQuestionsHook();
+
+        console.log(TeacherCountdata);
+
+        setTeachersCount(TeacherCountdata.data);
+        setTopicsCount(TopicCountdata.data);
+        setQuestionsCount(QuestionCountData.data);
+      }
+    };
+
+    loadData();
+  }, [role]);
+
   return (
     <ScrollComponent>
       <Grid
@@ -21,7 +86,6 @@ const DashboardComponent = ({ data = [] }) => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           minHeight: "100%",
-
           // height:"100%"
         }}
         className="dashboard-component-container"
@@ -31,15 +95,44 @@ const DashboardComponent = ({ data = [] }) => {
           headerLabelIamges={dashboardIamge}
         />
 
-        <Grid
-          container
-          direction={"row"}
-          spacing={10}
-          padding={4}
-          justifyContent={"center"}
-          alignItems="center"
-        >
-          {data.map((each, index) => (
+        {role !== "teacher" ? (
+          <Grid
+            container
+            direction={"row"}
+            spacing={10}
+            padding={4}
+            justifyContent={"center"}
+            alignItems="center"
+          >
+            <Grid item xs={12} md={3} lg={3} xl={3}>
+              <CardWithImage
+                imagePath={teacher}
+                totalNumber={topicsCount?.data?.count}
+                labelCard={"Total Number Of Teachers"}
+              />
+            </Grid>
+            <Grid item xs={12} md={3} lg={3} xl={3}>
+              <CardWithImage
+                imagePath={student}
+                totalNumber={"-"}
+                labelCard={"Total Number Of Students"}
+              />
+            </Grid>
+            <Grid item xs={12} md={3} lg={3} xl={3}>
+              <CardWithImage
+                imagePath={questionnaire}
+                totalNumber={teachersCount?.data?.count}
+                labelCard={"Total Number Of Questionaire"}
+              />
+            </Grid>
+            <Grid item xs={12} md={3} lg={3} xl={3}>
+              <CardWithImage
+                imagePath={topic}
+                totalNumber={QuestionsCount?.data?.count}
+                labelCard={"Total Number Of Topics"}
+              />
+            </Grid>
+            {/* {data.map((each, index) => (
             <Grid item key={index}>
               <CardWithImage
                 imagePath={each.image}
@@ -47,8 +140,34 @@ const DashboardComponent = ({ data = [] }) => {
                 labelCard={each.label}
               />
             </Grid>
-          ))}
-        </Grid>
+          ))} */}
+          </Grid>
+        ) : (
+          <Grid
+            container
+            direction={"row"}
+            spacing={10}
+            padding={4}
+            justifyContent={"center"}
+            alignItems="center"
+          >
+            <Grid item xs={12} md={6} lg={6} xl={6}>
+              <CardWithImage
+                imagePath={questionnaire}
+                totalNumber={myTopicsCount?.count}
+                labelCard={"Total Number Of Questioners"}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} lg={6} xl={6}>
+              <CardWithImage
+                imagePath={topic}
+                totalNumber={myQuestionsCount?.count}
+                labelCard={"Total Number Of Topics"}
+              />
+            </Grid>
+          </Grid>
+        )}
+
         <Grid
           container
           justifyContent={"center"}

@@ -36,6 +36,7 @@ export const dashboardcardData = [
     number: "10",
   },
 ];
+
 export const dashboardteacherData = [
   {
     image: teacher,
@@ -47,26 +48,26 @@ export const dashboardteacherData = [
     label: "total number of topics",
     number: "10",
   },
-  {
-    image: questionnaire,
-    label: "monthly passer",
-    number: "12",
-  },
-  {
-    image: topic,
-    label: "passer percentage",
-    number: "10",
-  },
-  {
-    image: topic,
-    label: "passer percentage",
-    number: "10",
-  },
-  {
-    image: questionnaire,
-    label: "questionnaires",
-    number: "10",
-  },
+  // {
+  //   image: questionnaire,
+  //   label: "monthly passer",
+  //   number: "12",
+  // },
+  // {
+  //   image: topic,
+  //   label: "passer percentage",
+  //   number: "10",
+  // },
+  // {
+  //   image: topic,
+  //   label: "passer percentage",
+  //   number: "10",
+  // },
+  // {
+  //   image: questionnaire,
+  //   label: "questionnaires",
+  //   number: "10",
+  // },
 ];
 export const teacherDataHead = [
   {

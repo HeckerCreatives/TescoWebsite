@@ -28,7 +28,7 @@ const QuestionComponent = ({
     }
   };
 
-  const handleChange = value => {
+  const handleChange = (value) => {
     setTextChange(value);
   };
 
@@ -65,7 +65,7 @@ const QuestionComponent = ({
           <textarea
             disabled={editState}
             value={defaultValue}
-            onChange={e => handleChange(e.target.value)}
+            onChange={(e) => handleChange(e.target.value)}
             className="textArea"
           />
         </Box>

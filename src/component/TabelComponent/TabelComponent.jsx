@@ -28,6 +28,7 @@ import {
   GetTeacherHook,
   DeleteQuestionHook,
   UseUpdateQuestionHooks,
+  GetTopicHook,
 } from "../../utils/CustomQuerHook/CustomQueryHook";
 import PaginationAdd from "../pagination/Pagination";
 
@@ -97,6 +98,8 @@ const TabelComponent = ({
     topic_name: "",
     questions: [],
   });
+  const [teachersUpdateData, setTeachersUpdateData] = useState([]);
+  const [topicsUpdateData, setTopicsUpdateData] = useState([]);
   const [activeQuestions, setActiveQuestions] = useState({});
   const [questionCount, setQuestionCount] = useState(0);
   const [dropValue, setDropValue] = useState("");
@@ -137,15 +140,17 @@ const TabelComponent = ({
     setQuestionnareEdit(false);
     openPrintModal(false);
   };
-  const handleOpen = _id => {
+  const handleOpen = (_id) => {
     setOpen(true);
     setId(_id);
   };
-  const handleOpenEdit = (_id, index) => {
+  const handleOpenEdit = (_id, index, data) => {
     setOpenEdit(true);
     setId(_id);
-    setIndex(index);
+    setTeachersUpdateData(data);
+    // setIndex(index);
   };
+
   const printResult = useReactToPrint({
     content: () => resultRef.current,
   });
@@ -168,7 +173,7 @@ const TabelComponent = ({
       timer: 1500,
     });
   };
-  const handleSubmitTopicEdit = async values => {
+  const handleSubmitTopicEdit = async (values) => {
     const data = {
       id: ids,
       topic: values.topic,
@@ -176,6 +181,8 @@ const TabelComponent = ({
     };
     topicUpdateMutate(data);
     setTopicEdit(false);
+    GetTopicHook();
+
     Swal.fire({
       position: "center",
       icon: "success",
@@ -193,10 +200,20 @@ const TabelComponent = ({
       },
       ...initialValueQuestionnaires,
     };
+
     questionMutate(data);
+    setQuestionnareEdit(false);
+
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Questioner updated successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
-  const handleSubmitEdit = async values => {
+  const handleSubmitEdit = async (values) => {
     const data = {
       id: ids,
       username: values.userName,
@@ -204,8 +221,12 @@ const TabelComponent = ({
       middlename: values.middleName,
       firstname: values.firstName,
     };
+
+    console.log(data);
     editMutate(data);
     setOpenEdit(false);
+    // GetTeacherHook();
+
     Swal.fire({
       position: "center",
       icon: "success",
@@ -245,7 +266,7 @@ const TabelComponent = ({
   useEffect(() => {
     cellData?.data?.data?.map((each, index) => {
       if (index === indexs) {
-        setInitialValueQuestionnaires(prev => {
+        setInitialValueQuestionnaires((prev) => {
           return {
             ...prev,
             _id: each._id,
@@ -271,21 +292,24 @@ const TabelComponent = ({
     });
   }, [indexs, initialValues, cellData]);
 
-  const handleTopicModal = _id => {
+  const handleTopicModal = (_id) => {
     setTopicDelete(true);
     setId(_id);
   };
 
-  const handleTopicEditModal = (_id, index) => {
+  const handleTopicEditModal = (_id, index, data) => {
     setTopicEdit(true);
     setId(_id);
-    setIndex(index);
+    setTopicsUpdateData(data);
+    // setIndex(index);
   };
 
-  const handleQuestionnaresEdit = (_id, index) => {
+  const handleQuestionnaresEdit = (_id, index, data) => {
+    console.log(data);
     setQuestionnareEdit(true);
     setId(_id);
-    setIndex(index);
+    setInitialValueQuestionnaires(data);
+    // setIndex(index);
   };
 
   const handleTopicDelete = () => {
@@ -322,28 +346,28 @@ const TabelComponent = ({
       .required("Required"),
   });
 
-  const requestTopicSearch = values => {
-    const filterData = cellData?.data?.data.filter(row => {
+  const requestTopicSearch = (values) => {
+    const filterData = cellData?.data?.data.filter((row) => {
       return row.topic.toLowerCase().includes(values.toLowerCase());
     });
     setRows(filterData);
   };
 
-  const requestInstructorSearch = values => {
-    const filterData = cellData?.data?.data.filter(row => {
+  const requestInstructorSearch = (values) => {
+    const filterData = cellData?.data?.data.filter((row) => {
       return row.name.toLowerCase().includes(values.toLowerCase());
     });
     setRows(filterData);
   };
 
-  const requestGeneratedSearch = values => {
-    const filterData = cellData?.data?.data.filter(row => {
+  const requestGeneratedSearch = (values) => {
+    const filterData = cellData?.data?.data.filter((row) => {
       return row.generatedCode.toLowerCase().includes(values.toLowerCase());
     });
     setRows(filterData);
   };
 
-  const handleDeleteQuestion = _id => {
+  const handleDeleteQuestion = (_id) => {
     setOpenQuestionDelete(true);
     setId(_id);
   };
@@ -359,20 +383,20 @@ const TabelComponent = ({
     });
   };
 
-  const handleShowClick = data => {
+  const handleShowClick = (data) => {
     setActiveQuestions(data);
     setOpenShow(true);
   };
 
-  const ShowQuestions = data => {
+  const ShowQuestions = (data) => {
     const questions = data.questionaireId?.questions;
     const answers = data.answer;
 
     if (questions) {
       let texts = [];
 
-      questions?.map(question => {
-        let ans = answers.find(e => e.questionId === question._id);
+      questions?.map((question) => {
+        let ans = answers.find((e) => e.questionId === question._id);
         texts.push({
           question: question.question,
           answer: ans.answer,
@@ -402,15 +426,15 @@ const TabelComponent = ({
     }
   };
 
-  const handleScore = data => {
+  const handleScore = (data) => {
     const questions = data.questionaireId?.questions;
     const answers = data.answer;
 
     if (questions) {
       let total = 0;
 
-      questions.map(question => {
-        let ans = answers.find(e => e.questionId === question._id);
+      questions.map((question) => {
+        let ans = answers.find((e) => e.questionId === question._id);
         if (ans.answer === question.answer) total++;
       });
 
@@ -433,7 +457,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map(each => (
+                {tableHead.map((each) => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -532,7 +556,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map(each => (
+                {tableHead.map((each) => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -553,7 +577,7 @@ const TabelComponent = ({
                       }}
                     >
                       <button
-                        onClick={() => handleOpenEdit(row._id, index)}
+                        onClick={() => handleOpenEdit(row._id, index, row)}
                         style={{
                           color: "white",
                           backgroundColor: "blue",
@@ -623,8 +647,9 @@ const TabelComponent = ({
           <Box>
             <Formik
               initialValues={initialValues}
+              // initialValues={teachersUpdateData}
               validationSchema={teacherSchema}
-              onSubmit={values => {
+              onSubmit={(values) => {
                 handleSubmitEdit(values);
               }}
             >
@@ -638,6 +663,7 @@ const TabelComponent = ({
                   }}
                 >
                   <Typography variant="h6">Update Teacher</Typography>
+
                   <Field name="firstName" placeholder="firstname" />
                   {errors.firstName && touched.firstName ? (
                     <p style={{ fontSize: "1em", color: "red" }}>
@@ -677,8 +703,9 @@ const TabelComponent = ({
         <ModalComponent open={openTopicEdit} handleClose={handleClose}>
           <Formik
             initialValues={initialValueTopic}
+            // initialValues={topicsUpdateData}
             // validationSchema={topicSchema}
-            onSubmit={values => {
+            onSubmit={(values) => {
               handleSubmitTopicEdit(values);
             }}
           >
@@ -740,12 +767,14 @@ const TabelComponent = ({
                     fullWidth="true"
                     id="outlined-basic"
                     name="title"
-                    value={initialValueQuestionnaires.topic_name}
-                    onChange={e =>
-                      setInitialValueQuestionnaires(prev => {
+                    defaultValue={
+                      initialValueQuestionnaires.questionnaire_title
+                    }
+                    onChange={(e) =>
+                      setInitialValueQuestionnaires((prev) => {
                         return {
                           ...prev,
-                          topic_name: e.target.value,
+                          questionnaire_title: e.target.value,
                         };
                       })
                     }
@@ -798,8 +827,8 @@ const TabelComponent = ({
 
                 <Button
                   onClick={() => {
-                    setInitialValueQuestionnaires(prev => {
-                      return {
+                    setInitialValueQuestionnaires((prev) => {
+                      const data = {
                         ...prev,
                         questions: [
                           ...prev.questions,
@@ -811,6 +840,8 @@ const TabelComponent = ({
                           },
                         ],
                       };
+                      console.log(data);
+                      return data;
                     });
                   }}
                 >
@@ -930,7 +961,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map(each => (
+                {tableHead.map((each) => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -1010,7 +1041,7 @@ const TabelComponent = ({
           <Table aria-label="table-container">
             <TableHead>
               <TableRow>
-                {tableHead.map(each => (
+                {tableHead.map((each) => (
                   <TableCell>{each.title}</TableCell>
                 ))}
               </TableRow>
@@ -1041,7 +1072,7 @@ const TabelComponent = ({
             <Table aria-label="table-container">
               <TableHead>
                 <TableRow>
-                  {tableHead.map(each => (
+                  {tableHead.map((each) => (
                     <TableCell>{each.title}</TableCell>
                   ))}
                 </TableRow>
@@ -1095,7 +1126,7 @@ const TabelComponent = ({
                             border: "none",
                           }}
                           onClick={() =>
-                            handleQuestionnaresEdit(each._id, index)
+                            handleQuestionnaresEdit(each._id, index, each)
                           }
                         >
                           Edit
@@ -1125,7 +1156,7 @@ const TabelComponent = ({
               display={"flex"}
               margin="2em 0em"
             >
-              <PaginationAdd setProducts={e => setData(e)} rawData={""} />
+              <PaginationAdd setProducts={(e) => setData(e)} rawData={""} />
             </Box>
           </TableContainer>
         </>

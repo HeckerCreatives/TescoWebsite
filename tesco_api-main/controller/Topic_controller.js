@@ -109,3 +109,33 @@ exports.update_topic = async (req, res) => {
     res.status(500).json({ error });
   }
 };
+
+exports.count_all_topics = async (req, res) => {
+  try {
+    const count = await TopicsModel.count({});
+
+    res.status(200).json({
+      message: "All Topics count fetch successfully",
+      success: true,
+      count,
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.count_my_topics = async (req, res) => {
+  try {
+    const { user_id } = req.body;
+
+    const count = await TopicsModel.countDocuments({ user_id });
+
+    res.status(200).json({
+      message: "All Topics count fetch successfully",
+      success: true,
+      count,
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};

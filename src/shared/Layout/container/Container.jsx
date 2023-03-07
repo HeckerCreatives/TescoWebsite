@@ -45,30 +45,29 @@ const CustomContainer = ({
   const [checked, setChecked] = useState(false);
 
   const handleCheck = () => {
-    if(checked===false){
-      setChecked(true)
-      
-
-    }else{
-      setChecked(false)
+    if (checked === false) {
+      setChecked(true);
+    } else {
+      setChecked(false);
     }
   };
 
   const { mutate, isLoading, error, data } = UseLogin(setToken);
 
- 
   React.useEffect(() => {
     if (data && data?.status === 201) {
       setUser("admin");
-      localStorage.setItem("token",data?.data?.refreshToken)
-      localStorage.setItem("_id",data?.data?.data)
-      localStorage.setItem("role",data?.data?.message)
+      localStorage.setItem("token", data?.data?.refreshToken);
+      localStorage.setItem("_id", data?.data?.data);
+      localStorage.setItem("role", data?.data?.message);
+      localStorage.setItem("username", data?.data?.username);
       localStorage.setItem("tesco", "admin");
       history("/dashboard");
     } else if (data && data?.status === 200) {
-      localStorage.setItem("token",data?.data?.refreshToken)
-      localStorage.setItem("role",data?.data?.message)
-      localStorage.setItem("_id",data?.data?.data)
+      localStorage.setItem("token", data?.data?.refreshToken);
+      localStorage.setItem("role", data?.data?.message);
+      localStorage.setItem("_id", data?.data?.data);
+      localStorage.setItem("username", data?.data?.username);
       setUser("teacher");
       localStorage.setItem("tesco", "teacher");
       history("/dashboard/dashboard-teacher");
@@ -85,7 +84,6 @@ const CustomContainer = ({
       // role: checked ? "admin" : "teacher",
     };
     mutate(datas);
-    
 
     //   if(username==="admin"&&password==="admin"){
     //     localStorage.setItem("tesco", "admin");

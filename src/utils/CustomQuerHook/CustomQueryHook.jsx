@@ -4,7 +4,7 @@ import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { endpoints } from "../endpoints/endpoints";
 
-const createTeacher = async data => {
+const createTeacher = async (data) => {
   return await axios.post(
     `${process.env.REACT_APP_BASE_URL}${endpoints.createTeacher}`,
     data
@@ -17,22 +17,40 @@ const getTeacher = async () => {
   );
 };
 
-const deleteTeacher = async data => {
+const countTeachers = async () => {
+  return await axios.get(
+    `${process.env.REACT_APP_BASE_URL}${endpoints.countTeachers}`
+  );
+};
+
+const countTopics = async () => {
+  return await axios.get(
+    `${process.env.REACT_APP_BASE_URL}${endpoints.countTopics}`
+  );
+};
+
+const countQuestions = async () => {
+  return await axios.get(
+    `${process.env.REACT_APP_BASE_URL}${endpoints.countQuestions}`
+  );
+};
+
+const deleteTeacher = async (data) => {
   return await axios.delete(
     `${process.env.REACT_APP_BASE_URL}${endpoints.deleteTeacher}/${data}`
   );
 };
 
-const editTeacher = async body => {
+const editTeacher = async (body) => {
   const response = await axios.put(`http://localhost:5000/api/teacher`, body);
   return response.data;
 };
 
-const getSingleTeacher = async data => {
+const getSingleTeacher = async (data) => {
   return await axios.get(`http://localhost:5000/api/teacher/${data}`);
 };
 
-export const getResultsByUser = async username => {
+export const getResultsByUser = async (username) => {
   return await axios.get(
     `${process.env.REACT_APP_BASE_URL}/api/result/${username}/find`
   );
@@ -44,13 +62,13 @@ export const getQuestionairesByUser = async (username, role) => {
   );
 };
 
-const deleteQuestion = async id => {
+const deleteQuestion = async (id) => {
   return await axios.delete(
     `${process.env.REACT_APP_BASE_URL}${endpoints.deleteQuestion}/${id}`
   );
 };
 
-const createQuestion = async data => {
+const createQuestion = async (data) => {
   const { headers, ...datas } = data;
   return await axios.post(
     `${process.env.REACT_APP_BASE_URL}${endpoints.createQuestion}`,
@@ -59,7 +77,7 @@ const createQuestion = async data => {
   );
 };
 
-const updateQuestion = async data => {
+const updateQuestion = async (data) => {
   const { headers, ...datas } = data;
   return await axios.put(
     `${process.env.REACT_APP_BASE_URL}${endpoints.updateQuestion}`,
@@ -68,7 +86,7 @@ const updateQuestion = async data => {
   );
 };
 
-export const getQuestion = async tp => {
+export const getQuestion = async (tp) => {
   const { queryKey } = tp && tp;
   return await axios.get(
     `${process.env.REACT_APP_BASE_URL}${endpoints.getQuestion}/?tp=${
@@ -84,7 +102,7 @@ const getResult = async () => {
 };
 
 //user authentication
-const loginUser = async data => {
+const loginUser = async (data) => {
   const response = await axios.post(
     `${process.env.REACT_APP_BASE_URL}${endpoints.login}`,
     data
@@ -92,7 +110,7 @@ const loginUser = async data => {
   return response;
 };
 
-const createTopic = async data => {
+const createTopic = async (data) => {
   const { headers, ...datas } = data;
 
   return await axios.post(
@@ -106,7 +124,7 @@ const getTopic = async () => {
     `${process.env.REACT_APP_BASE_URL}${endpoints.getAllTopic}`
   );
 };
-const deleteTopic = async data => {
+const deleteTopic = async (data) => {
   return await axios.delete(
     `${process.env.REACT_APP_BASE_URL}${endpoints.deleteTopic}/${data}`
   );
@@ -130,11 +148,11 @@ export const UseUpdateQuestionHooks = () => {
   });
 };
 
-export const GetQuestionHook = query => {
+export const GetQuestionHook = (query) => {
   return useQuery(["question-data", query], getQuestion);
 };
 
-export const DeleteQuestionHook = setDeletionError => {
+export const DeleteQuestionHook = (setDeletionError) => {
   const queryClient = useQueryClient();
   return useMutation(deleteQuestion, {
     onSuccess: () => {
@@ -171,7 +189,7 @@ export const GetQuestionsByUserHook = (username, role, onSuccess, onError) => {
   );
 };
 
-export const UseLogin = setError => {
+export const UseLogin = (setError) => {
   const queryClient = useQueryClient();
   return useMutation(loginUser, {
     onSuccess: () => {
@@ -196,7 +214,7 @@ export const GetTopicHook = (onSuccess, onError) => {
   });
 };
 
-export const DeleteTopicHook = setDeletionError => {
+export const DeleteTopicHook = (setDeletionError) => {
   const queryClient = useQueryClient();
   return useMutation(deleteTopic, {
     onSuccess: () => {
@@ -209,7 +227,7 @@ export const DeleteTopicHook = setDeletionError => {
 };
 
 export const TopicUpdateHooks = () => {
-  return useMutation(variables => {
+  return useMutation((variables) => {
     return axios.put("http://localhost:8000/api/update-topic", variables);
   });
 };
@@ -230,7 +248,48 @@ export const GetTeacherHook = (onSuccess, onError) => {
   });
 };
 
-export const DeleteTeacherHook = setDeletionError => {
+export const CountTeachersHook = (onSuccess, onError) => {
+  return useQuery("teacher-count", countTeachers, {
+    onSuccess,
+    onError,
+  });
+};
+
+export const CountTopicsHook = (onSuccess, onError) => {
+  return useQuery("topic-count", countTopics, {
+    onSuccess,
+    onError,
+  });
+};
+
+export const CountMyTopicsHook = async (data) => {
+  const response = await axios.get(
+    "http://localhost:8000/api/count-my-topic",
+    data
+  );
+
+  console.log(response);
+
+  return response.data;
+};
+
+export const CountQuestionsHook = (onSuccess, onError) => {
+  return useQuery("question-count", countQuestions, {
+    onSuccess,
+    onError,
+  });
+};
+
+export const CountMyQuestionsHook = async (data) => {
+  const response = await axios.get(
+    "http://localhost:8000/api/count-my-questions",
+    data
+  );
+
+  return response.data;
+};
+
+export const DeleteTeacherHook = (setDeletionError) => {
   const queryClient = useQueryClient();
   return useMutation(deleteTeacher, {
     onSuccess: () => {
@@ -253,7 +312,7 @@ export const UpdateTeacherHook = () => {
 };
 
 export const UseUpdate = () => {
-  return useMutation(variables => {
+  return useMutation((variables) => {
     return axios.put("http://localhost:8000/api/teacher", variables);
   });
 };

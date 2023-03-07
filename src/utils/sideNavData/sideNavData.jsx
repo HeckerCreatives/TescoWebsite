@@ -4,39 +4,39 @@ import resultImage from "../../Assest/Navigation/3-resukt.png";
 
 import settingImage from "../../Assest/Navigation/4-settings.png";
 import arrowRightImage from "../../Assest/Navigation/arrow_right.png";
-import HomeIcon from '@mui/icons-material/Home';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import SettingsIcon from '@mui/icons-material/Settings';
-import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
-import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
+import HomeIcon from "@mui/icons-material/Home";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import SettingsIcon from "@mui/icons-material/Settings";
+import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
+import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 
 import dashboardImage from "../../Assest/Navigation/1-dashboard.png";
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 
 export const sideNavData = [
   {
     label: "Dashboard",
     image: dashboardImage,
-    icon:<HomeIcon sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <HomeIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: "dashboard",
-    type:false
+    type: false,
   },
   {
     label: "Teachers",
     image: TeacherImage,
-    icon:<SchoolOutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <SchoolOutlinedIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: "teacher",
-    type:false
+    type: false,
   },
   {
     label: "Questions",
     image: QuestionsImage,
-    icon:<ArrowRightOutlinedIcon  sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <ArrowRightOutlinedIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: {
-      value1:"topic",
-      value2:"question-answer"
+      value1: "topic",
+      value2: "question-answer",
     },
-    type:true
+    type: true,
   },
   // {
   //   label: "Topics",
@@ -55,25 +55,25 @@ export const sideNavData = [
   {
     label: "Results",
     image: resultImage,
-    icon:<StickyNote2OutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <StickyNote2OutlinedIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: "result",
-    type:false
+    type: false,
   },
   {
     label: "Setting",
     image: settingImage,
-   icon:<SettingsIcon  sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <SettingsIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: "setting",
-    type:false
+    type: false,
   },
 ];
 export const sideNavDatas = [
   {
     label: "Dashboard",
     image: dashboardImage,
-   icon:<HomeIcon sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <HomeIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: "dashboard-teacher",
-    type:false
+    type: false,
   },
 
   // {
@@ -86,26 +86,26 @@ export const sideNavDatas = [
   {
     label: "Questions",
     image: QuestionsImage,
-    icon:<ArrowRightOutlinedIcon  sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <ArrowRightOutlinedIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: {
-      value1:"topic-teacher",
-      value2:"question-teacher"
+      value1: "topic-teacher",
+      value2: "question-teacher",
     },
-    type:true
+    type: true,
   },
 
   {
     label: "Results",
     image: resultImage,
-   icon:<StickyNote2OutlinedIcon sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <StickyNote2OutlinedIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: "result-teacher",
-    type:false
+    type: false,
   },
   {
     label: "Setting",
     image: settingImage,
-    icon:<SettingsIcon sx={{fontSize:"2em",color:"white"}}/>,
+    icon: <SettingsIcon sx={{ fontSize: "2em", color: "white" }} />,
     values: "setting-teacher",
-    type:false
+    type: false,
   },
 ];
