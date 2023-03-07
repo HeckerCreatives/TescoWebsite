@@ -49,32 +49,43 @@ const DashboardComponent = () => {
   const [myQuestionsCount, setMyQuestionsCount] = useState([]);
 
   // ** Datas
+  const countMyTopics = async () => {
+    const MyTopicsCountData = await CountMyTopicsHook({
+      user_id,
+    });
+    setMytopicsCount(MyTopicsCountData);
+  };
+
+  const countMyQuestions = async () => {
+    const MyQuestionCountData = await CountMyQuestionsHook({ username });
+    setMyQuestionsCount(MyQuestionCountData);
+  };
+
+  const countTeachers = async () => {
+    const TeacherCountdata = await CountTeachersHook();
+    setTeachersCount(TeacherCountdata);
+  };
+
+  const countTopics = async () => {
+    const TopicCountdata = await CountTopicsHook();
+    setTopicsCount(TopicCountdata);
+  };
+
+  const countQuestions = async () => {
+    const QuestionCountData = await CountQuestionsHook();
+    setQuestionsCount(QuestionCountData);
+  };
 
   useEffect(() => {
-    const loadData = async () => {
-      if (role === "teacher") {
-        const MyTopicsCountData = await CountMyTopicsHook({
-          user_id,
-        });
-        const MyQuestionCountData = await CountMyQuestionsHook({ username });
-
-        setMytopicsCount(MyTopicsCountData);
-        setMyQuestionsCount(MyQuestionCountData);
-      } else {
-        const TeacherCountdata = CountTeachersHook();
-        const TopicCountdata = CountTopicsHook();
-        const QuestionCountData = CountQuestionsHook();
-
-        console.log(TeacherCountdata);
-
-        setTeachersCount(TeacherCountdata.data);
-        setTopicsCount(TopicCountdata.data);
-        setQuestionsCount(QuestionCountData.data);
-      }
-    };
-
-    loadData();
-  }, [role]);
+    if (role === "teacher") {
+      countMyTopics();
+      countMyQuestions();
+    } else {
+      countTeachers();
+      countTopics();
+      countQuestions();
+    }
+  }, []);
 
   return (
     <ScrollComponent>
@@ -107,7 +118,7 @@ const DashboardComponent = () => {
             <Grid item xs={12} md={3} lg={3} xl={3}>
               <CardWithImage
                 imagePath={teacher}
-                totalNumber={topicsCount?.data?.count}
+                totalNumber={topicsCount?.count}
                 labelCard={"Total Number Of Teachers"}
               />
             </Grid>
@@ -121,14 +132,14 @@ const DashboardComponent = () => {
             <Grid item xs={12} md={3} lg={3} xl={3}>
               <CardWithImage
                 imagePath={questionnaire}
-                totalNumber={teachersCount?.data?.count}
+                totalNumber={teachersCount?.count}
                 labelCard={"Total Number Of Questionaire"}
               />
             </Grid>
             <Grid item xs={12} md={3} lg={3} xl={3}>
               <CardWithImage
                 imagePath={topic}
-                totalNumber={QuestionsCount?.data?.count}
+                totalNumber={QuestionsCount?.count}
                 labelCard={"Total Number Of Topics"}
               />
             </Grid>

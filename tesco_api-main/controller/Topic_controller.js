@@ -126,7 +126,7 @@ exports.count_all_topics = async (req, res) => {
 
 exports.count_my_topics = async (req, res) => {
   try {
-    const { user_id } = req.body;
+    const { user_id } = req.query;
 
     const count = await TopicsModel.countDocuments({ user_id });
 

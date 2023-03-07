@@ -55,7 +55,7 @@ const ResultComponent = () => {
               searchType={false}
               buttonLabel="Create Account"
               tableHead={resultsHeader}
-              cellData={results?.data}
+              cellData={results?.data?.data}
               tableType={"result"}
               isLoading={isLoading}
             />

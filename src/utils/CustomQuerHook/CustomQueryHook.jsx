@@ -248,42 +248,41 @@ export const GetTeacherHook = (onSuccess, onError) => {
   });
 };
 
-export const CountTeachersHook = (onSuccess, onError) => {
-  return useQuery("teacher-count", countTeachers, {
-    onSuccess,
-    onError,
-  });
-};
-
-export const CountTopicsHook = (onSuccess, onError) => {
-  return useQuery("topic-count", countTopics, {
-    onSuccess,
-    onError,
-  });
-};
-
-export const CountMyTopicsHook = async (data) => {
-  const response = await axios.get(
-    "http://localhost:8000/api/count-my-topic",
-    data
-  );
-
-  console.log(response);
+export const CountTeachersHook = async () => {
+  const response = await axios.get(`http://localhost:8000/api/count-teachers`);
 
   return response.data;
 };
 
-export const CountQuestionsHook = (onSuccess, onError) => {
-  return useQuery("question-count", countQuestions, {
-    onSuccess,
-    onError,
-  });
+export const CountTopicsHook = async () => {
+  // return useQuery("topic-count", countTopics, {
+  //   onSuccess,
+  //   onError,
+  // });
+  const response = await axios.get(`http://localhost:8000/api/count-teachers`);
+
+  return response.data;
+};
+
+export const CountQuestionsHook = async () => {
+  const response = await axios.get(
+    `http://localhost:8000/api/count-all-questions`
+  );
+
+  return response.data;
+};
+
+export const CountMyTopicsHook = async (data) => {
+  const response = await axios.get(
+    `http://localhost:8000/api/count-my-topic?user_id=${data.user_id}`
+  );
+
+  return response.data;
 };
 
 export const CountMyQuestionsHook = async (data) => {
   const response = await axios.get(
-    "http://localhost:8000/api/count-my-questions",
-    data
+    `http://localhost:8000/api/count-my-questions?username=${data.username}`
   );
 
   return response.data;

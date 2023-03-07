@@ -185,7 +185,7 @@ exports.count_all_questions = async (req, res) => {
 
 exports.count_my_questions = async (req, res) => {
   try {
-    const { username } = req.body;
+    const { username } = req.query;
 
     const count = await QuestionModal.countDocuments({ instructor: username });
 
