@@ -115,28 +115,28 @@ const DashboardComponent = () => {
             justifyContent={"center"}
             alignItems="center"
           >
-            <Grid item xs={12} md={3} lg={3} xl={3}>
+            <Grid item xs={12} md={4} lg={4} xl={4}>
               <CardWithImage
                 imagePath={teacher}
                 totalNumber={topicsCount?.count}
                 labelCard={"Total Number Of Teachers"}
               />
             </Grid>
-            <Grid item xs={12} md={3} lg={3} xl={3}>
+            {/* <Grid item xs={12} md={4} lg={4} xl={4}>
               <CardWithImage
                 imagePath={student}
                 totalNumber={"-"}
                 labelCard={"Total Number Of Students"}
               />
-            </Grid>
-            <Grid item xs={12} md={3} lg={3} xl={3}>
+            </Grid> */}
+            <Grid item xs={12} md={4} lg={4} xl={4}>
               <CardWithImage
                 imagePath={questionnaire}
                 totalNumber={teachersCount?.count}
                 labelCard={"Total Number Of Questionaire"}
               />
             </Grid>
-            <Grid item xs={12} md={3} lg={3} xl={3}>
+            <Grid item xs={12} md={4} lg={4} xl={4}>
               <CardWithImage
                 imagePath={topic}
                 totalNumber={QuestionsCount?.count}

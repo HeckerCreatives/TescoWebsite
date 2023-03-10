@@ -759,7 +759,7 @@ const TabelComponent = ({
                 }}
               >
                 <Typography variant="h6" marginBottom={"1em"}>
-                  CREATE QUESTIONS
+                  UPDATE QUESTIONS
                 </Typography>
                 <Box padding={2}>
                   <TextField
@@ -826,6 +826,11 @@ const TabelComponent = ({
                 </ModalScroll>
 
                 <Button
+                  disabled={
+                    initialValueQuestionnaires.questions.length > 99
+                      ? true
+                      : false
+                  }
                   onClick={() => {
                     setInitialValueQuestionnaires((prev) => {
                       const data = {
@@ -840,7 +845,6 @@ const TabelComponent = ({
                           },
                         ],
                       };
-                      console.log(data);
                       return data;
                     });
                   }}

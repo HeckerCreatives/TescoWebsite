@@ -64,7 +64,7 @@ const QuestionComponent = ({
         <Box className="questionnaries-details-container">
           <textarea
             disabled={editState}
-            value={defaultValue}
+            defaultValue={defaultValue}
             onChange={(e) => handleChange(e.target.value)}
             className="textArea"
           />

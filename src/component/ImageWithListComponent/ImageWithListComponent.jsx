@@ -627,7 +627,12 @@ const ImageWithListComponent = ({
                       ))}
                     </ModalScroll>
 
-                    <Button onClick={handleTabComponent}>Add New Form</Button>
+                    <Button
+                      onClick={handleTabComponent}
+                      disabled={count > 100 ? true : false}
+                    >
+                      Add New Form
+                    </Button>
                     <Button type="submit">Apply</Button>
                     <Button onClick={handleClose}>Close</Button>
                   </Form>
