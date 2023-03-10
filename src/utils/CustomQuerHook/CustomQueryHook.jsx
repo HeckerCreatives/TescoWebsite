@@ -42,12 +42,12 @@ const deleteTeacher = async (data) => {
 };
 
 const editTeacher = async (body) => {
-  const response = await axios.put(`http://localhost:5000/api/teacher`, body);
+  const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/api/teacher`, body);
   return response.data;
 };
 
 const getSingleTeacher = async (data) => {
-  return await axios.get(`http://localhost:5000/api/teacher/${data}`);
+  return await axios.get(`${process.env.REACT_APP_BASE_URL}/api/teacher/${data}`);
 };
 
 export const getResultsByUser = async (username) => {

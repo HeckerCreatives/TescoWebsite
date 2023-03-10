@@ -14,11 +14,11 @@ const app= express()
 const PORT=8000
 app.use(express.json());
 
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
   
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+//   res.header('Access-Control-Allow-Headers', 'Content-Type');
+//   next();
+// });
 // app.use(express.urlencoded({extended:true}))
 // app.use((req, res, next) => {
 //   res.set({
@@ -29,10 +29,20 @@ app.use((req, res, next) => {
 //   next();
 // });
 app.use(cors({
-  origin:'http://localhost:3000', 
-  credentials:true,           
+  origin:'https://tescowebapp.onrender.com', 
+  // origin: "http://localhost:3000",
+  credentials:true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: [
+    "Origin",
+    "Content-Type",
+    "X-Requested-With",
+    "Accept",
+    "Authorization",
+  ],
   optionSuccessStatus:200
 }))
+
 
 
 //Here is the APi of the different routing
