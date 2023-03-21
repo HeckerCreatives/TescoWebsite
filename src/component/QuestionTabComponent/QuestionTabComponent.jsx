@@ -23,6 +23,8 @@ const style = {
 const QuestionTabComponent = ({
   index,
   setQuestions = [],
+  initialValueQuestionnaires,
+  setInitialValueQuestionnaires,
   setQuestionTitle,
   handleApply,
   dropModalType = "0",
@@ -72,9 +74,22 @@ const QuestionTabComponent = ({
 
       number: index,
     };
+
     if (type === "add") {
-      dropModalValue === "0" && data && setQuestions.push(data);
-      dropModalValue === "1" && datas && setQuestions.push(datas);
+      // dropModalValue === "0" && data && setQuestions.push(data);
+      // dropModalValue === "1" && datas && setQuestions.push(datas);
+      dropModalValue === "0" &&
+        data &&
+        setInitialValueQuestionnaires({
+          ...initialValueQuestionnaires,
+          questions: data,
+        });
+      dropModalValue === "1" &&
+        datas &&
+        setInitialValueQuestionnaires({
+          ...initialValueQuestionnaires,
+          questions: datas,
+        });
     } else {
       const setQuestionsClone = [...setQuestions];
       dropModalValue === "0" &&
@@ -84,7 +99,11 @@ const QuestionTabComponent = ({
         datas &&
         setQuestionsClone.splice(index - 1, 1, datas);
       console.log(setQuestionsClone, "setQuestionsClone");
-      setQuestions.push(...setQuestionsClone);
+      // setQuestions.push(setQuestionsClone);
+      setInitialValueQuestionnaires({
+        ...initialValueQuestionnaires,
+        questions: setQuestionsClone,
+      });
     }
     setModalContainer(false);
   };

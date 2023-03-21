@@ -13,7 +13,7 @@ const DropDownMenu = ({
   returnType = false,
   getDropState,
 }) => {
-  const [topicState, setTopicState] = useState(null);
+  // const [topicState, setTopicState] = useState(null);
   const token = jwtDecode(localStorage.getItem("token"));
   const role = localStorage.getItem("tesco");
   const [datas, setDatas] = useState([]);
@@ -23,25 +23,17 @@ const DropDownMenu = ({
       setDatas(dropValue?.data?.data);
     } else {
       const filtered = dropValue?.data?.data.filter(
-        e => e.user_id === token.id
+        (e) => e.user_id === token.id
       );
       setDatas(filtered);
     }
   }, [dropValue, role, token.id]);
 
-  const onOptionChangeHandler = e => {
-    returnType
-      ? getDropState(e.target.value)
-      : // setDropValue(e.target.value)
-        setTopicState(e.target.value);
-    // getDropState(e.target.value)
+  const onOptionChangeHandler = (e) => {
+    setResponse(JSON.parse(e.target.value));
+
     setTopic(false);
   };
-
-  useEffect(() => {
-    const response = dropValue && dropValue?.data?.data[topicState];
-    setResponse && setResponse(response);
-  }, [topicState]);
 
   return (
     <>
@@ -55,7 +47,7 @@ const DropDownMenu = ({
           {topicType &&
             dropValue &&
             datas?.map((each, index) => (
-              <option value={each.topic}>{each.topic}</option>
+              <option value={JSON.stringify(each)}>{each.topic}</option>
             ))}
         </select>
       ) : (
@@ -68,7 +60,7 @@ const DropDownMenu = ({
           {topicType &&
             dropValue &&
             datas?.map((each, index) => (
-              <option value={index}>{each.topic}</option>
+              <option value={JSON.stringify(each)}>{each.topic}</option>
             ))}
         </select>
       )}

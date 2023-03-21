@@ -193,6 +193,7 @@ const TabelComponent = ({
   };
   const updateQuestionnaires = () => {
     const token = localStorage.getItem("token");
+
     const data = {
       headers: {
         "Content-Type": "application/json",
@@ -809,6 +810,12 @@ const TabelComponent = ({
                         <QuestionTabComponent
                           index={index + 1}
                           setQuestions={initialValueQuestionnaires?.questions}
+                          initialValueQuestionnaires={
+                            initialValueQuestionnaires
+                          }
+                          setInitialValueQuestionnaires={
+                            setInitialValueQuestionnaires
+                          }
                           setQuestionTitle={setQuestionTitle}
                           type="update"
                           defaultQuestionValue={each.question}

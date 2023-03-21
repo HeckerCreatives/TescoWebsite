@@ -216,7 +216,6 @@ const ImageWithListComponent = ({
   };
 
   const handleSubmitQuestion = (value) => {
-    console.log("dasdasd");
     const data = {
       headers: {
         "Content-Type": "application/json",
@@ -226,6 +225,7 @@ const ImageWithListComponent = ({
       questionnaire_title: questionTitle,
       questions: questionList,
     };
+
     questionMutate(data);
     setError([]);
     setTabComponentQuestion([]);
