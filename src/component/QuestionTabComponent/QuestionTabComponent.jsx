@@ -25,6 +25,8 @@ const QuestionTabComponent = ({
   setQuestions = [],
   initialValueQuestionnaires,
   setInitialValueQuestionnaires,
+  setQuestionList,
+  questionList,
   setQuestionTitle,
   handleApply,
   dropModalType = "0",
@@ -56,6 +58,29 @@ const QuestionTabComponent = ({
     setDropModalValue("0");
   };
 
+  const handleUpdateOrAddObject = (obj) => {
+    const updatedItems = [...questionList];
+    let objectExists = false;
+
+    for (let i = 0; i < updatedItems.length; i++) {
+      if (isEqual(updatedItems[i], obj)) {
+        objectExists = true;
+        updatedItems[i] = obj;
+        break;
+      }
+    }
+
+    if (!objectExists) {
+      updatedItems.push(obj);
+    }
+
+    setQuestionList(updatedItems);
+  };
+
+  const isEqual = (a, b) => {
+    return JSON.stringify(a) === JSON.stringify(b);
+  };
+
   const handleSave = () => {
     let data = {
       question: question,
@@ -78,18 +103,8 @@ const QuestionTabComponent = ({
     if (type === "add") {
       // dropModalValue === "0" && data && setQuestions.push(data);
       // dropModalValue === "1" && datas && setQuestions.push(datas);
-      dropModalValue === "0" &&
-        data &&
-        setInitialValueQuestionnaires({
-          ...initialValueQuestionnaires,
-          questions: data,
-        });
-      dropModalValue === "1" &&
-        datas &&
-        setInitialValueQuestionnaires({
-          ...initialValueQuestionnaires,
-          questions: datas,
-        });
+      dropModalValue === "0" && data && handleUpdateOrAddObject(data);
+      dropModalValue === "1" && datas && handleUpdateOrAddObject(datas);
     } else {
       const setQuestionsClone = [...setQuestions];
       dropModalValue === "0" &&

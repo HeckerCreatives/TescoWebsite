@@ -271,6 +271,8 @@ const ImageWithListComponent = ({
         <QuestionTabComponent
           index={count}
           setQuestions={questionList}
+          questionList={questionList}
+          setQuestionList={setQuestionList}
           setQuestionTitle={setQuestionTitle}
         />
       ),
