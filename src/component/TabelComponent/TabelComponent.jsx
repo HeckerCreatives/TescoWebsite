@@ -48,7 +48,7 @@ import { useReactToPrint } from "react-to-print";
 import { getQuestion } from "../../utils/CustomQuerHook/CustomQueryHook";
 import { useQuery } from "react-query";
 import logo from "../../Assest/Navigation/title.png";
-import PrintResults from "../PrintComponents/Results/Results";
+import { handleScore } from "../PrintComponents/Results/Results";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { MDBIcon } from "mdb-react-ui-kit";
 import Questionaires from "../PrintComponents/Questionaires/Questionaires";
@@ -979,7 +979,7 @@ const TabelComponent = ({
             </TableHead>
             <TableBody>
               {cellData &&
-                cellData?.data?.results?.map((each, index) => (
+                cellData?.results?.map((each, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <span style={{ textTransform: "capitalize" }}>{`${
@@ -1011,7 +1011,7 @@ const TabelComponent = ({
                       }}
                     >
                       <PDFDownloadLink
-                        document={<PrintResults data={each} />}
+                        document={<handleScore data={each} />}
                         fileName={`${each.firstname}-${each.lastname}-${each?.questionaireId?.questionnaire_title}`}
                         style={{
                           color: "white",

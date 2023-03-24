@@ -28,6 +28,7 @@ const ResultComponent = () => {
   const results = useQuery(["result-by-user"], () =>
     getResultsByUser(token.username)
   );
+  console.log(results?.data?.data);
 
   // console.log(results);
   return (

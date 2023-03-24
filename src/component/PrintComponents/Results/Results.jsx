@@ -33,17 +33,17 @@ const styles = StyleSheet.create({
 });
 
 const PrintResults = ({ data }) => {
-  const ShowQuestions = data => {
+  const ShowQuestions = (data) => {
     const questions = data.questionaireId?.questions;
     const answers = data.answer;
 
     let texts = [];
 
-    questions.map(question => {
-      let ans = answers.find(e => e.questionId === question._id);
+    questions.map((question) => {
+      let ans = answers.find((e) => e.questionId === question._id);
       texts.push({
         question: question.question,
-        answer: ans.answer,
+        answer: ans?.answer,
         correct: question.answer,
         isCorrect: ans.answer === question.answer,
       });
@@ -69,15 +69,15 @@ const PrintResults = ({ data }) => {
     ));
   };
 
-  const handleScore = data => {
+  const handleScore = (data) => {
     const questions = data.questionaireId?.questions;
     const answers = data.answer;
 
     if (questions) {
       let total = 0;
 
-      questions.map(question => {
-        let ans = answers.find(e => e.questionId === question._id);
+      questions.map((question) => {
+        let ans = answers.find((e) => e.questionId === question._id);
         if (ans.answer === question.answer) total++;
       });
 
