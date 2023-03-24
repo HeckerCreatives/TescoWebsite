@@ -390,6 +390,7 @@ const TabelComponent = ({
   };
 
   const ShowQuestions = (data) => {
+    console.log(data);
     const questions = data.questionaireId?.questions;
     const answers = data.answer;
 
@@ -398,11 +399,13 @@ const TabelComponent = ({
 
       questions?.map((question) => {
         let ans = answers.find((e) => e.questionId === question._id);
+
+        console.log(ans);
         texts.push({
           question: question.question,
-          answer: ans.answer,
+          answer: ans?.answer,
           correct: question.answer,
-          isCorrect: ans.answer === question.answer,
+          isCorrect: ans?.answer === question.answer,
         });
       });
 
@@ -436,7 +439,7 @@ const TabelComponent = ({
 
       questions.map((question) => {
         let ans = answers.find((e) => e.questionId === question._id);
-        if (ans.answer === question.answer) total++;
+        if (ans?.answer === question?.answer) total++;
       });
 
       return `${total}/${questions.length}`;
