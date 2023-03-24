@@ -228,7 +228,7 @@ export const DeleteTopicHook = (setDeletionError) => {
 
 export const TopicUpdateHooks = () => {
   return useMutation((variables) => {
-    return axios.put("http://localhost:8000/api/update-topic", variables);
+    return axios.put(`${process.env.REACT_APP_BASE_URL}/api/update-topic`, variables);
   });
 };
 
@@ -249,7 +249,7 @@ export const GetTeacherHook = (onSuccess, onError) => {
 };
 
 export const CountTeachersHook = async () => {
-  const response = await axios.get(`http://localhost:8000/api/count-teachers`);
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/count-teachers`);
 
   return response.data;
 };
@@ -259,14 +259,14 @@ export const CountTopicsHook = async () => {
   //   onSuccess,
   //   onError,
   // });
-  const response = await axios.get(`http://localhost:8000/api/count-teachers`);
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/count-teachers`);
 
   return response.data;
 };
 
 export const CountQuestionsHook = async () => {
   const response = await axios.get(
-    `http://localhost:8000/api/count-all-questions`
+    `${process.env.REACT_APP_BASE_URL}/api/count-all-questions`
   );
 
   return response.data;
@@ -274,7 +274,7 @@ export const CountQuestionsHook = async () => {
 
 export const CountMyTopicsHook = async (data) => {
   const response = await axios.get(
-    `http://localhost:8000/api/count-my-topic?user_id=${data.user_id}`
+    `${process.env.REACT_APP_BASE_URL}/api/count-my-topic?user_id=${data.user_id}`
   );
 
   return response.data;
@@ -282,7 +282,7 @@ export const CountMyTopicsHook = async (data) => {
 
 export const CountMyQuestionsHook = async (data) => {
   const response = await axios.get(
-    `http://localhost:8000/api/count-my-questions?username=${data.username}`
+    `${process.env.REACT_APP_BASE_URL}/api/count-my-questions?username=${data.username}`
   );
 
   return response.data;
@@ -312,7 +312,7 @@ export const UpdateTeacherHook = () => {
 
 export const UseUpdate = () => {
   return useMutation((variables) => {
-    return axios.put("http://localhost:8000/api/teacher", variables);
+    return axios.put(`${process.env.REACT_APP_BASE_URL}/api/teacher`, variables);
   });
 };
 
